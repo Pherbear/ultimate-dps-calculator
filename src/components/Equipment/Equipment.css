@@ -1,0 +1,18 @@
+.container {
+    background-image: url('./Default/Background.webp');
+    width: 205px;
+    height: 275px;
+}
+
+.item {
+    opacity: 0.2;
+    background: red;
+    width: 35px;
+    height: 35px;
+    position: relative;
+}
+
+.helmet{
+    left: 85px;
+    top: 12px;
+}

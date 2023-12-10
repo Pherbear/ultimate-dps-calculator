@@ -1,0 +1,25 @@
+.Container{
+    display: flex;
+    flex-direction: column;
+}
+
+.stat{
+    border: 1px black thick;
+    border-radius: 1px;
+    display: flex;
+    gap: 10px;
+}
+
+.statChange {
+    width: 35px;
+}
+
+.statIcon{
+    width: 23px;
+    height: 23px;
+}
+.info {
+    display: flex;
+    width: 160px;
+    justify-content: space-between;
+}
