@@ -16,8 +16,6 @@ function App() {
     Mining: 99
   })
 
-  
-
   function changeStat(statName, level) {
     let use
     if (typeof level === 'string' || level instanceof String){

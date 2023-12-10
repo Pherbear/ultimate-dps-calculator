@@ -5,14 +5,66 @@
 }
 
 .item {
-    opacity: 0.2;
-    background: red;
     width: 35px;
     height: 35px;
     position: relative;
 }
 
-.helmet{
+.item img{
+    position: relative;
+    left: 3px;
+    top: 3px;
+}
+
+.helmet {
     left: 85px;
-    top: 12px;
+    top: -128px;
+}
+
+.neck {
+    left: 85px;
+    top: -265px;
+}
+
+.body{
+    left: 85px;
+    top: -85px;
+}
+
+.legs{
+    left: 85px;
+    top: -80px;
+}
+
+.feet{
+    left: 85px;
+    top: -110px;
+}
+
+.ammo{
+    left: 125px;
+    top: -55px;
+}
+
+.offhand {
+    left: 141px;
+    top: 55px;
+}
+
+.ring {
+    left: 141px;
+    top: -180px;
+}
+
+.cape {
+    left: 43px;
+    top: -20px;
+}
+.mainhand {
+    left: 29px;
+    top: 90px;
+}
+.hands{
+    left: 29px;
+    top: -75px;
 }

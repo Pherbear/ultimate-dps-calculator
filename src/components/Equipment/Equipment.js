@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import './Equipment.css'
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import Item from './Item';
 
-function getEquipmentData() {
-  let item = 'Twisted_bow'
-  let url = `https://oldschool.runescape.wiki/api.php?action=query&prop=revisions&rvprop=content&titles=${item}&format=json`;
+function getEquipmentData(item_name) {
+  let url = `https://oldschool.runescape.wiki/api.php?action=query&prop=revisions&rvprop=content&titles=${item_name}&format=json`;
 
-  fetch(url).then(res => res.json()).then(json_data => {
-    console.log('JSON data fetched: ', json_data);
-  
+  fetch(url).then(res => res.json()).then(json_data => {  
     const pageId = Object.keys(json_data.query.pages)[0];
     const itemData = json_data.query.pages[pageId];
     const revisions = itemData.revisions;
@@ -15,51 +15,65 @@ function getEquipmentData() {
     if (revisions && revisions.length > 0) {
       const content = revisions[0]['*'];
   
-      // Locate the 'Combat stats' section
-      const combatStatsStart = content.indexOf("==Combat stats==");
-      const combatStatsEnd = content.indexOf("}}", combatStatsStart);
-      const combatStatsSection = content.substring(combatStatsStart, combatStatsEnd);
+      let statsSectionStart, statsSectionEnd, statsSection;
   
-      // Parse the extracted section for stats
-      const stats = combatStatsSection.split('\n').reduce((acc, line) => {
-        if (line.trim().startsWith('|')) {
-          const [key, value] = line.split('=').map(s => s.trim());
-          acc[key.slice(1)] = value; // Remove the '|' at the start of the key
-        }
-        return acc;
-      }, {});
+      // Check for 'Combat stats' section
+      if (content.includes("==Combat stats==")) {
+        statsSectionStart = content.indexOf("==Combat stats==");
+        statsSectionEnd = content.indexOf("}}", statsSectionStart);
+      } 
+      // Check for '{{Infobox Bonuses' section
+      else if (content.includes("{{Infobox Bonuses")) {
+        statsSectionStart = content.indexOf("{{Infobox Bonuses");
+        statsSectionEnd = content.indexOf("}}", statsSectionStart) + 2; // +2 to include the closing braces
+      }
   
-      // Now 'stats' variable contains an object with the extracted stats
-      console.log('Extracted Combat Stats: ', stats);
-      return stats
+      if (statsSectionStart !== undefined && statsSectionEnd !== undefined) {
+        statsSection = content.substring(statsSectionStart, statsSectionEnd);
+  
+        const stats = statsSection.split('\n').reduce((acc, line) => {
+          if (line.trim().startsWith('|')) {
+            const [key, value] = line.split('=').map(s => s.trim());
+            acc[key.slice(1)] = value; // Remove the '|' at the start of the key
+          }
+          return acc;
+        }, {});
+  
+        console.log('Extracted Stats: ', stats);
+        return stats
+      } else {
+        console.log('No combat stats or infobox bonuses section found');
+      }
     }
   }).catch(err => { 
     throw err;
   });
 }
 
-getEquipmentData()
-
 export default function Equipment() {
 
   const [equipment, setEquipment] = useState({
-    mainhand: '',
-    offhand: '',
-    cape: '',
-    ammo: '',
-    helmet: '',
-    body: '',
-    legs: '',
-    hands: '',
-    feet: '',
-    neck: '',
-    ring: ''
+    mainhand: 'test',
+    offhand: 'test',
+    cape: 'test',
+    ammo: 'test',
+    helmet: 'test',
+    body: 'test',
+    legs: 'test',
+    hands: 'test',
+    feet: 'test',
+    neck: 'test',
+    ring: 'test'
   })
+
+  console.log(equipment)
 
   return (
     <div className='container'>
-        <div className='helmet item'>
-        </div>
+      {Object.entries(equipment).map(([slot, item]) => { 
+        return (
+        <Item slot={slot} item={item}/>
+      )})}
     </div>
   )
 }
