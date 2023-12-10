@@ -1,11 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Popup from 'reactjs-popup'
 import Image from './Default/Twisted_bow.webp'
+import { Helmets } from './Helmet/Helmets'
+import Search from './Search'
 
 export default function Item({slot, item}) {
     const className = `${slot} item`
+    let searchList
 
-    console.log(item)
+    if (slot == 'helmet'){
+        searchList = Helmets
+    }
 
     return (
         <Popup 
@@ -16,6 +21,7 @@ export default function Item({slot, item}) {
             }
             position="right center"
         >
+            <Search items={searchList}/>
             <div>Slot: {slot}</div>
             <div>Info: {item}</div>
         </Popup>
