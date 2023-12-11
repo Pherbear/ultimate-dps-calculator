@@ -1,7 +1,12 @@
 import React, {useState} from 'react'
 import Popup from 'reactjs-popup'
 import Image from './Default/Twisted_bow.webp'
-import { Helmets } from './Helmet/Helmets'
+import { Helmets } from './Lists/Helmets'
+import { Bodys } from './Lists/Bodys'
+import { Ammunitions } from './Lists/Ammunitions'
+import { Capes } from './Lists/Capes'
+import { Feets } from './Lists/Feets'
+
 import Search from './Search'
 
 export default function Item({slot, item}) {
