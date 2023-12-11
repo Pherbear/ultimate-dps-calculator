@@ -1,4 +1,4 @@
-export const Handss = [
+export const Hands = [
    "20th_anniversary_gloves",
    "3rd_age_vambraces",
    "Abyssal_bracelet#(1)",

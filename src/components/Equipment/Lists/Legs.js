@@ -1,4 +1,4 @@
-export const Legss = [
+export const Legs = [
    "20th_anniversary_bottom",
    "3rd_age_druidic_robe_bottoms",
    "3rd_age_platelegs",

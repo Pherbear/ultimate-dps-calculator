@@ -1,4 +1,4 @@
-export const Twohandeds = [
+export const TwoHandeds = [
    "3rd_age_bow",
    "3rd_age_felling_axe",
    "Abyssal_bludgeon",

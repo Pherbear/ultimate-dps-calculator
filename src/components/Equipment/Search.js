@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function Search({ items }) {
+export default function Search({ items, chosenItem }) {
     const [query, setQuery] = useState('');
     const [filteredItems, setFilteredItems] = useState(items.slice(0,8));
 
@@ -27,7 +27,7 @@ export default function Search({ items }) {
             />
             <ul>
                 {filteredItems.map((item, index) => (
-                    <li key={index}>{item}</li>
+                    <li key={index} onClick={() => {chosenItem(item)}}>{item}</li>
                 ))}
             </ul>
         </div>
