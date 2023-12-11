@@ -3,6 +3,7 @@ import './Equipment.css'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Item from './Item';
+import EquipmentStats from './EquipmentStats'
 
 function getEquipmentData(item_name) {
   return new Promise((resolve, reject) => {    
@@ -79,11 +80,18 @@ export default function Equipment() {
   }
 
   return (
+  <div className='itemsAndStats'>
     <div className='container'>
       {Object.entries(equipment).map(([slot, item]) => { 
         return (
-        <Item slot={slot} itemname={item.itemname} chosenEquipment={chosenEquipment}/>
+        <Item 
+          slot={slot} 
+          itemname={item.itemname} 
+          chosenEquipment={chosenEquipment}
+          equipment={equipment}
+          />
       )})}
     </div>
+  </div>
   )
 }

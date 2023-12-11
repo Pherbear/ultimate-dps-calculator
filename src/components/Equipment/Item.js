@@ -1,6 +1,8 @@
 import React, {useState, useRef} from 'react'
 import Popup from 'reactjs-popup'
 import Search from './Search'
+import EquipmentStats from './EquipmentStats'
+import './EquipmentStats.css'
 
 import {Ammunitions} from './Lists/Ammunitions'
 import {Bodys} from './Lists/Bodys'
@@ -18,7 +20,7 @@ import {Weapons} from './Lists/Weapons'
 
 
 
-export default function Item({slot, itemname, chosenEquipment}) {
+export default function Item({slot, itemname, chosenEquipment, equipment}) {
     
     const ref = useRef();
     const openTooltip = () => ref.current.open();
@@ -67,8 +69,6 @@ export default function Item({slot, itemname, chosenEquipment}) {
     }
     
     function chosenItem(item) {
-        console.log(item)
-        closeTooltip()
         chosenEquipment(slot, item)
     }
 
@@ -86,10 +86,12 @@ export default function Item({slot, itemname, chosenEquipment}) {
                 </div>
             }
             position="right center"
+            className='item-popup'
         >
-            <Search items={searchList} chosenItem={chosenItem}/>
-            <div>Slot: {slot}</div>
-            <div>Info: {itemname}</div>
+            <div className='popup'>
+                <EquipmentStats item={equipment[`${slot}`]}/>
+                <Search items={searchList} chosenItem={chosenItem}/>
+            </div>
         </Popup>
     )
 }

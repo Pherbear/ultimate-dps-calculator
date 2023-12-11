@@ -1,0 +1,15 @@
+.itemStats{
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+}
+.allStats{
+    display: flex;
+}
+.popup{
+    display: flex;
+}
+
+[role='tooltip'].item-popup-content{
+    width: 320px;
+}

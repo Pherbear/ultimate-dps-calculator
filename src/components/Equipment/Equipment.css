@@ -1,9 +1,11 @@
+.itemsAndStats{
+    display: flex;
+}
 .container {
     background-image: url('./Default/Background.webp');
     width: 205px;
     height: 275px;
 }
-
 .item {
     width: 35px;
     height: 35px;
@@ -20,10 +22,16 @@
     left: 85px;
     top: -128px;
 }
+.helmet img{
+    left: 7px;
+}
 
 .neck {
     left: 85px;
     top: -265px;
+}
+.neck img{
+    left: 6px;
 }
 
 .body{
@@ -36,6 +44,10 @@
     top: -80px;
 }
 
+.legs img {
+    left: 10px;
+}
+
 .feet{
     left: 85px;
     top: -110px;
@@ -44,6 +56,11 @@
 .ammo{
     left: 125px;
     top: -55px;
+}
+
+.ammo img{
+    left: 4px;
+    top: 4px;
 }
 
 .offhand {
@@ -56,9 +73,18 @@
     top: -180px;
 }
 
+.ring img{
+    left: 1px;
+}
+
 .cape {
     left: 43px;
     top: -20px;
+}
+
+.cape img{
+    left: 6px;
+    top: 4px;
 }
 .mainhand {
     left: 29px;
@@ -67,4 +93,8 @@
 .hands{
     left: 29px;
     top: -75px;
+}
+
+.hands img{
+    top: 6px;
 }
