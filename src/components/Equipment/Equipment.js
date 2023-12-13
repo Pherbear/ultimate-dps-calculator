@@ -3,7 +3,7 @@ import './Equipment.css'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Item from './Item';
-import EquipmentStats from './EquipmentStats'
+import SaveEquip from './SaveEquip'
 
 function getEquipmentData(item_name) {
   return new Promise((resolve, reject) => {    
@@ -80,18 +80,21 @@ export default function Equipment() {
   }
 
   return (
-  <div className='itemsAndStats'>
-    <div className='container'>
-      {Object.entries(equipment).map(([slot, item]) => { 
-        return (
-        <Item 
-          slot={slot} 
-          itemname={item.itemname} 
-          chosenEquipment={chosenEquipment}
-          equipment={equipment}
-          />
-      )})}
+    <div>
+      <SaveEquip equipment={equipment} setEquipment={setEquipment}/>
+      <div className='itemsAndStats'>
+        <div className='container'>
+          {Object.entries(equipment).map(([slot, item]) => { 
+            return (
+            <Item 
+              slot={slot} 
+              itemname={item.itemname} 
+              chosenEquipment={chosenEquipment}
+              equipment={equipment}
+              />
+          )})}
+        </div>
+      </div>
     </div>
-  </div>
   )
 }

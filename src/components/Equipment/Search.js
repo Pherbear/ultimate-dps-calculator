@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './itemsSearch.css'
 
 export default function Search({ items, chosenItem }) {
     const [query, setQuery] = useState('');
@@ -25,11 +26,16 @@ export default function Search({ items, chosenItem }) {
                 value={query}
                 onChange={handleSearch}
             />
-            <ul>
+            <div className='itemsSearch'>
                 {filteredItems.map((item, index) => (
-                    <li key={index} onClick={() => {chosenItem(item)}}>{item}</li>
+                    <div 
+                        key={index} 
+                        onClick={() => {chosenItem(item)}}
+                    >
+                        {item}
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }

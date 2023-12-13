@@ -26,16 +26,11 @@ function App() {
     setStats({...stats, [statName]: use})
   }
 
-  function test(){
-    console.log(stats)
-  }
-
   return (
     <div className="App">
       <CombatLevel stats={stats}/>
       <Stats stats={stats} changeStat={changeStat}/>
       <Equipment />
-      <button onClick={test}> Click for Update </button>
     </div>
   );
 }
