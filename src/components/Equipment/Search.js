@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './itemsSearch.css'
+import ImgFallback from './ImgFallback';
 
 export default function Search({ items, chosenItem }) {
     const [query, setQuery] = useState('');
@@ -18,6 +19,10 @@ export default function Search({ items, chosenItem }) {
         }
     };
 
+    function url(item){
+        return `https://oldschool.runescape.wiki/images/${item}.png?08f42`
+    }
+
     return (
         <div>
             <input
@@ -27,12 +32,14 @@ export default function Search({ items, chosenItem }) {
                 onChange={handleSearch}
             />
             <div className='itemsSearch'>
-                {filteredItems.map((item, index) => (
+                {filteredItems.map((item, index) => ( 
                     <div 
                         key={index} 
                         onClick={() => {chosenItem(item)}}
+                        className='search-item'
                     >
-                        {item}
+                        <a>{item}</a>
+                        <img src={`${url(item)}`}/>
                     </div>
                 ))}
             </div>

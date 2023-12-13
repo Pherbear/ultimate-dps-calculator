@@ -3,6 +3,7 @@ import Popup from 'reactjs-popup'
 import Search from './Search'
 import EquipmentStats from './EquipmentStats'
 import './EquipmentStats.css'
+import ImgFallback from './ImgFallback'
 
 import {Ammunitions} from './Lists/Ammunitions'
 import {Bodys} from './Lists/Bodys'
@@ -69,12 +70,8 @@ export default function Item({slot, itemname, chosenEquipment, equipment}) {
     }
     
     function chosenItem(item) {
+        closeTooltip()
         chosenEquipment(slot, item)
-    }
-
-    let imgsrc
-    if (itemname) {
-        imgsrc = `https://oldschool.runescape.wiki/images/${itemname}.png?08f42`
     }
 
     return (
@@ -82,7 +79,7 @@ export default function Item({slot, itemname, chosenEquipment, equipment}) {
             ref={ref}
             trigger={
                 <div className={className}>
-                    <img src={imgsrc}/>
+                    <ImgFallback item={itemname}/>
                 </div>
             }
             position="right center"

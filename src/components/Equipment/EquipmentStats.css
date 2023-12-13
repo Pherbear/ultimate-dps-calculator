@@ -1,7 +1,7 @@
 .itemStats{
     display: flex;
     flex-direction: column;
-    width: 900px;
+    width: 130px;
 }
 .allStats{
     display: flex;
@@ -11,5 +11,12 @@
 }
 
 [role='tooltip'].item-popup-content{
-    width: 320px;
+    width: 500px;
+}
+
+.stats-container{
+    border: 1px black solid;
+    gap: 5px;
+    padding-left: 10px;
+    padding-top: 10px;
 }

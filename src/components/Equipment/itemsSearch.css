@@ -1,8 +1,21 @@
 .itemsSearch{
     display: grid;
-    
+    grid-template-columns: repeat(3, 90px);
+    grid-template-rows: repeat(3, 120px);
+    gap: 20px;
 }
 
 .itemsSearch div{
+    font-size: 20px;
+}
 
+.search-item{
+    display: flex;
+    flex-direction: column;
+}
+
+.search-item img{
+    height: 85%;
+    width: 100%;
+    border: 1px solid black;
 }

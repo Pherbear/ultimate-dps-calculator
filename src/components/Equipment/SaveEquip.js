@@ -33,10 +33,28 @@ export default function SaveEquip({ equipment, setEquipment }) {
         e.preventDefault();
         if (selectedSet) {
             const setToLoad = selectedSet.value;
+            console.log(setToLoad)
             setEquipment(setToLoad);
         } else {
             alert('Please select a set to load.');
         }
+    }
+
+    const handleReset = (e) => {
+        e.preventDefault();
+        setEquipment({
+                mainhand: '',
+                offhand: '',
+                cape: '',
+                ammo: '',
+                helmet: '',
+                body: '',
+                legs: '',
+                hands: '',
+                feet: '',
+                neck: '',
+                ring: ''
+              })
     }
 
     return (
@@ -53,6 +71,7 @@ export default function SaveEquip({ equipment, setEquipment }) {
                 </div>
                 <input type="submit" value="Save" onClick={handleSave} />
                 <input type="submit" value="Load" onClick={handleLoad} />
+                <input type="submit" value="Clear" onClick={handleReset} />
             </form>
         </div>
     )

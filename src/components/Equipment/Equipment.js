@@ -1,9 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './Equipment.css'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Item from './Item';
 import SaveEquip from './SaveEquip'
+import TotalStats from './TotalStats'
 
 function getEquipmentData(item_name) {
   return new Promise((resolve, reject) => {    
@@ -56,6 +57,17 @@ function getEquipmentData(item_name) {
 
 export default function Equipment() {
 
+  const [totalStats, setTotalStats] = useState({
+    crush: 0,
+    slash: 0,
+    stab: 0,
+    magic: 0,
+    range: 0,
+    melee_str: 0,
+    magic_dmg: 0,
+    range_str: 0
+  })
+
   const [equipment, setEquipment] = useState({
     mainhand: '',
     offhand: '',
@@ -67,8 +79,46 @@ export default function Equipment() {
     hands: '',
     feet: '',
     neck: '',
-    ring: ''
+    ring: '',
+    setName: ''
   })
+
+  useEffect(() => {
+    let crush = 0
+    let slash = 0
+    let stab = 0
+    let magic = 0
+    let range = 0
+    let str = 0
+    let magic_dmg = 0
+    let range_str = 0
+
+    for (const slot in equipment){
+      if (equipment[slot] && slot !== 'setName'){
+        const item = equipment[slot]
+        crush += parseInt(item.acrush)
+        slash += parseInt(item.aslash)
+        stab += parseInt(item.astab)
+        magic += parseInt(item.amagic)
+        range += parseInt(item.arange)
+        str += parseInt(item.str)
+        magic_dmg += parseInt(item.mdmg)
+        range_str += parseInt(item.rstr)
+      }
+    }
+
+    setTotalStats({
+      ...totalStats, 
+      crush: crush, 
+      slash: slash, 
+      stab: stab,
+      magic: magic,
+      range: range,
+      melee_str: str,
+      magic_dmg: magic_dmg,
+      range_str: range_str
+    })
+  }, [equipment])
 
   function chosenEquipment(slot, itemname) {
     getEquipmentData(itemname).then(data => {
@@ -94,6 +144,7 @@ export default function Equipment() {
               />
           )})}
         </div>
+        <TotalStats totalStats={totalStats}/>
       </div>
     </div>
   )
