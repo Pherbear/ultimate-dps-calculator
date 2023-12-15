@@ -5,6 +5,7 @@ import 'reactjs-popup/dist/index.css';
 import Item from './Item';
 import SaveEquip from './SaveEquip'
 import TotalStats from './TotalStats'
+import WeaponStyle from './WeaponStyle';
 
 function getEquipmentData(item_name) {
   return new Promise((resolve, reject) => {    
@@ -42,7 +43,6 @@ function getEquipmentData(item_name) {
             return acc;
           }, {});
     
-          console.log('Extracted Stats: ', stats);
           resolve(stats)
         } else {
           console.log('No combat stats or infobox bonuses section found');
@@ -120,9 +120,52 @@ export default function Equipment() {
     })
   }, [equipment])
 
+  
   function chosenEquipment(slot, itemname) {
+    let item_info
+    let endsWith_5 = false
+    if (itemname.endsWith('_5')) {
+      console.log('ends with _5')
+      itemname = itemname.replace(/_5/g, '')
+      endsWith_5 = true
+    }
     getEquipmentData(itemname).then(data => {
-      setEquipment({...equipment, [slot]: {...data, itemname: itemname}})
+      item_info = data
+      if (endsWith_5) {
+        console.log('ends with _5')
+        itemname = itemname + '_5'
+      }
+    }).then(() => {
+      console.log(item_info)
+      let acrush = item_info.acrush
+      let astab = item_info.astab
+      let aslash = item_info.aslash
+      let amagic = item_info.amagic
+      let arange = item_info.arange
+      if(item_info.acrush1){
+        acrush = item_info.acrush1
+      }
+      if(item_info.astab1){
+        astab = item_info.astab1
+      }
+      if(item_info.aslash1){
+        aslash = item_info.aslash1
+      }
+      if(item_info.amagic1){
+        amagic = item_info.amagic1
+      }
+      if(item_info.arange1){
+        arange = item_info.arange1
+      }
+      setEquipment({...equipment, [slot]: {
+        ...item_info, 
+        itemname: itemname,
+        acrush: acrush,
+        astab: astab,
+        aslash: aslash,
+        amagic: amagic,
+        arange: arange
+      }})
     })
     .catch(error => {
       console.error(error);
@@ -132,6 +175,7 @@ export default function Equipment() {
   return (
     <div>
       <SaveEquip equipment={equipment} setEquipment={setEquipment}/>
+      <WeaponStyle equipment={equipment}/>
       <div className='itemsAndStats'>
         <div className='container'>
           {Object.entries(equipment).map(([slot, item]) => { 

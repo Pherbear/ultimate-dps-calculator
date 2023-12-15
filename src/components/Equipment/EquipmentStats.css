@@ -12,6 +12,7 @@
 
 [role='tooltip'].item-popup-content{
     width: 500px;
+    padding-bottom: 30px;
 }
 
 .stats-container{
