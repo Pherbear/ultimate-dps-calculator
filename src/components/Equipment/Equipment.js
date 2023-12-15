@@ -5,7 +5,7 @@ import 'reactjs-popup/dist/index.css';
 import Item from './Item';
 import SaveEquip from './SaveEquip'
 import TotalStats from './TotalStats'
-import WeaponStyle from './WeaponStyle';
+import WeaponStyle from './WeaponStyles/WeaponStyle';
 
 function getEquipmentData(item_name) {
   return new Promise((resolve, reject) => {    
@@ -175,7 +175,7 @@ export default function Equipment() {
   return (
     <div>
       <SaveEquip equipment={equipment} setEquipment={setEquipment}/>
-      <WeaponStyle equipment={equipment}/>
+      <WeaponStyle equipment={equipment} setEquipment={setEquipment}/>
       <div className='itemsAndStats'>
         <div className='container'>
           {Object.entries(equipment).map(([slot, item]) => { 
