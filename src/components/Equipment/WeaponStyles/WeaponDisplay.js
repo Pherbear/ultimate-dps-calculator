@@ -27,8 +27,10 @@ export default function WeaponDisplay({ weapon, type }) {
                 break;
             case 'Axe':
                 setData(Axe)
+                break;
             case 'Scythe':
                 setData(Scythe)
+                break;
             default:
                 break;
         }
