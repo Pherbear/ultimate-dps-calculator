@@ -1,20 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import Charge from './Charge'
+import WeaponDisplay from './WeaponDisplay'
 
 export default function WeaponStyle({ equipment, setEquipment }) {
-    console.log(equipment)
-    const [scythe, setScythe] = useState(false)
     const [charged, setCharged] = useState(false)
+    const [type, setType] = useState('Unarmed')
 
     useEffect(() => {
-        setScythe(false)
-        if (equipment.mainhand.combatstyle === "Scythe") {
-            setScythe(true)
-        }
+        if (equipment.mainhand) setType(equipment.mainhand.combatstyle)
+        else setType('Unarmed')
     }, [equipment])
 
     useEffect(() => {
-        if (scythe) {
+        if (type == 'Scythe') {
             if (charged) {
                 setEquipment({
                     ...equipment, mainhand: {
@@ -35,15 +33,16 @@ export default function WeaponStyle({ equipment, setEquipment }) {
                     }})
             }
         }
-    }, [charged, scythe])
+    }, [charged, type])
 
     return (
         <div>
-            {scythe? 
+            {type == 'Scythe'? 
             <>
                 <Charge setCharge={setCharged}/>
             </>
             :<></>}
+            <WeaponDisplay weapon={equipment.mainhand} type={type}/>
         </div>
     )
 }

@@ -175,20 +175,22 @@ export default function Equipment() {
   return (
     <div>
       <SaveEquip equipment={equipment} setEquipment={setEquipment}/>
-      <WeaponStyle equipment={equipment} setEquipment={setEquipment}/>
-      <div className='itemsAndStats'>
-        <div className='container'>
-          {Object.entries(equipment).map(([slot, item]) => { 
-            return (
-            <Item 
-              slot={slot} 
-              itemname={item.itemname} 
-              chosenEquipment={chosenEquipment}
-              equipment={equipment}
-              />
-          )})}
+      <div className='Displays'>
+        <WeaponStyle equipment={equipment} setEquipment={setEquipment}/>
+        <div className='itemsAndStats'>
+          <div className='container'>
+            {Object.entries(equipment).map(([slot, item]) => { 
+              return (
+              <Item 
+                slot={slot} 
+                itemname={item.itemname} 
+                chosenEquipment={chosenEquipment}
+                equipment={equipment}
+                />
+            )})}
+          </div>
+          <TotalStats totalStats={totalStats}/>
         </div>
-        <TotalStats totalStats={totalStats}/>
       </div>
     </div>
   )

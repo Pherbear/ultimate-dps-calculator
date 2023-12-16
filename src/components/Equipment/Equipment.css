@@ -97,3 +97,8 @@
 .hands img{
     top: 6px;
 }
+
+.Displays {
+    display: flex;
+    flex-direction: row;
+}
