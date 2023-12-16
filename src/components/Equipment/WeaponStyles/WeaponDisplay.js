@@ -10,6 +10,7 @@ import Bottom_Left from './Images/Attack_Bottom_Left.jpeg'
 import { twoHSword } from './Types/2h-Sword'
 import { unarmed } from './Types/Unarmed'
 import { Axe } from './Types/Axe'
+import { Scythe } from './Types/Scythe'
 
 export default function WeaponDisplay({ weapon, type }) {
     const [style, setStyle] = useState('top_right')
@@ -17,7 +18,6 @@ export default function WeaponDisplay({ weapon, type }) {
     const [data, setData] = useState(unarmed)
 
     useEffect(() => {
-        console.log(type)
         switch(type){
             case '2h Sword':
                 setData(twoHSword)
@@ -27,10 +27,11 @@ export default function WeaponDisplay({ weapon, type }) {
                 break;
             case 'Axe':
                 setData(Axe)
+            case 'Scythe':
+                setData(Scythe)
             default:
                 break;
         }
-        console.log(data)
     },[type])
 
     useEffect(() => {
@@ -64,7 +65,7 @@ export default function WeaponDisplay({ weapon, type }) {
             <Style pos={'top_left'} setStyle={setStyle} data={data}/>
             <Style pos={'top_right'} setStyle={setStyle} data={data}/>
             <Style pos={'bottom_left'} setStyle={setStyle} data={data}/>
-            <Style pos={'bottom_right'} setStyle={setStyle} data={data}/>
+            {data.BottomRight? <Style pos={'bottom_right'} setStyle={setStyle} data={data}/> : ''}
             <div className='weapon-category'>
                 Category: {type}
             </div>

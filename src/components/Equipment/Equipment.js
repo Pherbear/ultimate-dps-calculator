@@ -136,7 +136,6 @@ export default function Equipment() {
         itemname = itemname + '_5'
       }
     }).then(() => {
-      console.log(item_info)
       let acrush = item_info.acrush
       let astab = item_info.astab
       let aslash = item_info.aslash

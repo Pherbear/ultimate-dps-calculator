@@ -17,11 +17,5 @@ export const unarmed = {
         boost: 'Defence',
         level: 3
     },
-    BottomRight:{
-        name: '',
-        attack: '',
-        boost: '',
-        level: 0
-    },
     Type: 'unarmed'
 }

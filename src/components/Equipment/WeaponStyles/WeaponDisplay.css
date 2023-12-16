@@ -17,6 +17,8 @@
     flex-direction: column;
     position: relative;
     align-items: baseline;
+    color: rgb(218, 161, 17);
+    text-shadow: 1px 1px 2px black;
     width: 72px;
     height: 50px;
 }
