@@ -2,4 +2,63 @@
     background-image: url('./Images/Attack_style_tab.webp');
     width: 205px;
     height: 275px;
+
+    user-drag: none; 
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.style {
+    padding-left: 17px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: baseline;
+    width: 72px;
+    height: 50px;
+}
+
+.style img {
+    padding-top: 7px;
+    width: 33%;
+}
+
+.weapon-name{
+    text-align: center;
+    position: relative;
+    left: -3px;
+    top: 18px;
+    color: rgb(218, 161, 17);
+    text-shadow: 1px 1px 2px black;
+}
+
+.weapon-category {
+    text-align: center;
+    position: relative;
+    left: -3px;
+    top: 20px;
+    color: rgb(218, 161, 17);
+    text-shadow: 1px 1px 2px black;
+}
+
+.top_left {
+    left: 27px;
+    top: 30px;
+}
+
+.top_right {
+    left: 105px;
+    top: -18px;
+}
+
+.bottom_left {
+    left: 27px;
+    top: -16px;
+}
+.bottom_right{
+    left: 105px;
+    top: -63px;
 }
