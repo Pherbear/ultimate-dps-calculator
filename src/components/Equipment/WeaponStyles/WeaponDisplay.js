@@ -7,10 +7,8 @@ import Top_Left from './Images/Attack_Top_Left.jpeg'
 import Bottom_Right from './Images/Attack_Bottom_Right.jpeg'
 import Bottom_Left from './Images/Attack_Bottom_Left.jpeg'
 
-import { twoHSword } from './Types/2h-Sword'
+import { typeToDataMap } from './DataMap'
 import { unarmed } from './Types/Unarmed'
-import { Axe } from './Types/Axe'
-import { Scythe } from './Types/Scythe'
 
 export default function WeaponDisplay({ weapon, type }) {
     const [style, setStyle] = useState('top_right')
@@ -18,22 +16,8 @@ export default function WeaponDisplay({ weapon, type }) {
     const [data, setData] = useState(unarmed)
 
     useEffect(() => {
-        switch(type){
-            case '2h Sword':
-                setData(twoHSword)
-                break;
-            case 'Unarmed':
-                setData(unarmed)
-                break;
-            case 'Axe':
-                setData(Axe)
-                break;
-            case 'Scythe':
-                setData(Scythe)
-                break;
-            default:
-                break;
-        }
+        const dataType = typeToDataMap[type]
+        setData(dataType)
     },[type])
 
     useEffect(() => {
@@ -62,11 +46,11 @@ export default function WeaponDisplay({ weapon, type }) {
             style={{backgroundImage: `url(${img})`}}
         >
             <div className='weapon-name'>
-                {weapon.itemname? weapon.itemname.replace(/_/g, ' ') : 'Unarmed'}
+                {weapon.itemname? weapon.itemname.replace(/_/g, ' ').replace(/%27/g, "'") : 'Unarmed'}
             </div>
             <Style pos={'top_left'} setStyle={setStyle} data={data}/>
             <Style pos={'top_right'} setStyle={setStyle} data={data}/>
-            <Style pos={'bottom_left'} setStyle={setStyle} data={data}/>
+            {data.BottomLeft? <Style pos={'bottom_left'} setStyle={setStyle} data={data}/> : <div className={`style bottom_left`}></div>}
             {data.BottomRight? <Style pos={'bottom_right'} setStyle={setStyle} data={data}/> : ''}
             <div className='weapon-category'>
                 Category: {type}
