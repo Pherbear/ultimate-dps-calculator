@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import './itemsSearch.css'
-import ImgFallback from './ImgFallback';
 
 export default function Search({ items, chosenItem }) {
     const [query, setQuery] = useState('');

@@ -1,0 +1,4 @@
+.monster-info{
+    display: flex;
+    flex-direction: column;
+}

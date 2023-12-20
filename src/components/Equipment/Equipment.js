@@ -119,7 +119,6 @@ export default function Equipment() {
       range_str: range_str
     })
 
-    console.log(equipment)
   }, [equipment])
 
   

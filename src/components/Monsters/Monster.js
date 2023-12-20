@@ -1,26 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import getMonsterData from './MonsterData'
+import { MonsterList } from './MonsterList';
+import Popup from 'reactjs-popup'
+import MonsterSearch from './MonsterSearch';
+import MonsterDisplay from './MonsterDisplay';
 
 export default function Monster() {
 
-    function getMonsterData() {
-        return new Promise((resolve, reject) => {
-            let url = `https://oldschool.runescape.wiki/api.php?action=query&prop=revisions&rvprop=content&titles=Zulrah&format=json`;
-            fetch(url).then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json(); 
-                }).then(data => {
-                    console.log(data);
-                    resolve(data) 
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-            });
-        })
+    const [currentMonster, setCurrentMonster] = useState('')
+    const [searchedMonster, setSearchedMonster] = useState('')
+
+    function fetchMonsterData(monsterName) {
+        getMonsterData(monsterName).then(data => {
+            setCurrentMonster(data)
+            console.log(data)
+        }).then(() => {
+        }).catch(error => {
+            console.error(error);
+        });
     }
 
-    getMonsterData()
+    useEffect(() => {
+        if (searchedMonster){
+            fetchMonsterData(searchedMonster)
+        }
+    }, [searchedMonster])
+
+
 
     return (
-        <div>Monster</div>
+        <div>
+            <Popup trigger={<div>Choose Monster</div>} position="bottom center">
+                <MonsterSearch setCurrentMonster={setSearchedMonster}/>
+            </Popup>
+            {currentMonster? <MonsterDisplay currentMonster={currentMonster} setCurrentMonster={setCurrentMonster}/> : <>Current Monster Here</>}
+        </div>
     )
 }
