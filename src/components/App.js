@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import Stats from './Stats/Stats';
 import CombatLevel from './CombatLevel'
 import Equipment from './Equipment/Equipment'
+import Monster from './Monsters/Monster';
+import './App.css'
 
 function App() {
 
@@ -28,8 +30,13 @@ function App() {
 
   return (
     <div className="App">
-      <CombatLevel stats={stats}/>
-      <Stats stats={stats} changeStat={changeStat}/>
+      <div className='containerApp'>
+        <div>
+          <CombatLevel stats={stats}/>
+          <Stats stats={stats} changeStat={changeStat}/>
+        </div>
+        <Monster />   
+      </div>
       <Equipment />
     </div>
   );

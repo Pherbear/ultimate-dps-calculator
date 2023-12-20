@@ -118,6 +118,8 @@ export default function Equipment() {
       magic_dmg: magic_dmg,
       range_str: range_str
     })
+
+    console.log(equipment)
   }, [equipment])
 
   
@@ -141,6 +143,7 @@ export default function Equipment() {
       let aslash = item_info.aslash
       let amagic = item_info.amagic
       let arange = item_info.arange
+      let rstr = item_info.rstr
       if(item_info.acrush1){
         acrush = item_info.acrush1
       }
@@ -156,6 +159,9 @@ export default function Equipment() {
       if(item_info.arange1){
         arange = item_info.arange1
       }
+      if(item_info.rstr2){
+        rstr = item_info.rstr2
+      }
       setEquipment({...equipment, [slot]: {
         ...item_info, 
         itemname: itemname,
@@ -163,7 +169,8 @@ export default function Equipment() {
         astab: astab,
         aslash: aslash,
         amagic: amagic,
-        arange: arange
+        arange: arange,
+        rstr: rstr
       }})
     })
     .catch(error => {
