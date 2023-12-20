@@ -8,6 +8,14 @@ export default function MonsterDisplay({ currentMonster , setCurrentMonster }) {
     const [currentVersion, setCurrentVersion] = useState(versions ? versions.ver1 : '')
 
 
+    useEffect(() => {
+        // Manually call handleChange for the initial version
+        if (versions && Object.keys(versions).length > 0) {
+            const firstVersionKey = Object.keys(versions)[0];
+            handleChange({ target: { value: firstVersionKey } });
+        }
+    }, [versions]);
+
     function handleChange(e) {
         const selectedVersion = e.target.value
         const versionObject = versions[selectedVersion]
@@ -29,8 +37,7 @@ export default function MonsterDisplay({ currentMonster , setCurrentMonster }) {
                 <div>
                     Current Version:
                     <div>
-                        <select value={currentVersion.version} onChange={handleChange}>
-                            <option value="" disabled>Select a Version</option>
+                        <select value={currentVersion} onChange={handleChange}>
                             {Object.entries(versions).map(([version, data]) => {
                                 return (
                                     <option key={version} value={version}>{data.version}</option>
