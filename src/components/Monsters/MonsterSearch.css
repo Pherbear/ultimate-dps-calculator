@@ -24,3 +24,8 @@
     object-fit: contain;
     background: rgb(149, 113, 92);
 }
+
+[role='tooltip'].monster-popup-content{
+    width: 500px;
+    padding-bottom: 30px;
+}

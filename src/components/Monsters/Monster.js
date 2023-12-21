@@ -4,6 +4,8 @@ import { MonsterList } from './MonsterList';
 import Popup from 'reactjs-popup'
 import MonsterSearch from './MonsterSearch';
 import MonsterDisplay from './MonsterDisplay';
+import './MonsterDisplay.css'
+import './MonsterSearch.css'
 
 export default function Monster() {
 
@@ -13,8 +15,8 @@ export default function Monster() {
     function fetchMonsterData(monsterName) {
         getMonsterData(monsterName).then(data => {
             setCurrentMonster(data)
-            console.log(data)
         }).then(() => {
+            console.log(currentMonster)
         }).catch(error => {
             console.error(error);
         });
@@ -23,6 +25,7 @@ export default function Monster() {
     useEffect(() => {
         if (searchedMonster){
             fetchMonsterData(searchedMonster)
+            console.log(searchedMonster)
         }
     }, [searchedMonster])
 
@@ -30,10 +33,10 @@ export default function Monster() {
 
     return (
         <div>
-            <Popup trigger={<div>Choose Monster</div>} position="bottom center">
+            <Popup trigger={<div className='choose-monster'>Choose Monster</div>} position="bottom center" className='monster-popup'>
                 <MonsterSearch setCurrentMonster={setSearchedMonster}/>
             </Popup>
-            {currentMonster? <MonsterDisplay currentMonster={currentMonster} setCurrentMonster={setCurrentMonster}/> : <>Current Monster Here</>}
+            {currentMonster? <MonsterDisplay currentMonster={currentMonster} setCurrentMonster={setCurrentMonster}/> : <></>}
         </div>
     )
 }

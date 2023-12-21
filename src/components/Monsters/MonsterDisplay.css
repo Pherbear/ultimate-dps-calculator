@@ -1,4 +1,46 @@
 .monster-info{
     display: flex;
     flex-direction: column;
+    font-size: 14px;
+    background-image: url('./MonsterImage/tab.webp');
+    background-size: cover;
+    height: 280px;
+    width: 210px;
+    color: rgb(218, 161, 17);
+    text-shadow: 1px 1px 2px black;
+    padding-top: 7px;
+    padding-left: 5px;
+    align-items: center;
+}
+
+.choose-monster{
+    color: rgb(218, 161, 17);
+    border: solid black 3px;
+    font-size: 20px;
+    background: grey;
+    margin-bottom: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.monster-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stats-row {
+    display: flex;
+    gap: 10px;
+}
+.stats-row div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.monster-image{
+    width:50px;
+    height:50px;
 }

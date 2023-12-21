@@ -1,8 +1,10 @@
-export default function MonsterVersions (monsterData) {
-    console.log(monsterData)
+import React, {useEffect, useState} from 'react'
 
+function MonsterVersions (monsterData) {
     const versionConstants = {};
-    const versionPrefixes = ['version', 'id', 'drange', 'dmagic', 'attack style'];
+    const versionPrefixes = ['version', 'id', 'drange', 
+        'dmagic', 'attack style', 'amagic', 'arange', 'dcrush', 'mbns',
+        'dstab', 'dslash', 'attbns', 'hitpoints', 'str', 'def', 'mage', 'range'];
 
     // Iterate over each key in the dataset
     Object.keys(monsterData).forEach(key => {
@@ -23,4 +25,60 @@ export default function MonsterVersions (monsterData) {
 
     return versionConstants;
 
+}
+
+
+export default function MonsterVersionsChange({currentMonster, setCurrentMonster}) {
+
+    const [versions, setVersions] = useState(currentMonster.version1 ? MonsterVersions(currentMonster) : '')
+    const [currentVersionKey, setCurrentVersionKey] = useState('')
+
+    useEffect(() => {
+        if (versions && Object.keys(versions).length > 0) {
+            const firstVersionKey = Object.keys(versions)[0];
+            setCurrentVersionKey(firstVersionKey)
+            handleChange({ target: { value: firstVersionKey } });
+        }
+    }, [versions]);
+
+    useEffect(() => {
+        if (currentMonster.version1) {
+            setVersions(MonsterVersions(currentMonster))
+        } else setVersions('')
+    }, [currentMonster.name])
+
+
+    function handleChange(e) {
+        const selectedVersionKey = e.target.value;
+        const versionObject = versions[selectedVersionKey]
+        console.log(versionObject)
+        setCurrentVersionKey(selectedVersionKey)
+        setCurrentMonster({
+            ...currentMonster,
+            ...versionObject,
+        })
+    }
+
+  return (
+    <>
+    {versions ?
+        <div style={{
+            display: 'flex',
+            gap: '3px',
+            paddingLeft: '2px',
+        }}>
+            Current Version:
+            <div>
+                <select value={currentVersionKey} onChange={handleChange}>
+                    {Object.entries(versions).map(([versionKey, data]) => {
+                        return (
+                            <option key={versionKey} value={versionKey}>{data.version}</option>
+                        )
+                    })}
+                </select>
+            </div>
+        </div> : ''
+    }
+    </>
+  )
 }
