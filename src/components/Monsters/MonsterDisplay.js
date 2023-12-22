@@ -15,10 +15,7 @@ import stab_icon from './MonsterImage/White_dagger.webp'
 import slash_icon from './MonsterImage/White_scimitar.webp'
 import crush_icon from './MonsterImage/White_warhammer.webp'
 
-export default function MonsterDisplay({ currentMonster, setCurrentMonster }) {
-
-    console.log(currentMonster)
-
+export default function MonsterDisplay({ currentMonster, currentVersion, setCurrentVersion }) {
     const [url, setUrl] = useState('')
 
     useEffect(() => {
@@ -30,7 +27,7 @@ export default function MonsterDisplay({ currentMonster, setCurrentMonster }) {
         <div className='monster-info'>
             <a>{currentMonster.name}</a>
             <img src={url} className='monster-image'/>
-            <MonsterVersionsChange setCurrentMonster={setCurrentMonster} currentMonster={currentMonster} />
+            <MonsterVersionsChange currentMonster={currentMonster} currentVersion={currentVersion} setCurrentVersion={setCurrentVersion}/>
             <div className='monster-stats'>
                 <div className='label'>
                     <img />

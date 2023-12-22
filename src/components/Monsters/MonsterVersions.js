@@ -1,84 +1,56 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-function MonsterVersions (monsterData) {
-    const versionConstants = {};
-    const versionPrefixes = ['version', 'id', 'drange', 
-        'dmagic', 'attack style', 'amagic', 'arange', 'dcrush', 'mbns',
-        'dstab', 'dslash', 'attbns', 'hitpoints', 'str', 'def', 'mage', 'range'];
+export default function MonsterVersionsChange({ currentMonster, currentVersion, setCurrentVersion }) {
+    const [versions, setVersions] = useState(false);
+    const [selectedVersion, setSelectedVersion] = useState('')
 
-    // Iterate over each key in the dataset
-    Object.keys(monsterData).forEach(key => {
-        // Check if the key starts with one of the prefixes
-        versionPrefixes.forEach(prefix => {
-            if (key.startsWith(prefix)) {
-                const versionNumber = key.match(/\d+$/); // Extract the version number (e.g., '1' from 'version1')
-                if (versionNumber) {
-                    const versionKey = prefix + versionNumber; // Reconstruct the key with the version number
-                    const version = 'ver' + versionNumber;
-
-                    versionConstants[version] = versionConstants[version] || {};
-                    versionConstants[version][prefix] = monsterData[versionKey];
-                }
-            }
-        });
-    });
-
-    return versionConstants;
-
-}
-
-
-export default function MonsterVersionsChange({currentMonster, setCurrentMonster}) {
-
-    const [versions, setVersions] = useState(currentMonster.version1 ? MonsterVersions(currentMonster) : '')
-    const [currentVersionKey, setCurrentVersionKey] = useState('')
+    function extractLastPortion(text) {
+        const parts = text.split('#');
+        return parts.filter(part => part !== '')[parts.filter(part => part !== '').length - 1];
+    }
 
     useEffect(() => {
-        if (versions && Object.keys(versions).length > 0) {
-            const firstVersionKey = Object.keys(versions)[0];
-            setCurrentVersionKey(firstVersionKey)
-            handleChange({ target: { value: firstVersionKey } });
+        if (Array.isArray(currentMonster)) {
+            setVersions(true);
+            const initialVersion = currentMonster[0]
+            setCurrentVersion(initialVersion);
+            setSelectedVersion(extractLastPortion(initialVersion.subject))
+        } else {
+            setVersions(false);
+            setCurrentVersion(currentMonster);
+            setSelectedVersion(extractLastPortion(currentMonster.subject))
         }
-    }, [versions]);
-
-    useEffect(() => {
-        if (currentMonster.version1) {
-            setVersions(MonsterVersions(currentMonster))
-        } else setVersions('')
-    }, [currentMonster.name])
-
+    }, [currentMonster]);
 
     function handleChange(e) {
-        const selectedVersionKey = e.target.value;
-        const versionObject = versions[selectedVersionKey]
-        console.log(versionObject)
-        setCurrentVersionKey(selectedVersionKey)
-        setCurrentMonster({
-            ...currentMonster,
-            ...versionObject,
-        })
+        const newVersion = currentMonster[e.target.value]
+        setCurrentVersion(newVersion);
+        setSelectedVersion(extractLastPortion(newVersion.subject))
     }
 
-  return (
-    <>
-    {versions ?
-        <div style={{
-            display: 'flex',
-            gap: '3px',
-            paddingLeft: '2px',
-        }}>
-            Current Version:
-            <div>
-                <select value={currentVersionKey} onChange={handleChange}>
-                    {Object.entries(versions).map(([versionKey, data]) => {
-                        return (
-                            <option key={versionKey} value={versionKey}>{data.version}</option>
-                        )
-                    })}
-                </select>
-            </div>
-        </div> : ''
-    }
-    </>
-  )
+    useEffect(() => {
+        console.log(currentVersion, selectedVersion)
+    }, [currentVersion, selectedVersion])
+
+    return (
+        <>
+            {versions ?
+                <div style={{ display: 'flex', gap: '3px', paddingLeft: '2px'}}>
+                    Current Version:
+                    <div>
+                        <select 
+                            value={selectedVersion} 
+                            onChange={handleChange}
+                        >
+                            {currentMonster.map((monster, index) => (
+                                <option key={extractLastPortion(monster.subject)} value={index}>
+                                    {extractLastPortion(monster.subject)}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+            : ''}
+        </>
+    );
 }

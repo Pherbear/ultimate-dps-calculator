@@ -2,7 +2,7 @@ export const MonsterList = {
     "Kree'arra": "Kree%27arra",
     "Commander Zilyana": "Commander+Zilyana",
     "Galvek": "Galvek",
-    "General Graador": "General+Graador",
+    "General Graardor": "General+Graardor",
     "K'ril Tsusaroth": "K%27ril+Tsutsaroth",
     "Crystalline Hunllef": "Crystalline+Hunllef",
     "TzTok-Jad": "TzTok-jad",
