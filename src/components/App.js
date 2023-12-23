@@ -33,7 +33,7 @@ function App() {
       <div className='containerApp'>
         <div>
           <CombatLevel stats={stats}/>
-          <Stats stats={stats} changeStat={changeStat}/>
+          <Stats stats={stats} changeStat={changeStat} setStats={setStats}/>
         </div>
         <Monster />   
       </div>

@@ -1,11 +1,11 @@
 export const MonsterList = {
     "Kree'arra": "Kree%27arra",
     "Commander Zilyana": "Commander+Zilyana",
-    "Galvek": "Galvek",
+    "Galvek": "Galvek%23Air",
     "General Graardor": "General+Graardor",
     "K'ril Tsusaroth": "K%27ril+Tsutsaroth",
     "Crystalline Hunllef": "Crystalline+Hunllef",
-    "TzTok-Jad": "TzTok-jad",
+    "TzTok-Jad": "TzTok-Jad",
     "Zulrah" : {
         "Serpentine": "Zulrah%23Serpentine",
         "Magma": "Zulrah%23Magma",
@@ -13,8 +13,8 @@ export const MonsterList = {
     },
     "Obor": "Obor",
     "Vorkath": {
-        "Dragon Slayer 2": "Vorkath%23Dragon+Slayer+II",
         "Post Quest": "Vorkath%23Post-quest",
+        "Dragon Slayer 2": "Vorkath%23Dragon+Slayer+II",
     },
     "Black_dragon" : {
         "Level 227": "Black+dragon%23Level+227",
@@ -24,7 +24,7 @@ export const MonsterList = {
         "Ranged": "Phantom+Muspah%23Ranged",
         "Melee": "Phantom+Muspah%23Melee",
         "Teleporting": "Phantom+Muspah%23Teleporting",
-        "Shielded": "Phantom+Muspah%23Shieled",
+        "Shielded": "Phantom+Muspah%23Shielded",
         "Post-shield": "Phantom+Muspah%23Post-shield"
     },
     "Corporeal Beast": "Corporeal+Beast",

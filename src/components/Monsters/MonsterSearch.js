@@ -14,8 +14,13 @@ export default function MonsterSearch({ setCurrentMonster }) {
             setFilteredMonsters(Object.entries(MonsterList).slice(0, 12))
         } else {
             const lowercasedValue = value.toLowerCase();
-            const filtered = MonsterList.filter(item => item.toLowerCase().includes(lowercasedValue));
-            setFilteredMonsters(filtered.slice(0, 12));
+    
+            // Convert MonsterList to an array of entries and filter
+            const filtered = Object.entries(MonsterList)
+                .filter(([monsterName, monsterData]) => monsterName.toLowerCase().includes(lowercasedValue))
+                .slice(0, 12);
+    
+            setFilteredMonsters(filtered);
         }
     };
 

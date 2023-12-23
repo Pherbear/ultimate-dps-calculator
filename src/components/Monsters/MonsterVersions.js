@@ -40,7 +40,6 @@ export default function MonsterVersionsChange({ currentMonster, currentVersion, 
                     Current Version:
                     <div>
                         <select 
-                            value={selectedVersion} 
                             onChange={handleChange}
                         >
                             { Array.isArray(currentMonster) ? currentMonster.map((monster, index) => (

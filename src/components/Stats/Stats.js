@@ -1,9 +1,12 @@
 import React from 'react'
 import Stat from './Stat'
 import './Stats.css'
+import Boosts from './Boosts'
+import Prayer from '../Prayer/Prayer'
 
-export default function Stats({ stats, changeStat }) {
+export default function Stats({ stats, changeStat, setStats }) {
     return (
+        <div className='StatsAndBoost'>        
         <div className='Container'>
             {Object.entries(stats).map(([stat, level]) => { return (
                 <Stat
@@ -12,6 +15,13 @@ export default function Stats({ stats, changeStat }) {
                     changeStat={changeStat}
                 />
             )})}
+        </div>
+        <div>
+            <Boosts stats={stats} setStats={setStats}/>
+        </div>
+        <div>
+            <Prayer/>
+        </div>
         </div>
     )
 }

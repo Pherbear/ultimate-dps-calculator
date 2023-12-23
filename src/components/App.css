@@ -3,3 +3,7 @@
     flex-direction: row;
     gap: 20px;
 }
+
+body {
+    background: rgb(160, 156, 157);
+}

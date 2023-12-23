@@ -20,13 +20,9 @@ export default function MonsterDisplay({ currentMonster, currentVersion, setCurr
     const [data, setData] = useState('')
 
     useEffect(() => {
-    }, [currentMonster])
-
-    useEffect(() => {
-        console.log(currentVersion.data)
         setData(currentVersion.data)
+        setUrl(MonsterGetImage(currentVersion.data))
     }, [currentVersion])
-
 
     return (
     <>

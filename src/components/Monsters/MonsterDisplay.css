@@ -44,3 +44,36 @@
     width:50px;
     height:50px;
 }
+
+.number-input {
+    width: 50px;
+}
+
+.spec-input {
+    display: flex;
+    justify-content: space-between;
+    width: 230px;
+}
+
+.spec-input img {
+    height: 20px;
+}
+
+.all-specs {
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.specs {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.specs .buttons {
+    padding-left: 30px;
+    display: flex;
+    gap: 10px;
+}

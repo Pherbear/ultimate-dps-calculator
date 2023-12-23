@@ -1,0 +1,9 @@
+.prayer-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.prayer-container select {
+    height: 22px;
+}
