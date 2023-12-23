@@ -17,14 +17,20 @@ import crush_icon from './MonsterImage/White_warhammer.webp'
 
 export default function MonsterDisplay({ currentMonster, currentVersion, setCurrentVersion }) {
     const [url, setUrl] = useState('')
+    const [data, setData] = useState('')
 
     useEffect(() => {
         console.log(currentMonster)
-        //setUrl(MonsterGetImage(currentMonster))
     }, [currentMonster])
 
+    useEffect(() => {
+        console.log(currentVersion)
+        setData(currentVersion.data)
+    }, [currentVersion])
+
     return (
-        <div className='monster-info'>
+    <>
+        {data? <div className='monster-info'>
             <a>{currentMonster.name}</a>
             <img src={url} className='monster-image'/>
             <MonsterVersionsChange currentMonster={currentMonster} currentVersion={currentVersion} setCurrentVersion={setCurrentVersion}/>
@@ -36,27 +42,27 @@ export default function MonsterDisplay({ currentMonster, currentVersion, setCurr
                 <div className='stats-row'>
                     <div>
                         <img src={hitpoints_icon} />
-                        <a>{currentMonster.hitpoints}</a>
+                        <a>{data.Hitpoints}</a>
                     </div>
                     <div>
                         <img src={attack_icon} />
-                        <a>{currentMonster.att}</a>
+                        <a>{data.Attack_level}</a>
                     </div>
                     <div>
                         <img src={strength_icon} />
-                        <a>{currentMonster.str}</a>
+                        <a>{data.Strength_level}</a>
                     </div>
                     <div>
                         <img src={defence_icon} />
-                        <a>{currentMonster.def}</a>
+                        <a>{data.Defence_level}</a>
                     </div>
                     <div>
                         <img src={magic_icon} />
-                        <a>{currentMonster.mage}</a>
+                        <a>{data.Magic_level}</a>
                     </div>
                     <div>
                         <img src={ranged_icon} />
-                        <a>{currentMonster.range}</a>
+                        <a>{data.Ranged_level}</a>
                     </div>
                 </div>
             </div>
@@ -68,27 +74,27 @@ export default function MonsterDisplay({ currentMonster, currentVersion, setCurr
                 <div className='stats-row'>
                     <div>
                         <img src={attack_icon} />
-                        <a>{currentMonster.attbns}</a>
+                        <a>{data.Attack_bonus}</a>
                     </div>
                     <div>
                         <img src={strength_icon} />
-                        <a>{currentMonster.strbns}</a>
+                        <a>{data.Strength_bonus}</a>
                     </div>
                     <div>
                         <img src={magic_icon} />
-                        <a>{currentMonster.amagic}</a>
+                        <a>{data.Magic_attack_bonus}</a>
                     </div>
                     <div>
                         <img src={magic_damage_icon} />
-                        <a>{currentMonster.mbns}</a>
+                        <a>{data.Magic_Damage_bonus}</a>
                     </div>
                     <div>
                         <img src={ranged_icon} />
-                        <a>{currentMonster.arange}</a>
+                        <a>{data.Range_attack_bonus}</a>
                     </div>
                     <div>
                         <img src={ranged_strength_icon} />
-                        <a>{currentMonster.rngbns}</a>
+                        <a>{data.Ranged_Strength_bonus}</a>
                     </div>
                 </div>
             </div>
@@ -100,26 +106,27 @@ export default function MonsterDisplay({ currentMonster, currentVersion, setCurr
                 <div className='stats-row'>
                     <div>
                         <img src={stab_icon} />
-                        <a>{currentMonster.dstab}</a>
+                        <a>{data.Stab_defence_bonus}</a>
                     </div>
                     <div>
                         <img src={slash_icon} />
-                        <a>{currentMonster.dslash}</a>
+                        <a>{data.Slash_defence_bonus}</a>
                     </div>
                     <div>
                         <img src={crush_icon} />
-                        <a>{currentMonster.dcrush}</a>
+                        <a>{data.Crush_defence_bonus}</a>
                     </div>
                     <div>
                         <img src={magic_icon} />
-                        <a>{currentMonster.dmagic}</a>
+                        <a>{data.Magic_defence_bonus}</a>
                     </div>
                     <div>
                         <img src={ranged_icon} />
-                        <a>{currentMonster.drange}</a>
+                        <a>{data.Range_defence_bonus}</a>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> : ''}
+    </>
     )
 }
