@@ -20,21 +20,21 @@ export default function MonsterDisplay({ currentMonster, currentVersion, setCurr
     const [data, setData] = useState('')
 
     useEffect(() => {
-        console.log(currentMonster)
     }, [currentMonster])
 
     useEffect(() => {
-        console.log(currentVersion)
+        console.log(currentVersion.data)
         setData(currentVersion.data)
     }, [currentVersion])
 
+
     return (
     <>
-        {data? <div className='monster-info'>
+        <div className='monster-info'>
             <a>{currentMonster.name}</a>
             <img src={url} className='monster-image'/>
             <MonsterVersionsChange currentMonster={currentMonster} currentVersion={currentVersion} setCurrentVersion={setCurrentVersion}/>
-            <div className='monster-stats'>
+            {data? <div className='monster-stats'>
                 <div className='label'>
                     <img />
                     <a>Combat Stats</a>
@@ -65,8 +65,8 @@ export default function MonsterDisplay({ currentMonster, currentVersion, setCurr
                         <a>{data.Ranged_level}</a>
                     </div>
                 </div>
-            </div>
-            <div className='monster-stats'>
+            </div> : ''}
+            {data? <div className='monster-stats'>
                 <div className='label'>
                     <img />
                     <a>Aggressive Stats</a>
@@ -97,8 +97,8 @@ export default function MonsterDisplay({ currentMonster, currentVersion, setCurr
                         <a>{data.Ranged_Strength_bonus}</a>
                     </div>
                 </div>
-            </div>
-            <div className='monster-stats'>
+            </div> : ''}
+            {data? <div className='monster-stats'>
                 <div className='label'>
                     <img />
                     <a>Defensive Stats</a>
@@ -125,8 +125,8 @@ export default function MonsterDisplay({ currentMonster, currentVersion, setCurr
                         <a>{data.Range_defence_bonus}</a>
                     </div>
                 </div>
-            </div>
-        </div> : ''}
+            </div> : ''}
+        </div> 
     </>
     )
 }

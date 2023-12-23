@@ -20,6 +20,7 @@ export default function MonsterVersionsChange({ currentMonster, currentVersion, 
             setCurrentVersion(currentMonster);
             setSelectedVersion(extractLastPortion(currentMonster.subject))
         }
+        console.log(currentVersion)
     }, [currentMonster]);
 
     function handleChange(e) {
@@ -42,11 +43,11 @@ export default function MonsterVersionsChange({ currentMonster, currentVersion, 
                             value={selectedVersion} 
                             onChange={handleChange}
                         >
-                            {currentMonster.map((monster, index) => (
+                            { Array.isArray(currentMonster) ? currentMonster.map((monster, index) => (
                                 <option key={extractLastPortion(monster.subject)} value={index}>
                                     {extractLastPortion(monster.subject)}
                                 </option>
-                            ))}
+                            )) : ''}
                         </select>
                     </div>
                 </div>
