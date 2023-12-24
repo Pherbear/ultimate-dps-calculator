@@ -119,7 +119,6 @@ export const Hands = [
    "Villager armband (brown)",
    "Villager armband (pink)",
    "Villager armband (yellow)",
-   "Void knight gloves (or)",
    "Void knight gloves",
    "Warm gloves",
    "White gloves",

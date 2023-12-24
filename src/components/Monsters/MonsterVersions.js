@@ -20,7 +20,6 @@ export default function MonsterVersionsChange({ currentMonster, currentVersion, 
             setCurrentVersion(currentMonster);
             setSelectedVersion(extractLastPortion(currentMonster.subject))
         }
-        console.log(currentVersion)
     }, [currentMonster]);
 
     function handleChange(e) {
@@ -28,10 +27,6 @@ export default function MonsterVersionsChange({ currentMonster, currentVersion, 
         setCurrentVersion(newVersion);
         setSelectedVersion(extractLastPortion(newVersion.subject))
     }
-
-    useEffect(() => {
-        console.log(currentVersion, selectedVersion)
-    }, [currentVersion, selectedVersion])
 
     return (
         <>

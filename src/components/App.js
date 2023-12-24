@@ -1,11 +1,15 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Stats from './Stats/Stats';
 import CombatLevel from './CombatLevel'
 import Equipment from './Equipment/Equipment'
 import Monster from './Monsters/Monster';
+import DPS from './DPS/DPS';
 import './App.css'
+import { all } from 'axios';
 
 function App() {
+
+  const [allData, setAllData] = useState('')
 
   const [stats, setStats] = useState({
     Attack: 99,
@@ -17,6 +21,13 @@ function App() {
     Prayer: 99,
     Mining: 99
   })
+
+  useEffect(() => {
+    setAllData({
+      ...allData,
+      stats: stats
+    })
+  }, [stats])
 
   function changeStat(statName, level) {
     let use
@@ -33,11 +44,14 @@ function App() {
       <div className='containerApp'>
         <div>
           <CombatLevel stats={stats}/>
-          <Stats stats={stats} changeStat={changeStat} setStats={setStats}/>
+          <Stats stats={stats} changeStat={changeStat} setStats={setStats} setAllData={setAllData} allData={allData}/>
         </div>
-        <Monster />   
+        <Monster setAllData={setAllData} allData={allData}/>   
       </div>
-      <Equipment />
+      <div className='containerApp'>
+        <Equipment setAllData={setAllData} allData={allData}/>
+        <DPS allData={allData}/>
+      </div>
     </div>
   );
 }

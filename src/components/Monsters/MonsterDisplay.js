@@ -42,23 +42,23 @@ export default function MonsterDisplay({ currentMonster, currentVersion, setCurr
                     </div>
                     <div>
                         <img src={attack_icon} />
-                        <a>{data.Attack_level}</a>
+                        <a>{(data.Attack_level_Spec || data.Attack_level_Spec == 0)? data.Attack_level_Spec: data.Attack_level}</a>
                     </div>
                     <div>
                         <img src={strength_icon} />
-                        <a>{data.Strength_level}</a>
+                        <a>{(data.Strength_level_Spec || data.Strength_level_Spec == 0)? data.Strength_level_Spec : data.Strength_level}</a>
                     </div>
                     <div>
                         <img src={defence_icon} />
-                        <a>{data.Defence_level}</a>
+                        <a>{(data.Defence_level_Spec || data.Defence_level_Spec == 0)? data.Defence_level_Spec : data.Defence_level}</a>
                     </div>
                     <div>
                         <img src={magic_icon} />
-                        <a>{data.Magic_level}</a>
+                        <a>{(data.Magic_level_Spec || data.Magic_level_Spec == 0)? data.Magic_level_Spec : data.Magic_level}</a>
                     </div>
                     <div>
                         <img src={ranged_icon} />
-                        <a>{data.Ranged_level}</a>
+                        <a>{(data.Ranged_level_Spec || data.Ranged_level_Spec == 0)? data.Ranged_level_Spec : data.Ranged_level}</a>
                     </div>
                 </div>
             </div> : ''}

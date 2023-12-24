@@ -4,11 +4,11 @@ import { MonsterList } from './MonsterList';
 import Popup from 'reactjs-popup'
 import MonsterSearch from './MonsterSearch';
 import MonsterDisplay from './MonsterDisplay';
-import Specs from './Specs';
+import Specs from './Specs/Specs';
 import './MonsterDisplay.css'
 import './MonsterSearch.css'
 
-export default function Monster() {
+export default function Monster({allData, setAllData}) {
 
     const [currentMonster, setCurrentMonster] = useState('')
     const [searchedMonster, setSearchedMonster] = useState('')
@@ -25,6 +25,17 @@ export default function Monster() {
             fetchMonsterData(searchedMonster)
         }
     }, [searchedMonster])
+    
+    useEffect(() => {
+        console.log(currentMonster)
+    },[currentMonster])
+
+    useEffect(() => {
+        setAllData({
+            ...allData,
+            currentVersion: currentVersion
+        })
+    }, [currentVersion])
 
     return (
         <div>
@@ -34,7 +45,7 @@ export default function Monster() {
             {currentMonster? 
             <div style={{display: 'flex', gap: '15px'}}>
                 <MonsterDisplay currentMonster={currentMonster} currentVersion={currentVersion} setCurrentVersion={setCurrentVersion}/> 
-                <Specs/>
+                <Specs currentVersion={currentVersion} setCurrentVersion={setCurrentVersion}/>
             </div>
             
             : <></>}

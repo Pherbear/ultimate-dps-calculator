@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-export default function Boosts({stats, setStats}) {
+export default function Boosts({stats, setStats, setAllData, allData}) {
 
     const [boosts, setBoosts] = useState({
         Attack: '',
@@ -17,6 +17,15 @@ export default function Boosts({stats, setStats}) {
         Magic: '',
         Ranged: ''
     })
+
+    useEffect(() => {
+        setAllData({
+            ...allData,
+            boostedStats: boostedStats
+        })
+    }, [boostedStats])
+
+
 
     function handleAttackChange(e) {
         setBoosts({
@@ -208,8 +217,6 @@ export default function Boosts({stats, setStats}) {
             MagicBoosted: MagicBoosted,
             RangedBoosted: RangedBoosted
         })
-
-        console.log(boostedStats)
     },[boosts, stats])
 
     return (

@@ -3,8 +3,9 @@ import Stat from './Stat'
 import './Stats.css'
 import Boosts from './Boosts'
 import Prayer from '../Prayer/Prayer'
+import { all } from 'axios'
 
-export default function Stats({ stats, changeStat, setStats }) {
+export default function Stats({ stats, changeStat, setStats, setAllData, allData }) {
     return (
         <div className='StatsAndBoost'>        
         <div className='Container'>
@@ -17,10 +18,10 @@ export default function Stats({ stats, changeStat, setStats }) {
             )})}
         </div>
         <div>
-            <Boosts stats={stats} setStats={setStats}/>
+            <Boosts stats={stats} setStats={setStats} setAllData={setAllData} allData={allData}/>
         </div>
         <div>
-            <Prayer/>
+            <Prayer setAllData={setAllData} allData={allData}/>
         </div>
         </div>
     )

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import './Prayer.css'
 
-export default function Prayer() {
+export default function Prayer({allData, setAllData}) {
     
     const [prayers, setPrayer] = useState({
         Attack: '',
@@ -10,6 +10,13 @@ export default function Prayer() {
         Magic: '',
         Ranged: ''
     })
+
+    useEffect(() => {
+        setAllData({
+            ...allData,
+            prayers: prayers
+        })
+    },[prayers])
 
     function handleAttackChange(e) {
         setPrayer({
@@ -41,10 +48,6 @@ export default function Prayer() {
             Ranged: e.target.value
         })
     }
-
-    useEffect(() => {
-        console.log(prayers)
-    }, [prayers])
 
     return (
         <div className='prayer-container'>

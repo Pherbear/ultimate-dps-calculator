@@ -55,7 +55,7 @@ function getEquipmentData(item_name) {
   })
 }
 
-export default function Equipment() {
+export default function Equipment({allData, setAllData}) {
 
   const [totalStats, setTotalStats] = useState({
     crush: 0,
@@ -82,6 +82,14 @@ export default function Equipment() {
     ring: '',
     setName: ''
   })
+
+  useEffect(() => {
+    setAllData({
+      ...allData,
+      equipment: equipment,
+      equipmentStats: totalStats
+    })
+  },[equipment, totalStats])
 
   useEffect(() => {
     let crush = 0
