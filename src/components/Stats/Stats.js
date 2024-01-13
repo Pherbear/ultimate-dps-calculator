@@ -3,7 +3,6 @@ import Stat from './Stat'
 import './Stats.css'
 import Boosts from './Boosts'
 import Prayer from '../Prayer/Prayer'
-import { all } from 'axios'
 
 export default function Stats({ stats, changeStat, setStats, setAllData, allData }) {
     return (

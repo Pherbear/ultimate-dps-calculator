@@ -86,7 +86,8 @@ export default function Specs({currentVersion, setCurrentVersion}) {
         setSpecs({
             DWH: 0,
             BGS: 0,
-            ARC: 0
+            ARC: 0,
+            ACS: 0
         })
 
         setCurrentVersion({

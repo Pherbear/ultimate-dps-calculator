@@ -5,7 +5,6 @@ export default function MonsterGetImage(currentMonster) {
 }
 
 function formatString(input) {
-    console.log(input)
     const [fileName] = input.split('#');
 
     return fileName

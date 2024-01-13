@@ -5,7 +5,7 @@ import './DPS.css'
 export default function DPS({ allData }) {
 
     useEffect(() => {
-        
+        // console.log(allData)
     }, [allData])
 
     const [maxHit, setMaxHit] = useState(1)
@@ -25,7 +25,7 @@ export default function DPS({ allData }) {
             <div>
                 Hit Chance: {hitChance}%
             </div>
-            <SetBonuses setSetBonues={setSetBonuses} setBonuses={setBonuses} equipment={allData.equipment}/>
+            <SetBonuses setSetBonuses={setSetBonuses} setBonuses={setBonuses} equipment={allData.equipment}/>
         </div>
     )
 }

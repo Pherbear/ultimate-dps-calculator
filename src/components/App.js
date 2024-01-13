@@ -5,7 +5,6 @@ import Equipment from './Equipment/Equipment'
 import Monster from './Monsters/Monster';
 import DPS from './DPS/DPS';
 import './App.css'
-import { all } from 'axios';
 
 function App() {
 

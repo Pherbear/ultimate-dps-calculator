@@ -25,10 +25,6 @@ export default function Monster({allData, setAllData}) {
             fetchMonsterData(searchedMonster)
         }
     }, [searchedMonster])
-    
-    useEffect(() => {
-        console.log(currentMonster)
-    },[currentMonster])
 
     useEffect(() => {
         setAllData({
