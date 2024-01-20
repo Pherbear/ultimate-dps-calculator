@@ -10,29 +10,43 @@ import Bottom_Left from './Images/Attack_Bottom_Left.jpeg'
 import { typeToDataMap } from './DataMap'
 import { unarmed } from './Types/Unarmed'
 
-export default function WeaponDisplay({ weapon, type }) {
-    const [style, setStyle] = useState('top_right')
+export default function WeaponDisplay({ weapon, type, setAllData, allData}) {
+
+    const [style, setStyle] = useState('')
     const [img, setImg] = useState(Top_Right)
     const [data, setData] = useState(unarmed)
+    const [selectedStyle, setSelectedStyle] = useState('none')
 
     useEffect(() => {
         const dataType = typeToDataMap[type]
         setData(dataType)
+        setStyle('top_right')
     },[type])
+
+    useEffect(()=>{
+        setAllData({
+            ...allData,
+            style: selectedStyle
+        })
+    },[selectedStyle])
 
     useEffect(() => {
         switch (style) {
             case 'top_right':
                 setImg(Top_Right)
+                setSelectedStyle(data.TopRight)
                 break;
             case 'top_left':
                 setImg(Top_Left)
+                setSelectedStyle(data.TopLeft)
                 break;
             case 'bottom_left':
                 setImg(Bottom_Left)
+                setSelectedStyle(data.BottomLeft)
                 break;
             case 'bottom_right':
                 setImg(Bottom_Right)
+                setSelectedStyle(data.BottomRight)
                 break;
             default:
                 break;

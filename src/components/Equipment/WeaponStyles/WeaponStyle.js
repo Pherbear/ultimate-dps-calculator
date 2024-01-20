@@ -3,7 +3,7 @@ import ScytheCharge from './ScytheCharge'
 import WeaponDisplay from './WeaponDisplay'
 import BlowpipeDarts from './BlowpipeDarts'
 
-export default function WeaponStyle({ equipment, setEquipment }) {
+export default function WeaponStyle({ equipment, setEquipment, setAllData, allData }) {
     const [type, setType] = useState('Unarmed')
     const [item, setItem] = useState('')
 
@@ -19,7 +19,7 @@ export default function WeaponStyle({ equipment, setEquipment }) {
         <div>
             {type == 'Scythe'? <><ScytheCharge equipment={equipment} setEquipment={setEquipment}/></>:''}
             {(item == 'Toxic_blowpipe' || item == 'Blazing_blowpipe')? <BlowpipeDarts setEquipment={setEquipment} equipment={equipment}/> : ''}
-            <WeaponDisplay weapon={equipment.mainhand} type={type}/>
+            <WeaponDisplay weapon={equipment.mainhand} type={type} setAllData={setAllData} allData={allData}/>
         </div>
     )
 }

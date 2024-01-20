@@ -1,4 +1,5 @@
 export const MonsterList = {
+    "Abyssal Demon" : "Abyssal+demon%23Standard",
     "Kree'arra": "Kree%27arra",
     "Commander Zilyana": "Commander+Zilyana",
     "Galvek": "Galvek%23Air",

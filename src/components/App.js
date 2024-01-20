@@ -8,7 +8,15 @@ import './App.css'
 
 function App() {
 
-  const [allData, setAllData] = useState('')
+  const [allData, setAllData] = useState({
+    stats: '',
+    style: '',
+    boostedStats: '',
+    equipment: '',
+    equipmentStats: '',
+    prayers: '',
+    currentVersion: ''
+  })
 
   const [stats, setStats] = useState({
     Attack: 99,

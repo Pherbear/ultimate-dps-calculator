@@ -189,7 +189,7 @@ export default function Equipment({allData, setAllData}) {
     <div>
       <SaveEquip equipment={equipment} setEquipment={setEquipment}/>
       <div className='Displays'>
-        <WeaponStyle equipment={equipment} setEquipment={setEquipment}/>
+        <WeaponStyle equipment={equipment} setEquipment={setEquipment} setAllData={setAllData} allData={allData}/>
         <div className='itemsAndStats'>
           <div className='container'>
             {Object.entries(equipment).map(([slot, item]) => { 

@@ -28,7 +28,6 @@ export const Necks = [
    "Bandos stole",
    "Beads of the dead",
    "Berserker necklace",
-   "Berserker necklace (or)",
    "Binding necklace",
    "Bobble scarf",
    "Bonecrusher necklace",

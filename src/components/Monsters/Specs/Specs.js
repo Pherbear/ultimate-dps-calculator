@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import '../MonsterDisplay.css'
 import Arclight from './specIcons/Arclight.webp'
 import BandosGodsword from './specIcons/Bandos_godsword.webp'
 import DragonWarhammer from './specIcons/Dragon_warhammer.webp'
 import AccursedSceptre from './specIcons/Accursed_sceptre_(u).webp'
+import Slayer from './specIcons/Slayer_icon.png'
 
-export default function Specs({currentVersion, setCurrentVersion}) {
+export default function Specs({ currentVersion, setCurrentVersion }) {
 
     const [specs, setSpecs] = useState({
         ACS: 0,
@@ -14,12 +15,13 @@ export default function Specs({currentVersion, setCurrentVersion}) {
         ARC: 0
     })
 
+    const [slayerTask, setSlayerTask] = useState(false)
+
     function handleDWHChange(e) {
         setSpecs({
             ...specs,
             DWH: e.target.value
         })
-        console.log(specs)
     }
 
     function handleBGSChange(e) {
@@ -45,14 +47,13 @@ export default function Specs({currentVersion, setCurrentVersion}) {
 
     function ApplySpecs(e) {
         e.preventDefault()
-        console.log(currentVersion)
 
         let speced_levels = {
-            def_level : currentVersion.data.Defence_level,
-            str_level : currentVersion.data.Strength_level,
-            att_level : currentVersion.data.Attack_level,
-            mag_level : currentVersion.data.Magic_level,
-            rng_level : currentVersion.data.Ranged_level,
+            def_level: currentVersion.data.Defence_level,
+            str_level: currentVersion.data.Strength_level,
+            att_level: currentVersion.data.Attack_level,
+            mag_level: currentVersion.data.Magic_level,
+            rng_level: currentVersion.data.Ranged_level,
         }
 
         handleAccursedSpectre(speced_levels, specs.ACS)
@@ -65,22 +66,28 @@ export default function Specs({currentVersion, setCurrentVersion}) {
             ...currentVersion,
             data: {
                 ...currentVersion.data,
-                Defence_level_Spec : speced_levels.def_level,
+                Defence_level_Spec: speced_levels.def_level,
                 Strength_level_Spec: speced_levels.str_level,
                 Attack_level_Spec: speced_levels.att_level,
                 Magic_level_Spec: speced_levels.mag_level,
                 Ranged_level_Spec: speced_levels.rng_level
-            }
+            },
+            slayerTask: slayerTask
         })
+
     }
+
+    useEffect(() => {
+        console.log(currentVersion)
+    }, [currentVersion])
 
     function ResetSpecs() {
         let speced_levels = {
-            def_level : currentVersion.data.Defence_level,
-            str_level : currentVersion.data.Strength_level,
-            att_level : currentVersion.data.Attack_level,
-            mag_level : currentVersion.data.Magic_level,
-            rng_level : currentVersion.data.Ranged_level,
+            def_level: currentVersion.data.Defence_level,
+            str_level: currentVersion.data.Strength_level,
+            att_level: currentVersion.data.Attack_level,
+            mag_level: currentVersion.data.Magic_level,
+            rng_level: currentVersion.data.Ranged_level,
         }
 
         setSpecs({
@@ -94,7 +101,7 @@ export default function Specs({currentVersion, setCurrentVersion}) {
             ...currentVersion,
             data: {
                 ...currentVersion.data,
-                Defence_level_Spec : speced_levels.def_level,
+                Defence_level_Spec: speced_levels.def_level,
                 Strength_level_Spec: speced_levels.str_level,
                 Attack_level_Spec: speced_levels.att_level,
                 Magic_level_Spec: speced_levels.mag_level,
@@ -105,12 +112,12 @@ export default function Specs({currentVersion, setCurrentVersion}) {
     }
 
     function handleWarhammers(stats, hammers) {
-        for (let i = 0; i < hammers; i++){
+        for (let i = 0; i < hammers; i++) {
             stats.def_level = stats.def_level - Math.floor(stats.def_level * .3)
         }
     }
 
-    function handleBandosSpec(stats, damage){
+    function handleBandosSpec(stats, damage) {
         let remainDamage = damage
         if (remainDamage > stats.def_level) {
             remainDamage = remainDamage - stats.def_level
@@ -124,7 +131,7 @@ export default function Specs({currentVersion, setCurrentVersion}) {
                     if (remainDamage > stats.mag_level) {
                         remainDamage = remainDamage - stats.mag_level
                         stats.mag_level = 0
-                        if ( remainDamage > stats.rng_level) {
+                        if (remainDamage > stats.rng_level) {
                             remainDamage = remainDamage - stats.rng_level
                             stats.rng_level = 0
                         } else {
@@ -148,32 +155,39 @@ export default function Specs({currentVersion, setCurrentVersion}) {
             remainDamage = 0
         }
 
-        console.log(stats)
     }
 
-    function handleArclightSpec(truestats, stats, hits){
-        console.log(stats)
+    function handleArclightSpec(truestats, stats, hits) {
 
-        let bonus = (truestats.Monster_attribute == "demon")? .1 : .05
+        let bonus = (truestats.Monster_attribute == "demon") ? .1 : .05
 
         stats.str_level = Math.max(stats.str_level - Math.floor(((truestats.Strength_level * bonus) + 1) * hits), 0)
         stats.att_level = Math.max(stats.att_level - Math.floor(((truestats.Attack_level * bonus) + 1) * hits), 0)
         stats.def_level = Math.max(stats.def_level - Math.floor(((truestats.Defence_level * bonus) + 1) * hits), 0)
     }
 
-    function handleAccursedSpectre(stats, hits){
+    function handleAccursedSpectre(stats, hits) {
         if (hits > 0) {
             stats.def_level = stats.def_level - Math.floor(stats.def_level * .15)
             stats.mag_level = stats.mag_level - Math.floor(stats.mag_level * .15)
         }
     }
 
+    function handleSlayerTask(e){
+        setSlayerTask(e.target.checked)
+    }
+
 
     return (
         <div className='specs'>
             <div className='all-specs'>
-            <div className='spec-input'>
-                    <img src={AccursedSceptre} />
+                <div className='spec-input'>
+                    <img src={Slayer} />
+                    <a>Slayer Task</a>
+                    <input className='number-input' type='checkbox' onChange={handleSlayerTask} value={slayerTask}></input>
+                </div>
+                <div className='spec-input'>
+                    <img src={AccursedSceptre}/>
                     <a>Accursed Sceptre</a>
                     <input type="number" className='number-input' min='0' onChange={handleACSChange} value={specs.ACS}></input>
                 </div>
