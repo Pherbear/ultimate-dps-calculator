@@ -12,9 +12,39 @@ function App() {
     stats: '',
     style: '',
     boostedStats: '',
-    equipment: '',
-    equipmentStats: '',
-    prayers: '',
+    equipment: {
+      mainhand: '',
+      offhand: '',
+      cape: '',
+      ammo: '',
+      helmet: '',
+      body: '',
+      legs: '',
+      hands: '',
+      feet: '',
+      neck: '',
+      ring: ''
+    },
+    equipmentStats: {
+      crush: 0,
+      slash: 0,
+      stab: 0,
+      magic: 0,
+      range: 0,
+      melee_str: 0,
+      magic_dmg: 0,
+      range_str: 0
+    },
+    prayers: {
+      Attack: 1,
+      Strength: 1,
+      Defence: 1,
+      Magic: 1,
+      Ranged: {
+        strength: 1,
+        attack: 1
+    }
+  },
     currentVersion: ''
   })
 

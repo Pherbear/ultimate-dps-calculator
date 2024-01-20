@@ -4,11 +4,14 @@ import './Prayer.css'
 export default function Prayer({ allData, setAllData }) {
 
     const [prayers, setPrayer] = useState({
-        Attack: '',
-        Strength: '',
-        Defence: '',
-        Magic: '',
-        Ranged: ''
+        Attack: 1,
+        Strength: 1,
+        Defence: 1,
+        Magic: 1,
+        Ranged: {
+            strength: 1,
+            attack: 1
+        }
     })
 
     useEffect(() => {

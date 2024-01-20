@@ -57,6 +57,8 @@ export default function SaveEquip({ equipment, setEquipment }) {
               })
     }
 
+    
+
     return (
         <div>
             <form>

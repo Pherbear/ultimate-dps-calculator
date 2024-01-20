@@ -28,6 +28,7 @@ export default function WeaponDisplay({ weapon, type, setAllData, allData}) {
             ...allData,
             style: selectedStyle
         })
+        console.log(selectedStyle)
     },[selectedStyle])
 
     useEffect(() => {

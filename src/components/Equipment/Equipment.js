@@ -166,6 +166,9 @@ export default function Equipment({allData, setAllData}) {
       if(item_info.arange1){
         arange = item_info.arange1
       }
+      if(parseInt(item_info.arange2) > parseInt(item_info.arange1)){
+        arange = item_info.arange2
+      }
       if(item_info.rstr2){
         rstr = item_info.rstr2
       }

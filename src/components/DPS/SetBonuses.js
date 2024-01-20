@@ -151,18 +151,34 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
   }
 
   function crystalCheck(mainhand, helmet, body, legs) {
-    let crystalBonus = 1
+    let crystalStrBonus = 1
+    let crystalAttBonus = 1
 
     if (!(mainhand == 'Crystal_bow' || mainhand == 'Bow_of_faerdhinen')) {
-      setCrystalBonus(crystalBonus)
+      setCrystalBonus({
+        attack: crystalAttBonus,
+        strength: crystalStrBonus
+      })
       return
     }
 
-    if (helmet == 'Crystal_helm') crystalBonus += .025
-    if (body == 'Crystal_body') crystalBonus += .075
-    if (legs == 'Crystal_legs') crystalBonus += .05
+    if (helmet == 'Crystal_helm') {
+      crystalStrBonus += .025
+      crystalAttBonus += .05
+    }
+    if (body == 'Crystal_body') {
+      crystalStrBonus += .075
+      crystalAttBonus += .15
+    }
+    if (legs == 'Crystal_legs') {
+      crystalStrBonus += .05
+      crystalAttBonus += .1
+    }
 
-    setCrystalBonus(crystalBonus)
+    setCrystalBonus({
+      attack: crystalAttBonus,
+      strength: crystalStrBonus
+    })
   }
 
   function obsidianCheck(mainhand, helmet, body, legs, neck) {
