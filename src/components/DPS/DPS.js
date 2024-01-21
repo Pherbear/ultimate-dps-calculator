@@ -29,12 +29,13 @@ export default function DPS({ allData }) {
         setDamageType(allData.style.attack)
         DPSCalc()
     }, [])
-
+    
     function DPSCalc() {
         let maxHit = 0
         let equipment_bonus = 0
         let max_attack_roll = 1
         let hitChance = 1
+        let max_defence_roll = 1
 
         if (damageType == 'Crush' || damageType == 'Stab' || damageType == 'Slash') {
             //melee dps
@@ -94,7 +95,7 @@ export default function DPS({ allData }) {
 
             max_attack_roll = max_attack_roll * passive_boost
         } else if (damageType == 'Magic') {
-            //mage dps
+            
         } else if (damageType == 'Ranged') {
             //ranged dps
             let effective_range_str = 0
@@ -127,13 +128,6 @@ export default function DPS({ allData }) {
             console.log(rangeAttPrayer)
         }
 
-        if (damageType == 'Crush' || damageType == 'Stab' || damageType == 'Slash') {
-
-
-
-
-        }
-
         let stats
         if (allData.currentVersion) {
             stats = allData.currentVersion.data
@@ -147,7 +141,7 @@ export default function DPS({ allData }) {
                 Ranged_defence_bonus: 0
             }
         }
-        let max_defence_roll = 1
+        
 
         if (damageType == 'Crush' || damageType == 'Stab' || damageType == 'Slash') {
             let def_level = (stats.Defence_level_Spec || stats.Defence_level_Spec == 0) ? stats.Defence_level_Spec : stats.Defence_level
