@@ -166,10 +166,10 @@ export default function Boosts({stats, setStats, setAllData, allData}) {
             case 'Forgotten brew':
                 MagicBoosted = MagicBoosted + 3 + (Math.floor(MagicBoosted * 0.08))
                 break;
-            case 'Imbued Heart':
+            case 'Imbued heart':
                 MagicBoosted = MagicBoosted + 1 + (Math.floor(MagicBoosted * 0.1))
                 break;
-            case 'Saturated Heart':
+            case 'Saturated heart':
                 MagicBoosted = MagicBoosted + 4 + (Math.floor(MagicBoosted * 0.1))
                 break;
             case 'Overload (-)':

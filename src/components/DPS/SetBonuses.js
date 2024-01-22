@@ -32,7 +32,7 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
     },
     magic: {
       attack: 1,
-      strength: 1
+      strength: 0
     },
   })
   const [inqBonus, setInqBonus] = useState(0)
@@ -93,7 +93,7 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
       },
       magic: {
         attack: 1,
-        strength: 1
+        strength: 0
       }
     })
     else if (status == 'normal') {
@@ -113,13 +113,13 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
     } else if (status == 'elite') {
       switch (helm) {
         case 'mage':
-          setVoidSet({ melee: 1, ranged: {attack: 1, strength: 1}, magic: {attack: 1.45, strength: 1.025}})
+          setVoidSet({ melee: 1, ranged: {attack: 1, strength: 1}, magic: {attack: 1.45, strength: .025}})
           break;
         case 'melee':
-          setVoidSet({ melee: 1.1, ranged: {attack: 1, strength: 1}, magic: {attack: 1, strength: 1}})
+          setVoidSet({ melee: 1.1, ranged: {attack: 1, strength: 1}, magic: {attack: 1, strength: 0}})
           break;
         case 'range':
-          setVoidSet({ melee: 1, ranged: {attack: 1.1, strength: 1.125}, magic: {attack: 1, strength: 1}})
+          setVoidSet({ melee: 1, ranged: {attack: 1.1, strength: 1.125}, magic: {attack: 1, strength: 0}})
           break;
         default:
           break;
@@ -215,20 +215,20 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
     let slayerbonus = {
       melee: 1,
       range: 1,
-      magic: 1
+      magic: 0
     }
 
     if (helm == 'Slayer_helmet_(i)') {
       slayerbonus = {
         melee: 7/6,
         range: 1.15,
-        magic: 1.15
+        magic: .15
       }
     } else if (helm == 'Slayer_helmet') {
       slayerbonus = {
         melee: 7/6,
         range: 1,
-        magic: 1
+        magic: 0
       }
     }
     setSlayerBonus(slayerbonus)

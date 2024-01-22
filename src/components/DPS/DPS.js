@@ -4,6 +4,8 @@ import './DPS.css'
 import Prayer from '../Prayer/Prayer'
 import {findMagicBaseMaxHit, findSpellMaxHit} from './magicMaxHit'
 
+
+
 export default function DPS({ allData }) {
 
     const [damageType, setDamageType] = useState('none')
@@ -98,11 +100,46 @@ export default function DPS({ allData }) {
             max_attack_roll = max_attack_roll * passive_boost
         } else if (damageType == 'Magic') {
             let magicLevel = (allData ? allData.boostedStats ? allData.boostedStats.MagicBoosted : allData.stats.Magic : allData.stats.Magic)
+            let weapon = allData? (allData.equipment.mainhand? allData.equipment.mainhand.itemname : false) : false
             let baseMaxHit
             if (spellSelected) baseMaxHit = findSpellMaxHit(spellSelected)
-            else baseMaxHit = findMagicBaseMaxHit(allData.equipment.mainhand.itemname, magicLevel)
+            else baseMaxHit = findMagicBaseMaxHit(weapon, magicLevel)
 
+            let visible_bonus = (allData.equipmentStats.magic_dmg) / 100
+            let void_bonus = setBonuses.void.magic.strength
+            let shadow_bonus = 1
+            if (weapon == 'Tumeken%27s_shadow' && !spellSelected) {
+                shadow_bonus = 3
+            }
+            let salve_bonus = 0
+            let averice_bonus = 0
+            let smokestaff_bonus = 0
+            let virtus_bonus = 0
 
+            let primary_magic_damage = Math.floor(baseMaxHit * (1 + Math.min(1, visible_bonus * shadow_bonus) + void_bonus + salve_bonus + averice_bonus + smokestaff_bonus + virtus_bonus))
+
+            let ahrims_bonus = 0
+            let slayer_bonus = 0
+            if (allData.currentVersion.slayerTask) slayer_bonus = setBonuses.slayerBonus.magic
+            let sceptre_wilderness_bonus = 0
+
+            let secondary_magic_damage = Math.floor(primary_magic_damage * (1 + ahrims_bonus + slayer_bonus + sceptre_wilderness_bonus))
+
+            let tomeOfFire_bonus = 0
+            let tomeOfWater_bonus = 0
+            let markOfDarkness = 0
+
+            let post_hit_roll = Math.floor(secondary_magic_damage * (1 + tomeOfFire_bonus + tomeOfWater_bonus + markOfDarkness))
+            maxHit = post_hit_roll
+
+            let style_bonus = 0
+            if (allData.style.name == 'Accurate') style_bonus = 2
+            let prayer_bonus = allData ? (allData.prayers ? allData.prayers.Magic : 1) : (1)
+
+            let effective_level = Math.floor(Math.floor(magicLevel * prayer_bonus) * setBonuses.void.magic.attack + style_bonus + 9)
+            let equipment_bonus = allData.equipmentStats.magic
+
+            max_attack_roll = Math.floor(effective_level * (equipment_bonus + 64) * (slayer_bonus + 1))
         } else if (damageType == 'Ranged') {
             //ranged dps
             let effective_range_str = 0

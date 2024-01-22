@@ -1,43 +1,3 @@
-function findMagicBaseMaxHit(itemname, level) {
-    return formulas[itemname](level)
-}
-
-function findSpellMaxHit(spell) {
-    return spells[spell]
-}
-const formulas = {
-    "Tumeken%27s_shadow": function(level) {
-        return Math.floor((level/3) + 1)
-    },
-    "Accursed_sceptre": function(level) {
-        return (level/3) - 6
-    },
-    "Thammaron%27s_sceptre": function(level) {
-        return Math.floor(level/3) - 8
-    },
-    "Trident_of_the_seas": function(level) {
-        return Math.floor(level/3) - 5
-    },
-    "Trident_of_the_swamp": function(level) {
-        return Math.floor(level/3) - 2
-    },
-    "Sanguinesti_staff": function(level) {
-        return (level/3) - 1
-    },
-    "Swamp_lizard": function(level) {
-        return Math.floor(.5 + (level * 120 / 640))
-    },
-    "Orange_salamander": function(level) {
-        return Math.floor(.5 + (level * 123 / 640))
-    },
-    "Red_salamander" : function(level) {
-        return Math.floor(.5 + (level * 141 / 640))
-    },
-    "Black_salamander": function(level) {
-        return Math.floor(.5 + (level * 156 / 640))
-    }
-}
-
 const spells = {
     //standard
     "Wind Strike": 2,
@@ -92,5 +52,3 @@ const spells = {
     "Superior Demonbane": 23,
     "Dark Demonbane": 30,
 }
-
-export {findMagicBaseMaxHit, findSpellMaxHit}
