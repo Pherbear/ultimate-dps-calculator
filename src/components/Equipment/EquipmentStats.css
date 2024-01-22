@@ -20,4 +20,10 @@
     gap: 5px;
     padding-left: 10px;
     padding-top: 10px;
+    background-color: rgb(106, 76, 53);
+}
+
+.stats-container a {
+    color: rgb(218, 161, 17);
+    text-shadow: 1px 1px 2px black;
 }

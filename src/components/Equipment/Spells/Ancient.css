@@ -1,0 +1,93 @@
+.ancient {
+    background-image: url('./Spellbooks/Ancient\ Spells.jpeg');
+    width: 204px;
+    height: 275px;
+}
+.ancient div{
+    position: relative;
+    display: flex;
+    width: 23px;
+    height: 23px;
+    background: blue;
+    opacity: 0.3;
+}
+
+.Smoke-Rush {
+    left: 19px;
+    top: 33px;
+}
+
+.Shadow-Rush {
+    left: 66px;
+    top: 10px;
+}
+
+.Blood-Rush {
+    left: 112px;
+    top: -13px;
+}
+
+.Ice-Rush {
+    left: 160px;
+    top: -36px;
+}
+
+.Smoke-Burst {
+    left: 19px;
+    top: -12px;
+}
+
+.Shadow-Burst {
+    left: 66px;
+    top: -34px;
+}
+
+.Blood-Burst {
+    left: 112px;
+    top: -58px;
+}
+
+.Ice-Burst {
+    left: 160px;
+    top: -80px;
+}
+
+.Smoke-Blitz {
+    left: 19px;
+    top: -54px;
+}
+
+.Shadow-Blitz {
+    left: 66px;
+    top: -77px;
+}
+
+.Blood-Blitz {
+    left: 112px;
+    top: -100px;
+}
+
+.Ice-Blitz {
+    left: 160px;
+    top: -123px;
+}
+
+.Smoke-Barrage {
+    left: 19px;
+    top: -100px;
+}
+
+.Shadow-Barrage {
+    left: 66px;
+    top: -122px;
+}
+
+.Blood-Barrage {
+    left: 112px;
+    top: -145px;
+}
+
+.Ice-Barrage {
+    left: 160px;
+    top: -167px;
+}

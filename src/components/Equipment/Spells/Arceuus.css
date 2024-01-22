@@ -1,0 +1,38 @@
+.arceuus {
+    background-image: url('./Spellbooks/Arceuus\ Spells.jpeg');
+    width: 204px;
+    height: 275px;
+}
+.arceuus div{
+    position: relative;
+    display: flex;
+    width: 23px;
+    height: 23px;
+    background: blue;
+    opacity: 0.3;
+}
+
+.Inferior-Demonbane{
+    left: 45px;
+    top: 55px;
+}
+.Superior-Demonbane{
+    left: 92px;
+    top: 33px;
+}
+.Dark-Demonbane{
+    left: 138px;
+    top: 10px;
+}
+.Ghostly-Grasp{
+    left: 45px;
+    top: 39px;
+}
+.Skeletal-Grasp{
+    left: 92px;
+    top: 15px;
+}
+.Undead-Grasp{
+    left: 138px;
+    top: -7px;
+}

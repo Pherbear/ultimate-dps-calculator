@@ -45,7 +45,12 @@ function App() {
         attack: 1
     }
   },
-    currentVersion: ''
+    currentVersion: '',
+    spell: {
+      selectedSpell: false,
+      spellbook: 'standard',
+      element: 'none'
+  }
   })
 
   const [stats, setStats] = useState({

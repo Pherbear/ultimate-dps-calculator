@@ -193,7 +193,7 @@ export default function Equipment({allData, setAllData}) {
     <div>
       <SaveEquip equipment={equipment} setEquipment={setEquipment}/>
       <div className='Displays'>
-        <Spells/>
+        <Spells allData ={allData} setAllData={setAllData}/>
         <WeaponStyle equipment={equipment} setEquipment={setEquipment} setAllData={setAllData} allData={allData}/>
         <div className='itemsAndStats'>
           <div className='container'>

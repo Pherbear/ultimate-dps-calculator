@@ -43,5 +43,101 @@
 }
 
 .Earth-Bolt {
-    
+    left: 112px;
+    top: -78px;
+}
+
+.Fire-Bolt {
+    left: 155px;
+    top: -99px;
+}
+
+.Wind-Blast {
+    left: 23px;
+    top: -92px;
+}
+
+.Water-Blast {
+    left: 67px;
+    top: -115px;
+}
+
+.Earth-Blast {
+    left: 112px;
+    top: -140px;
+}
+
+.Fire-Blast {
+    left: 155px;
+    top: -162px;
+}
+
+.Wind-Wave {
+    left: 23px;
+    top: -155px;
+}
+
+.Water-Wave {
+    left: 67px;
+    top: -178px;
+}
+
+.Earth-Wave {
+    left: 112px;
+    top: -200px;
+}
+
+.Fire-Wave {
+    left: 155px;
+    top: -222px;
+}
+
+.Wind-Surge {
+    left: 23px;
+    top: -215px;
+}
+
+.Water-Surge {
+    left: 67px;
+    top: -238px;
+}
+
+.Earth-Surge {
+    left: 112px;
+    top: -262px;
+}
+
+.Fire-Surge {
+    left: 155px;
+    top: -286px;
+}
+
+.Iban-Blast {
+    left: 23px;
+    top: -280px;
+}
+
+.Saradomin-Strike{
+    left: 67px;
+    top: -303px;
+}
+
+.Claws-of-Guthix{
+    left: 112px;
+    top: -328px;
+}
+
+.Flames-of-Zamorak{
+    left: 155px;
+    top: -351px;
+}
+
+.Crumble-Undead{
+    left: 23px;
+    top: -341px;
+}
+
+.Magic-Dart{
+    left: 67px;
+    top: -365px;
 }

@@ -10,6 +10,8 @@ export default function DPS({ allData }) {
 
     const [damageType, setDamageType] = useState('none')
     const [spellSelected, setSpellSelected] = useState(false)
+    const [spellBook, setSpellBook] = useState('standard')
+    const [element, seElement] = useState('none')
 
     const [maxHit, setMaxHit] = useState(1)
     const [hitChance, setHitChance] = useState(1)
@@ -26,6 +28,7 @@ export default function DPS({ allData }) {
     useEffect(() => {
         console.log(allData, setBonuses)
         setDamageType(allData.style.attack)
+        setSpellSelected(allData.spell.selectedSpell)
         DPSCalc()
     }, [allData, damageType])
 
@@ -40,6 +43,8 @@ export default function DPS({ allData }) {
         let max_attack_roll = 1
         let hitChance = 1
         let max_defence_roll = 1
+
+        if (spellSelected) setDamageType('Magic')
 
         if (damageType == 'Crush' || damageType == 'Stab' || damageType == 'Slash') {
             //melee dps
@@ -102,8 +107,10 @@ export default function DPS({ allData }) {
             let magicLevel = (allData ? allData.boostedStats ? allData.boostedStats.MagicBoosted : allData.stats.Magic : allData.stats.Magic)
             let weapon = allData? (allData.equipment.mainhand? allData.equipment.mainhand.itemname : false) : false
             let baseMaxHit
-            if (spellSelected) baseMaxHit = findSpellMaxHit(spellSelected)
+            if (spellSelected) baseMaxHit = findSpellMaxHit(spellSelected, weapon, magicLevel, allData.currentVersion.slayerTask)
             else baseMaxHit = findMagicBaseMaxHit(weapon, magicLevel)
+
+            console.log(baseMaxHit)
 
             let visible_bonus = (allData.equipmentStats.magic_dmg) / 100
             let void_bonus = setBonuses.void.magic.strength
@@ -125,9 +132,14 @@ export default function DPS({ allData }) {
 
             let secondary_magic_damage = Math.floor(primary_magic_damage * (1 + ahrims_bonus + slayer_bonus + sceptre_wilderness_bonus))
 
+            let offhand = allData.equipment.offhand.itemname
+            let element = allData.spell.element
             let tomeOfFire_bonus = 0
             let tomeOfWater_bonus = 0
             let markOfDarkness = 0
+
+            if (offhand == 'Tome_of_fire' && element == 'Fire') tomeOfFire_bonus = .5
+            if (offhand == 'Tome_of_water' && element == 'Water') tomeOfWater_bonus = .2
 
             let post_hit_roll = Math.floor(secondary_magic_damage * (1 + tomeOfFire_bonus + tomeOfWater_bonus + markOfDarkness))
             maxHit = post_hit_roll
@@ -208,8 +220,6 @@ export default function DPS({ allData }) {
 
             max_defence_roll = effective_level * (equipment_bonus + 64)
 
-
-
         } else if (damageType == 'Magic') {
 
         } else if (damageType == 'Ranged') {
@@ -229,6 +239,9 @@ export default function DPS({ allData }) {
         let avg_attack = (maxHit * hitChance) / 2
         let attackspeed = allData.equipment ? (allData.equipment.mainhand ? allData.equipment.mainhand.speed * 0.6 : 2.4) : 2.4
         if (allData.style.name == 'Rapid') attackspeed = attackspeed - 0.6
+
+        if (spellSelected) attackspeed = 3.0
+
         let dps_calculation = avg_attack / attackspeed
 
         setHitChance(hitChance)
