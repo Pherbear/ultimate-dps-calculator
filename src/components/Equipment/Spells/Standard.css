@@ -1,0 +1,47 @@
+.standard {
+    background-image: url('./Spellbooks/Standard\ Spells.jpeg');
+    width: 204px;
+    height: 275px;
+}
+.standard div{
+    position: relative;
+    display: flex;
+    width: 23px;
+    height: 23px;
+    background: blue;
+    opacity: 0.3;
+}
+
+.Wind-Strike {
+    left: 23px;
+    top: 30px;
+}
+
+.Water-Strike {
+    left: 67px;
+    top: 7px;
+}
+
+.Earth-Strike {
+    left: 112px;
+    top: -16px;
+}
+
+.Fire-Strike {
+    left: 155px;
+    top: -39px;
+}
+
+.Wind-Bolt {
+    left: 23px;
+    top: -32px;
+}
+
+.Water-Bolt {
+    left: 67px;
+    top: -54px;
+}
+
+.Earth-Bolt {
+    
+}

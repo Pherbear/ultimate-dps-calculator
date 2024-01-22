@@ -6,6 +6,7 @@ import Item from './Item';
 import SaveEquip from './SaveEquip'
 import TotalStats from './TotalStats'
 import WeaponStyle from './WeaponStyles/WeaponStyle';
+import Spells from './Spells/Spells';
 
 function getEquipmentData(item_name) {
   return new Promise((resolve, reject) => {    
@@ -192,6 +193,7 @@ export default function Equipment({allData, setAllData}) {
     <div>
       <SaveEquip equipment={equipment} setEquipment={setEquipment}/>
       <div className='Displays'>
+        <Spells/>
         <WeaponStyle equipment={equipment} setEquipment={setEquipment} setAllData={setAllData} allData={allData}/>
         <div className='itemsAndStats'>
           <div className='container'>

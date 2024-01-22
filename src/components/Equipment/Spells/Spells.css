@@ -1,0 +1,29 @@
+.display-image {
+    background-image: url('./Spellbooks/Ancient\ Spells.jpeg');
+    background-repeat: no-repeat;
+}
+
+.spellbook-options {
+    padding-top: -15px;
+    display: flex;
+    gap: 2px;
+}
+
+.spellbook-options div {
+    width: 39px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.standard-icon {
+    background-image: url('./Spellbooks/Standard_spellbook.webp');
+}
+
+.ancient-icon {
+    background-image: url('./Spellbooks/Ancient_spellbook.webp');
+}
+
+.arceuus-icon {
+    background-image: url('./Spellbooks/Arceuus_spellbook.png')
+}
