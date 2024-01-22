@@ -52,7 +52,7 @@ export default function WeaponDisplay({ weapon, type, setAllData, allData}) {
             default:
                 break;
         }
-    },[style])
+    },[style, allData])
 
 
     return (

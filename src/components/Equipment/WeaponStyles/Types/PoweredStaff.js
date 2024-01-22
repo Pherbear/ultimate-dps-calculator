@@ -14,8 +14,8 @@ export const PoweredStaff = {
     BottomLeft:{
         name: 'Longrange',
         attack: 'Magic',
-        boost: 'Defence',
-        level: 3
+        boost: 'Magic',
+        level: 1
     },
     Type: 'powered_staff'
 }

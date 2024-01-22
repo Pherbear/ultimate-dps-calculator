@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import SetBonuses from './SetBonuses'
 import './DPS.css'
 import Prayer from '../Prayer/Prayer'
+import {findMagicBaseMaxHit, findSpellMaxHit} from './magicMaxHit'
 
 export default function DPS({ allData }) {
 
     const [damageType, setDamageType] = useState('none')
+    const [spellSelected, setSpellSelected] = useState(false)
 
     const [maxHit, setMaxHit] = useState(1)
     const [hitChance, setHitChance] = useState(1)
@@ -23,7 +25,7 @@ export default function DPS({ allData }) {
         console.log(allData, setBonuses)
         setDamageType(allData.style.attack)
         DPSCalc()
-    }, [allData])
+    }, [allData, damageType])
 
     useEffect(() => {
         setDamageType(allData.style.attack)
@@ -95,7 +97,12 @@ export default function DPS({ allData }) {
 
             max_attack_roll = max_attack_roll * passive_boost
         } else if (damageType == 'Magic') {
-            
+            let magicLevel = (allData ? allData.boostedStats ? allData.boostedStats.MagicBoosted : allData.stats.Magic : allData.stats.Magic)
+            let baseMaxHit
+            if (spellSelected) baseMaxHit = findSpellMaxHit(spellSelected)
+            else baseMaxHit = findMagicBaseMaxHit(allData.equipment.mainhand.itemname, magicLevel)
+
+
         } else if (damageType == 'Ranged') {
             //ranged dps
             let effective_range_str = 0
