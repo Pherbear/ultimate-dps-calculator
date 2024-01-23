@@ -77,10 +77,6 @@ export default function Specs({ currentVersion, setCurrentVersion }) {
 
     }
 
-    useEffect(() => {
-        console.log(currentVersion)
-    }, [currentVersion])
-
     function ResetSpecs() {
         let speced_levels = {
             def_level: currentVersion.data.Defence_level,

@@ -7,8 +7,6 @@ function findMagicBaseMaxHit(itemname, level) {
 }
 
 function findSpellMaxHit(spell, itemname, level, slayer) {
-    console.log(itemname)
-
     if (spell == 'Magic-Dart') {
         if (slayer && itemname == 'Slayer%27s_staff_(e)') {
             return Math.floor(level * (1/3)) + 13
@@ -16,7 +14,6 @@ function findSpellMaxHit(spell, itemname, level, slayer) {
             return Math.floor(level * (1/10)) + 10
         }
     }
-
     return spells[spell]
 }
 const formulas = {

@@ -17,9 +17,9 @@ export default function WeaponStyle({ equipment, setEquipment, setAllData, allDa
 
     return (
         <div>
+            <WeaponDisplay weapon={equipment.mainhand} type={type} setAllData={setAllData} allData={allData}/>
             {type == 'Scythe'? <><ScytheCharge equipment={equipment} setEquipment={setEquipment}/></>:''}
             {(item == 'Toxic_blowpipe' || item == 'Blazing_blowpipe')? <BlowpipeDarts setEquipment={setEquipment} equipment={equipment}/> : ''}
-            <WeaponDisplay weapon={equipment.mainhand} type={type} setAllData={setAllData} allData={allData}/>
         </div>
     )
 }

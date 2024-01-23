@@ -1,7 +1,7 @@
 import React from 'react'
 import './EquipmentStats.css'
 
-export default function EquipmentStats({ item }) {
+export default function EquipmentStats({ item, slot, clearItem }) {
     const link = `https://oldschool.runescape.wiki/w/${item.itemname}`.replace(/_5/g, '')
     return (
         <div className='itemStats'>
@@ -14,6 +14,7 @@ export default function EquipmentStats({ item }) {
             <a>magic dmg: {item.mdmg}%</a>
             <a>range str: {item.rstr}</a>
             {item? <a href={link}>{item.itemname.replace(/_/g, ' ').replace(/%27/g, "'")}</a> : <></>}
+            {item? <button onClick={clearItem} id={slot}>Clear Item</button> : <></>}
         </div>
     )
 }

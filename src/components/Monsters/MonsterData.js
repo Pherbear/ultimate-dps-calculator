@@ -38,8 +38,16 @@ const convertToArray = (data) => {
     const result = {};
     data.forEach(entry => {
         if (entry.dataitem && entry.dataitem.length > 0) {
+            if (entry.dataitem.length == 1) {
             const item = isNaN(entry.dataitem[0].item) ? entry.dataitem[0].item : Number(entry.dataitem[0].item);
             result [entry.property] = item
+            } else {
+                let array = []
+                for (const index in entry.dataitem) {
+                    array.push(entry.dataitem[index].item)
+                }
+                result[entry.property] = array
+            }
         }
     })
     return result

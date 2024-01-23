@@ -21,7 +21,7 @@ import {Weapons} from './Lists/Weapons'
 
 
 
-export default function Item({slot, itemname, chosenEquipment, equipment}) {
+export default function Item({slot, itemname, chosenEquipment, equipment, clearItem}) {
     
     const ref = useRef();
     const openTooltip = () => ref.current.open();
@@ -86,7 +86,7 @@ export default function Item({slot, itemname, chosenEquipment, equipment}) {
             className='item-popup'
         >
             <div className='popup'>
-                <EquipmentStats item={equipment[`${slot}`]}/>
+                <EquipmentStats item={equipment[`${slot}`]} clearItem={clearItem} slot={slot}/>
                 <Search items={searchList} chosenItem={chosenItem}/>
             </div>
         </Popup>

@@ -135,14 +135,12 @@ export default function Equipment({allData, setAllData}) {
     let item_info
     let endsWith_5 = false
     if (itemname.endsWith('_5')) {
-      console.log('ends with _5')
       itemname = itemname.replace(/_5/g, '')
       endsWith_5 = true
     }
     getEquipmentData(itemname).then(data => {
       item_info = data
       if (endsWith_5) {
-        console.log('ends with _5')
         itemname = itemname + '_5'
       }
     }).then(() => {
@@ -189,6 +187,13 @@ export default function Equipment({allData, setAllData}) {
     });
   }
 
+  function clearItem(e) {
+    setEquipment({
+      ...equipment,
+      [e.target.id]: ''
+    })
+  }
+
   return (
     <div>
       <SaveEquip equipment={equipment} setEquipment={setEquipment}/>
@@ -204,6 +209,7 @@ export default function Equipment({allData, setAllData}) {
                 itemname={item.itemname} 
                 chosenEquipment={chosenEquipment}
                 equipment={equipment}
+                clearItem={clearItem}
                 />
             )})}
           </div>

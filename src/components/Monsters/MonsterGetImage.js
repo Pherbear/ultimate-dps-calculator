@@ -1,14 +1,13 @@
 function MonsterGetImage(currentMonster) {
     let formattedString = ''
     if (currentMonster) formattedString = formatString(`${currentMonster.Image}`)
-
     return `https://oldschool.runescape.wiki/images/${formattedString}?e8bc2`
 
 }
 
 function MonsterSearchImage(monster) {
     const newstring = {Image: `${monster.replace(/ /g, '_')}.png`}
-    console.log(newstring)
+    console.log(newstring.Image)
     return MonsterGetImage(newstring)
 }
 

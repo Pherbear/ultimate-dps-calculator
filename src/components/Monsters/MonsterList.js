@@ -1,11 +1,11 @@
 export const MonsterList = {
     "Chicken" : "Chicken%23Normal",
-    "Abyssal Demon" : "Abyssal+demon%23Standard",
+    "Abyssal demon" : "Abyssal+demon%23Standard",
     "Kree'arra": "Kree%27arra",
     "Commander Zilyana": "Commander+Zilyana",
     "Galvek": "Galvek%23Air",
     "General Graardor": "General+Graardor",
-    "K'ril Tsusaroth": "K%27ril+Tsutsaroth",
+    "K'ril Tsutsaroth": "K%27ril+Tsutsaroth",
     "Crystalline Hunllef": "Crystalline+Hunllef",
     "TzTok-Jad": "TzTok-Jad",
     "Zulrah" : {

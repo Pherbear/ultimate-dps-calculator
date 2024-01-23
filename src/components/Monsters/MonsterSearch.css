@@ -1,8 +1,8 @@
 .monstersSearch{
     padding-top: 10px;
     display: grid;
-    grid-template-columns: repeat(4, 90px);
-    grid-template-rows: repeat(3, 20px);
+    grid-template-columns: repeat(4, 110px);
+    grid-template-rows: repeat(3, 40px);
     gap: 15px;
     row-gap: 20px;
 }
@@ -18,14 +18,15 @@
     flex-direction: column;
 }
 
-.search-monster img{
-    height: 85%;
+[role='tooltip'].monster-popup-content{
+    width: 500px;
+    height: 200px;
+    padding-bottom: 30px;
+}
+
+.monster-search-image{
+    height: 75%;
     width: 100%;
     object-fit: contain;
     background: rgb(149, 113, 92);
-}
-
-[role='tooltip'].monster-popup-content{
-    width: 500px;
-    padding-bottom: 30px;
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import SetBonuses from './SetBonuses'
 import './DPS.css'
 import Prayer from '../Prayer/Prayer'
-import {findMagicBaseMaxHit, findSpellMaxHit} from './magicMaxHit'
+import { findMagicBaseMaxHit, findSpellMaxHit } from './magicMaxHit'
 
 
 
@@ -10,12 +10,11 @@ export default function DPS({ allData }) {
 
     const [damageType, setDamageType] = useState('none')
     const [spellSelected, setSpellSelected] = useState(false)
-    const [spellBook, setSpellBook] = useState('standard')
-    const [element, seElement] = useState('none')
 
     const [maxHit, setMaxHit] = useState(1)
     const [hitChance, setHitChance] = useState(1)
     const [DPS, setDPS] = useState(0.25)
+    const [attackSpeed, setAttackSpeed] = useState(2.4)
 
     const [setBonuses, setSetBonuses] = useState({
         void: '',
@@ -25,8 +24,22 @@ export default function DPS({ allData }) {
         slayerBonus: ''
     })
 
+    const [monsterAttributes, setMonsterAttributes] = useState({
+        demon: false,
+        draconic: false,
+        kalphite: false,
+        leafy: false,
+        undead: false,
+        vampyre: false,
+        xerician: false,
+        fiery: false,
+        toa: false
+    })
+
+    useEffect(() => {console.log(monsterAttributes)}, [monsterAttributes])
+
     useEffect(() => {
-        console.log(allData, setBonuses)
+        console.log(allData)
         setDamageType(allData.style.attack)
         setSpellSelected(allData.spell.selectedSpell)
         DPSCalc()
@@ -36,13 +49,49 @@ export default function DPS({ allData }) {
         setDamageType(allData.style.attack)
         DPSCalc()
     }, [])
-    
+
+    useEffect(() => {
+        if (allData.currentVersion) findAttributes(allData.currentVersion.data)
+    }, [allData.currentVersion])
+
+    function findAttributes(data) {
+        if (!data.Monster_attribute) {
+            setMonsterAttributes({demon: false,draconic: false,kalphite: false,leafy: false,undead: false,vampyre: false,
+                xerician: false,fiery: false,toa: false})
+            return
+        }
+        let attributesArray = data.Monster_attribute
+        const allAttributes = ["demon", "draconic", "kalphite", "leafy", "undead", "vampyre", "xerician", "fiery", "toa"]
+        const currentAttributes = {}
+        allAttributes.forEach(item => {
+            currentAttributes[item] = attributesArray.includes(item)
+        })
+        if (attributesArray.includes('dragon')) currentAttributes['draconic'] = true
+        setMonsterAttributes(currentAttributes)
+    }
+
     function DPSCalc() {
         let maxHit = 0
         let equipment_bonus = 0
         let max_attack_roll = 1
         let hitChance = 1
         let max_defence_roll = 1
+
+        let stats
+        if (allData.currentVersion) {
+            stats = allData.currentVersion.data
+        } else {
+            stats = {
+                Defence_level: 0,
+                Crush_defence_bonus: 0,
+                Stab_defence_bonus: 0,
+                Slash_defence_bonus: 0,
+                Magic_defence_bonus: 0,
+                Magic_attack_bonus: 0,
+                Ranged_defence_bonus: 0,
+                Magic_level: 0
+            }
+        }
 
         if (spellSelected) setDamageType('Magic')
 
@@ -65,7 +114,13 @@ export default function DPS({ allData }) {
             let strPassive_boost = 1
             if (damageType == 'Crush') strPassive_boost = strPassive_boost * setBonuses.inqBonus
             strPassive_boost = strPassive_boost * setBonuses.obsidianBonus.obsidianStr
-            if (allData.currentVersion.slayerTask) strPassive_boost = strPassive_boost * setBonuses.slayerBonus.melee
+
+            let salveUsed = false
+            if (monsterAttributes.undead && (setBonuses.salveBonus.melee != 1)) {
+                strPassive_boost = strPassive_boost * setBonuses.salveBonus.melee
+                salveUsed = true
+            }
+            if (allData.currentVersion.slayerTask && !salveUsed) strPassive_boost = strPassive_boost * setBonuses.slayerBonus.melee
 
             maxHit = Math.floor(maxHit * strPassive_boost)
 
@@ -96,21 +151,18 @@ export default function DPS({ allData }) {
 
             max_attack_roll = effective_level * (equipment_attack_bonus + 64)
 
-
             let passive_boost = 1
             if (damageType == 'Crush') passive_boost = passive_boost * setBonuses.inqBonus
             passive_boost = passive_boost * setBonuses.obsidianBonus.obsidianAccuracy
-            if (allData.currentVersion.slayerTask) passive_boost = passive_boost * setBonuses.slayerBonus.melee
-
+            if (salveUsed) strPassive_boost = strPassive_boost * setBonuses.salveBonus.melee
+            if (allData.currentVersion.slayerTask && !salveUsed) passive_boost = passive_boost * setBonuses.slayerBonus.melee
             max_attack_roll = max_attack_roll * passive_boost
         } else if (damageType == 'Magic') {
             let magicLevel = (allData ? allData.boostedStats ? allData.boostedStats.MagicBoosted : allData.stats.Magic : allData.stats.Magic)
-            let weapon = allData? (allData.equipment.mainhand? allData.equipment.mainhand.itemname : false) : false
+            let weapon = allData ? (allData.equipment.mainhand ? allData.equipment.mainhand.itemname : false) : false
             let baseMaxHit
             if (spellSelected) baseMaxHit = findSpellMaxHit(spellSelected, weapon, magicLevel, allData.currentVersion.slayerTask)
             else baseMaxHit = findMagicBaseMaxHit(weapon, magicLevel)
-
-            console.log(baseMaxHit)
 
             let visible_bonus = (allData.equipmentStats.magic_dmg) / 100
             let void_bonus = setBonuses.void.magic.strength
@@ -119,6 +171,13 @@ export default function DPS({ allData }) {
                 shadow_bonus = 3
             }
             let salve_bonus = 0
+            
+            let salveUsed = false
+            if (monsterAttributes.undead && (setBonuses.salveBonus.magic != 0)) {
+                salve_bonus = setBonuses.salveBonus.magic
+                salveUsed = true
+            }
+
             let averice_bonus = 0
             let smokestaff_bonus = 0
             let virtus_bonus = 0
@@ -127,7 +186,7 @@ export default function DPS({ allData }) {
 
             let ahrims_bonus = 0
             let slayer_bonus = 0
-            if (allData.currentVersion.slayerTask) slayer_bonus = setBonuses.slayerBonus.magic
+            if (allData.currentVersion.slayerTask && !salveUsed) slayer_bonus = setBonuses.slayerBonus.magic
             let sceptre_wilderness_bonus = 0
 
             let secondary_magic_damage = Math.floor(primary_magic_damage * (1 + ahrims_bonus + slayer_bonus + sceptre_wilderness_bonus))
@@ -151,7 +210,7 @@ export default function DPS({ allData }) {
             let effective_level = Math.floor(Math.floor(magicLevel * prayer_bonus) * setBonuses.void.magic.attack + style_bonus + 9)
             let equipment_bonus = allData.equipmentStats.magic
 
-            max_attack_roll = Math.floor(effective_level * (equipment_bonus + 64) * (slayer_bonus + 1))
+            max_attack_roll = Math.floor(effective_level * (equipment_bonus + 64) * (slayer_bonus + 1) * (salve_bonus + 1))
         } else if (damageType == 'Ranged') {
             //ranged dps
             let effective_range_str = 0
@@ -167,7 +226,18 @@ export default function DPS({ allData }) {
             effective_range_str = Math.floor(Math.floor(rangeLevel * rangeStrPrayer) + styleBoost + 8) * setBonuses.void.ranged.strength
             let equipment_range_str = allData.equipmentStats.range_str
             let passive_str_boost = 1 * setBonuses.crystalBonus.strength
-            if (allData.currentVersion.slayerTask) passive_str_boost = passive_str_boost * setBonuses.slayerBonus.range
+
+            let salveUsed = false
+            if (monsterAttributes.undead && (setBonuses.salveBonus.range != 1)) {
+                passive_str_boost = passive_str_boost * setBonuses.salveBonus.range
+                salveUsed = true
+            }
+
+            if (allData.equipment.mainhand.itemname == 'Twisted_bow') {
+                passive_str_boost = passive_str_boost * twistedBowStr(stats.Magic_level, stats.Magic_attack_bonus, monsterAttributes.xerician)
+            }
+
+            if (allData.currentVersion.slayerTask && !salveUsed) passive_str_boost = passive_str_boost * setBonuses.slayerBonus.range
 
             maxHit = Math.floor(Math.floor(0.5 + ((effective_range_str * (equipment_range_str + 64)) / 640)) * passive_str_boost)
 
@@ -177,28 +247,14 @@ export default function DPS({ allData }) {
             let equipment_range_attack = allData.equipmentStats.range
 
             let passive_attack_boost = 1 * setBonuses.crystalBonus.attack
-            if (allData.currentVersion.slayerTask) passive_attack_boost = passive_attack_boost * setBonuses.slayerBonus.range
+            if (salveUsed) passive_str_boost = passive_str_boost * setBonuses.salveBonus.range
+            if (allData.currentVersion.slayerTask && !salveUsed) passive_attack_boost = passive_attack_boost * setBonuses.slayerBonus.range
 
             max_attack_roll = Math.floor(effective_range_attack * (equipment_range_attack + 64) * passive_attack_boost)
-
-            console.log(rangeAttPrayer)
         }
 
-        let stats
-        if (allData.currentVersion) {
-            stats = allData.currentVersion.data
-        } else {
-            stats = {
-                Defence_level: 0,
-                Crush_defence_bonus: 0,
-                Stab_defence_bonus: 0,
-                Slash_defence_bonus: 0,
-                Magic_defence_bonus: 0,
-                Ranged_defence_bonus: 0,
-                Magic_level: 0
-            }
-        }
-        
+
+
 
         if (damageType == 'Crush' || damageType == 'Stab' || damageType == 'Slash') {
             let def_level = (stats.Defence_level_Spec || stats.Defence_level_Spec == 0) ? stats.Defence_level_Spec : stats.Defence_level
@@ -250,21 +306,49 @@ export default function DPS({ allData }) {
 
         let dps_calculation = avg_attack / attackspeed
 
+        setAttackSpeed(attackspeed)
         setHitChance(hitChance)
         setMaxHit(maxHit)
         setDPS(dps_calculation)
     }
 
+    function twistedBowStr(magic_lvl, magic_accuracy, xerician) {
+        let selectedStat
+        if (magic_lvl > magic_accuracy) selectedStat = magic_lvl
+        else selectedStat = magic_accuracy
+
+        if (selectedStat > 250) {
+            if (xerician) {
+                if (selectedStat > 350) {
+                    selectedStat = 350
+                }
+            } else {
+                selectedStat = 250
+            }
+        }
+
+        let calculation = 250 + ((((10  * 3 * selectedStat) / 10)-10) / 100) - (Math.sqrt(((3 * selectedStat) / 10 ) - 140) / 100)
+        console.log(calculation)
+        return 1
+    }
+
+    function twistedBowAccuracy(magic_level, magic_accuracy){
+
+    }
+
     return (
         <div className='DPS-Container'>
             <div>
-                Damage Per Second: {DPS}
+                Damage Per Second: {DPS.toFixed(5)}
             </div>
             <div>
                 Max Hit: {maxHit}
             </div>
             <div>
-                Hit Chance: {hitChance * 100}%
+                Hit Chance: {(hitChance * 100).toFixed(3)}%
+            </div>
+            <div>
+                Attack Speed: {attackSpeed.toFixed(1)}
             </div>
             <SetBonuses setSetBonuses={setSetBonuses} setBonuses={setBonuses} equipment={allData.equipment} />
         </div>

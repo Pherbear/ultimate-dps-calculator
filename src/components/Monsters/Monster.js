@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import getMonsterData from './MonsterData'
 import { MonsterList } from './MonsterList';
 import Popup from 'reactjs-popup'
@@ -8,16 +8,22 @@ import Specs from './Specs/Specs';
 import './MonsterDisplay.css'
 import './MonsterSearch.css'
 
+
 export default function Monster({allData, setAllData}) {
 
     const [currentMonster, setCurrentMonster] = useState('')
     const [searchedMonster, setSearchedMonster] = useState('')
     const [currentVersion, setCurrentVersion] = useState('')
 
+    const ref = useRef();
+    const openTooltip = () => ref.current.open();
+    const closeTooltip = () => ref.current.close();
+    const toggleTooltip = () => ref.current.toggle();
+
     async function fetchMonsterData(monsterName) {
         let data = await getMonsterData(monsterName)
         setCurrentMonster(data)
-        console.log(currentMonster)
+        closeTooltip()
     }
 
     useEffect(() => {
@@ -35,7 +41,7 @@ export default function Monster({allData, setAllData}) {
 
     return (
         <div>
-            <Popup trigger={<div className='choose-monster'>Choose Monster</div>} position="bottom center" className='monster-popup'>
+            <Popup trigger={<div className='choose-monster'>Choose Monster</div>} position="bottom center" className='monster-popup' ref={ref}>
                 <MonsterSearch setCurrentMonster={setSearchedMonster}/>
             </Popup>
             {currentMonster? 

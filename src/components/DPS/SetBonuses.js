@@ -39,6 +39,7 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
   const [crystalBonus, setCrystalBonus] = useState(0)
   const [obsidianBonus, setObsidianBonus] = useState(0)
   const [slayerBonus, setSlayerBonus] = useState(0)
+  const [salveBonus, setSalveBonus] = useState(0)
 
   useEffect(() => {
     voidCheck(equipNames.helmet, equipNames.body, equipNames.legs, equipNames.hands)
@@ -46,6 +47,7 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
     crystalCheck(equipNames.mainhand, equipNames.helmet, equipNames.body, equipNames.legs)
     obsidianCheck(equipNames.mainhand, equipNames.helmet, equipNames.body, equipNames.legs, equipNames.neck)
     slayerCheck(equipNames.helmet)
+    salveCheck(equipNames.neck)
   }, [equipNames])
 
   useEffect(() => {
@@ -54,9 +56,10 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
       inqBonus: inqBonus,
       crystalBonus: crystalBonus,
       obsidianBonus: obsidianBonus,
-      slayerBonus: slayerBonus
+      slayerBonus: slayerBonus,
+      salveBonus: salveBonus
     })
-  }, [voidSet, inqBonus, crystalBonus, obsidianBonus, slayerBonus])
+  }, [voidSet, inqBonus, crystalBonus, obsidianBonus, slayerBonus, salveBonus])
 
   function voidCheck(helmet, body, legs, gloves) {
     let status = 'elite'
@@ -232,6 +235,34 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
       }
     }
     setSlayerBonus(slayerbonus)
+  }
+
+  function salveCheck(neck) {
+    let salveBonus = {
+      melee: 1,
+      magic: 0,
+      range: 1
+    }
+    if (neck == 'Salve_amulet') {
+      salveBonus = {
+        melee: 1.1667,
+        magic: 0,
+        range: 1
+      }
+    } else if (neck == 'Salve_amulet_(e)') {
+      salveBonus = {
+        melee: 1.2,
+        magic: 0,
+        range: 1
+      } 
+    } else if (neck == 'Salve_amulet(ei)') {
+        salveBonus = {
+          melee: 1.2,
+          magic: .2,
+          range: 1.2
+        }
+    }
+    setSalveBonus(salveBonus)
   }
 
   return (
