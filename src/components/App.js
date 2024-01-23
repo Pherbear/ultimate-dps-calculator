@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Stats from './Stats/Stats';
 import CombatLevel from './CombatLevel'
 import Equipment from './Equipment/Equipment'
@@ -43,14 +43,14 @@ function App() {
       Ranged: {
         strength: 1,
         attack: 1
-    }
-  },
+      }
+    },
     currentVersion: '',
     spell: {
       selectedSpell: false,
       spellbook: 'standard',
       element: 'none'
-  }
+    }
   })
 
   const [stats, setStats] = useState({
@@ -73,26 +73,32 @@ function App() {
 
   function changeStat(statName, level) {
     let use
-    if (typeof level === 'string' || level instanceof String){
+    if (typeof level === 'string' || level instanceof String) {
       use = parseInt(level)
     } else {
       use = level
     }
-    setStats({...stats, [statName]: use})
+    setStats({ ...stats, [statName]: use })
   }
 
   return (
     <div className="App">
       <div className='containerApp'>
         <div>
-          <CombatLevel stats={stats}/>
-          <Stats stats={stats} changeStat={changeStat} setStats={setStats} setAllData={setAllData} allData={allData}/>
+          <CombatLevel stats={stats} />
+          <Stats stats={stats} changeStat={changeStat} setStats={setStats} setAllData={setAllData} allData={allData} />
         </div>
-        <Monster setAllData={setAllData} allData={allData}/>   
+        <Monster setAllData={setAllData} allData={allData} />
       </div>
-      <div className='containerApp'>
-        <Equipment setAllData={setAllData} allData={allData}/>
-        <DPS allData={allData}/>
+      <div className='all-sets'>
+        <div className='setContainer'>
+          <DPS allData={allData} />
+          <Equipment setAllData={setAllData} allData={allData} />
+        </div>
+        {/* <div className='setContainer'>
+          <DPS allData={allData} />
+          <Equipment setAllData={setAllData} allData={allData} />
+        </div> */}
       </div>
     </div>
   );

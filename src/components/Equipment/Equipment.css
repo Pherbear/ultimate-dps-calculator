@@ -6,6 +6,27 @@
     width: 205px;
     height: 275px;
 }
+
+.combat-switch {
+    display: flex;
+    gap: 5px;
+}
+
+.combat-switch div {
+    width: 33px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.style-button{
+    background-image: url('./Default/Combat_icon.webp');
+}
+
+.spells-button{
+    background-image: url('./Default/Spellbook.webp');
+}
+
 .item {
     width: 35px;
     height: 35px;

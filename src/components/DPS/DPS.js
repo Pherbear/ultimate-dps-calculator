@@ -36,7 +36,7 @@ export default function DPS({ allData }) {
         toa: false
     })
 
-    useEffect(() => {console.log(monsterAttributes)}, [monsterAttributes])
+    useEffect(() => { console.log(monsterAttributes) }, [monsterAttributes])
 
     useEffect(() => {
         console.log(allData)
@@ -56,8 +56,10 @@ export default function DPS({ allData }) {
 
     function findAttributes(data) {
         if (!data.Monster_attribute) {
-            setMonsterAttributes({demon: false,draconic: false,kalphite: false,leafy: false,undead: false,vampyre: false,
-                xerician: false,fiery: false,toa: false})
+            setMonsterAttributes({
+                demon: false, draconic: false, kalphite: false, leafy: false, undead: false, vampyre: false,
+                xerician: false, fiery: false, toa: false
+            })
             return
         }
         let attributesArray = data.Monster_attribute
@@ -171,7 +173,7 @@ export default function DPS({ allData }) {
                 shadow_bonus = 3
             }
             let salve_bonus = 0
-            
+
             let salveUsed = false
             if (monsterAttributes.undead && (setBonuses.salveBonus.magic != 0)) {
                 salve_bonus = setBonuses.salveBonus.magic
@@ -327,28 +329,32 @@ export default function DPS({ allData }) {
             }
         }
 
-        let calculation = 250 + ((((10  * 3 * selectedStat) / 10)-10) / 100) - (Math.sqrt(((3 * selectedStat) / 10 ) - 140) / 100)
+        let calculation = 250 + ((((10 * 3 * selectedStat) / 10) - 10) / 100) - (Math.sqrt(((3 * selectedStat) / 10) - 140) / 100)
         console.log(calculation)
         return 1
     }
 
-    function twistedBowAccuracy(magic_level, magic_accuracy){
+    function twistedBowAccuracy(magic_level, magic_accuracy) {
 
     }
 
     return (
         <div className='DPS-Container'>
             <div>
-                Damage Per Second: {DPS.toFixed(5)}
+                <div>
+                    Damage Per Second: {DPS.toFixed(5)}
+                </div>
+                <div>
+                    Max Hit: {maxHit}
+                </div>
             </div>
             <div>
-                Max Hit: {maxHit}
-            </div>
-            <div>
-                Hit Chance: {(hitChance * 100).toFixed(3)}%
-            </div>
-            <div>
-                Attack Speed: {attackSpeed.toFixed(1)}
+                <div>
+                    Hit Chance: {(hitChance * 100).toFixed(3)}%
+                </div>
+                <div>
+                    Attack Speed: {attackSpeed.toFixed(1)}
+                </div>
             </div>
             <SetBonuses setSetBonuses={setSetBonuses} setBonuses={setBonuses} equipment={allData.equipment} />
         </div>

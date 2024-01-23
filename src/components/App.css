@@ -7,3 +7,8 @@
 body {
     background: rgb(160, 156, 157);
 }
+
+.all-sets{
+    display: flex;
+    flex-direction: row;
+}

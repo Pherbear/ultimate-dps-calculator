@@ -1,7 +1,12 @@
 .itemStats{
     display: flex;
+    flex-direction: row;
+    width: 397px;
+}
+
+.itemStats div {
+    display: flex;
     flex-direction: column;
-    width: 130px;
 }
 .allStats{
     display: flex;
@@ -17,7 +22,7 @@
 
 .stats-container{
     border: 1px black solid;
-    gap: 5px;
+    gap: 30px;
     padding-left: 10px;
     padding-top: 10px;
     background-color: rgb(106, 76, 53);

@@ -7,3 +7,4 @@
 -fang calc
 -dragonbane weapons
 -demonbane weapons (more spec from arclight on demons)
+-setup 2nd set

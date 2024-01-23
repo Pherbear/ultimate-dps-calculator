@@ -8,10 +8,14 @@ import Standard from './Standard'
 import Arceuus from './Arceuus'
 import Ancient from './Ancient'
 
-export default function Spells({allData, setAllData}) {
+export default function Spells({allData, setAllData, combatDisplay}) {
 
     const [displayImage, setDisplayImage] = useState(standardIMG)
     const [selectedSpell, setSelectedSpell] = useState(false)
+
+    useEffect(() => {
+        if (combatDisplay !== 'spells') handleClear()
+    },[combatDisplay])
 
     function handleStandardClick(e) {
         setDisplayImage(standardIMG)
