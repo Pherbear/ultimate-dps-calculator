@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './MonsterSearch.css'
 import { MonsterList } from './MonsterList';
+import {MonsterGetImage, MonsterSearchImage} from './MonsterGetImage';
 
 export default function MonsterSearch({ setCurrentMonster }) {
     const [query, setQuery] = useState('');
@@ -41,6 +42,7 @@ export default function MonsterSearch({ setCurrentMonster }) {
                             className='monster-item'
                         >
                             <a>{data[0]}</a>
+                            <img src={url(`${MonsterSearchImage(data[0])}`)}/>
                         </div>
                     )
                 })}

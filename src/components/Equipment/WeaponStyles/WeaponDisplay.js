@@ -18,6 +18,7 @@ export default function WeaponDisplay({ weapon, type, setAllData, allData}) {
     const [selectedStyle, setSelectedStyle] = useState('none')
 
     useEffect(() => {
+        console.log(type)
         const dataType = typeToDataMap[type]
         setData(dataType)
         setStyle('top_right')

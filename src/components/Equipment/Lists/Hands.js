@@ -113,7 +113,6 @@ export const Hands = [
    "Teal gloves",
    "Topaz bracelet",
    "Tormented bracelet",
-   "Tormented bracelet (or)",
    "Twitcher's gloves",
    "Villager armband (blue)",
    "Villager armband (brown)",

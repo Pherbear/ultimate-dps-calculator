@@ -417,7 +417,6 @@ export const Heads = [
    "Tribal mask (disease)",
    "Tribal mask (poison)",
    "Turquoise hat",
-   "Twisted ancestral hat",
    "Two barrels",
    "Tyras helm",
    "Ultimate ironman helm",

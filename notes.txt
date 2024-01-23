@@ -1,0 +1,7 @@
+
+
+-undead monsters (salve ammy, confilicts with slayer helm)
+-adding more monsters
+-adding cox scales
+-adding toa monsters and invocation calculator
+-adding toa multiplier for shadow

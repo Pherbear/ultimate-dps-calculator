@@ -1,7 +1,15 @@
-export default function MonsterGetImage(currentMonster) {
+function MonsterGetImage(currentMonster) {
     let formattedString = ''
     if (currentMonster) formattedString = formatString(`${currentMonster.Image}`)
+
     return `https://oldschool.runescape.wiki/images/${formattedString}?e8bc2`
+
+}
+
+function MonsterSearchImage(monster) {
+    const newstring = {Image: `${monster.replace(/ /g, '_')}.png`}
+    console.log(newstring)
+    return MonsterGetImage(newstring)
 }
 
 function formatString(input) {
@@ -13,3 +21,5 @@ function formatString(input) {
         .replace(/\)/g, '%29')
         .replace(/,/g, '%2C');
 }
+
+export {MonsterGetImage, MonsterSearchImage}

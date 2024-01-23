@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import MonsterVersionsChange from './MonsterVersions'
 import './MonsterDisplay.css'
-import MonsterGetImage, { MonsterImage } from './MonsterGetImage'
+import {MonsterGetImage, MonsterSearchImage} from './MonsterGetImage';
 
 import hitpoints_icon from './MonsterImage/Hitpoints_icon.png'
 import attack_icon from './MonsterImage/Attack_icon.webp'

@@ -194,7 +194,8 @@ export default function DPS({ allData }) {
                 Stab_defence_bonus: 0,
                 Slash_defence_bonus: 0,
                 Magic_defence_bonus: 0,
-                Ranged_defence_bonus: 0
+                Ranged_defence_bonus: 0,
+                Magic_level: 0
             }
         }
         
@@ -221,6 +222,11 @@ export default function DPS({ allData }) {
             max_defence_roll = effective_level * (equipment_bonus + 64)
 
         } else if (damageType == 'Magic') {
+
+            let npc_magic_level = (stats.Magic_level_Spec || stats.Magic_level_Spec == 0) ? stats.Magic_level_Spec : stats.Magic_level
+            let npc_magic_defence = stats.Magic_defence_bonus
+
+            max_defence_roll = (9 + npc_magic_level) * (npc_magic_defence + 64)
 
         } else if (damageType == 'Ranged') {
             let def_level = (stats.Defence_level_Spec || stats.Defence_level_Spec == 0) ? stats.Defence_level_Spec : stats.Defence_level

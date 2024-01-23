@@ -22,6 +22,8 @@ import { StabSword } from './Types/StabSword'
 import { Thrown } from './Types/Thrown'
 import { unarmed } from './Types/Unarmed'
 import { Whip } from './Types/Whip'
+import { Staff } from './Types/Staff'
+import { BladedStaff } from './Types/BladedStaff'
 
 export const typeToDataMap = {
     '2h Sword': twoHSword,
@@ -48,4 +50,6 @@ export const typeToDataMap = {
     'Thrown': Thrown,
     'Unarmed': unarmed,
     'Whip': Whip,
+    'Staff': Staff,
+    'Bladed Staff': BladedStaff,
 }
