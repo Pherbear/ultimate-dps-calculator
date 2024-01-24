@@ -40,6 +40,8 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
   const [obsidianBonus, setObsidianBonus] = useState(0)
   const [slayerBonus, setSlayerBonus] = useState(0)
   const [salveBonus, setSalveBonus] = useState(0)
+  const [virtusBonus, setVirtusBonus] = useState(0)
+  const [dharok, setDharok] = useState(false) 
 
   useEffect(() => {
     voidCheck(equipNames.helmet, equipNames.body, equipNames.legs, equipNames.hands)
@@ -48,6 +50,8 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
     obsidianCheck(equipNames.mainhand, equipNames.helmet, equipNames.body, equipNames.legs, equipNames.neck)
     slayerCheck(equipNames.helmet)
     salveCheck(equipNames.neck)
+    virtusCheck(equipNames.helmet, equipNames.body, equipNames.legs)
+    dharokCheck(equipNames.helmet, equipNames.body, equipNames.legs, equipNames.mainhand)
   }, [equipNames])
 
   useEffect(() => {
@@ -57,9 +61,11 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
       crystalBonus: crystalBonus,
       obsidianBonus: obsidianBonus,
       slayerBonus: slayerBonus,
-      salveBonus: salveBonus
+      salveBonus: salveBonus,
+      virtusBonus: virtusBonus,
+      dharok: dharok
     })
-  }, [voidSet, inqBonus, crystalBonus, obsidianBonus, slayerBonus, salveBonus])
+  }, [voidSet, inqBonus, crystalBonus, obsidianBonus, slayerBonus, salveBonus, virtusBonus, dharok])
 
   function voidCheck(helmet, body, legs, gloves) {
     let status = 'elite'
@@ -263,6 +269,20 @@ export default function SetBonuses({ setBonuses, setSetBonuses, equipment }) {
         }
     }
     setSalveBonus(salveBonus)
+  }
+
+  function virtusCheck(helm, top, bottom){
+    let virtusBNS = 0
+    if (helm == 'Virtus_mask') virtusBNS += .03
+    if (top == 'Virtus_robe_top') virtusBNS += .03
+    if (bottom == 'Virtus_robe_bottom') virtusBNS += .03
+    setVirtusBonus(virtusBNS)
+  }
+
+  function dharokCheck(helm, top, bottom, mainhand){
+    if (helm == 'Dharok%27s_helm' && top == 'Dharok%27s_platebody' && bottom == 'Dharok%27s_platelegs' && mainhand == 'Dharok%27s_greataxe') {
+      setDharok(true)
+    } else setDharok(false)
   }
 
   return (

@@ -2,7 +2,7 @@ import React, {useState, useEffect } from 'react'
 
 export default function Charge({equipment, setEquipment}) {
 
-    const [charged, setCharge] = useState(false)
+    const [charged, setCharge] = useState(true)
 
     function handleChange(e) {
         if (e.target.value == 'false') {

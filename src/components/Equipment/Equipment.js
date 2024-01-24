@@ -7,7 +7,6 @@ import SaveEquip from './SaveEquip'
 import TotalStats from './TotalStats'
 import WeaponStyle from './WeaponStyles/WeaponStyle';
 import Spells from './Spells/Spells';
-import { all } from 'axios';
 
 function getEquipmentData(item_name) {
   return new Promise((resolve, reject) => {
@@ -57,7 +56,7 @@ function getEquipmentData(item_name) {
   })
 }
 
-export default function Equipment({ allData, setAllData, set }) {
+export default function Equipment({ allData, setAllData, set, duplicateset, setToDuplicate, setSetToDuplicate }) {
 
   const [totalStats, setTotalStats] = useState({
     crush: 0,
@@ -84,6 +83,13 @@ export default function Equipment({ allData, setAllData, set }) {
     ring: '',
     setName: ''
   })
+
+  useEffect(() => {
+    if (setToDuplicate) {
+      setEquipment(setToDuplicate)
+      setSetToDuplicate(0)
+    }
+  }, [setToDuplicate])
 
   const [combatDisplay, setCombatDisplay] = useState('styles')
 
@@ -153,6 +159,10 @@ export default function Equipment({ allData, setAllData, set }) {
       let amagic = item_info.amagic
       let arange = item_info.arange
       let rstr = item_info.rstr
+      let str = item_info.str
+      if (item_info.str1){
+        str = item_info.str1
+      }
       if (item_info.acrush1) {
         acrush = item_info.acrush1
       }
@@ -183,7 +193,8 @@ export default function Equipment({ allData, setAllData, set }) {
           aslash: aslash,
           amagic: amagic,
           arange: arange,
-          rstr: rstr
+          rstr: rstr,
+          str: str
         }
       })
     })
@@ -201,11 +212,42 @@ export default function Equipment({ allData, setAllData, set }) {
 
   function switchStyle() {
     setCombatDisplay('styles')
+    setAllData({
+      ...allData,
+      [`${set}spell`] : {
+        selectedSpell: false,
+        spellbook: 'standard',
+        element: 'none'
+      },
+    })
   }
 
   function switchSpells() {
     setCombatDisplay('spells')
   }
+
+  function handleClear() {
+    setEquipment({
+      mainhand: '',
+      offhand: '',
+      cape: '',
+      ammo: '',
+      helmet: '',
+      body: '',
+      legs: '',
+      hands: '',
+      feet: '',
+      neck: '',
+      ring: '',
+      setName: ''
+    })
+  }
+  
+  function handleduplicateset(){
+    duplicateset(equipment)
+  }
+
+
 
   return (
     <div>
@@ -224,6 +266,7 @@ export default function Equipment({ allData, setAllData, set }) {
                     chosenEquipment={chosenEquipment}
                     equipment={equipment}
                     clearItem={clearItem}
+                    set={set}
                   />
                 )
               })}
@@ -232,6 +275,8 @@ export default function Equipment({ allData, setAllData, set }) {
           <div className='combat-switch'>
             <div className='style-button' onClick={switchStyle}></div>
             <div className='spells-button' onClick={switchSpells}></div>
+            <button onClick={handleduplicateset}>duplicate</button>
+            <button onClick={handleClear}>clear</button>
           </div>
         </div>
       </div>

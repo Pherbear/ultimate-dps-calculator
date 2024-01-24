@@ -1,11 +1,14 @@
 todo:
 
--twisted bow calc
--scythe calc
--fang calc
--dragonbane weapons
--demonbane weapons (more spec from arclight on demons)
+-wilderness weapons
+-number of targets (chins and barrage)
+-soulreaper stacks
+-special attack (special max hit)
+-god spells
+-dinhs defence passive str bonus
+
 -adding cox scales
 -adding more monsters
 -adding toa monsters and invocation calculator
 -adding toa multiplier for shadow
+

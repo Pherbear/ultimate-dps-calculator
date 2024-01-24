@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import './MonsterDisplay.css'
 
 export default function MonsterVersionsChange({ currentMonster, currentVersion, setCurrentVersion }) {
     const [versions, setVersions] = useState(false);
@@ -36,6 +37,7 @@ export default function MonsterVersionsChange({ currentMonster, currentVersion, 
                     <div>
                         <select 
                             onChange={handleChange}
+                            className='current-version'
                         >
                             { Array.isArray(currentMonster) ? currentMonster.map((monster, index) => (
                                 <option key={extractLastPortion(monster.subject)} value={index}>

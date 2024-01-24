@@ -216,7 +216,6 @@ export const Bodys = [
    "Rune platebody",
    "Samurai shirt",
    "Sandwich lady top",
-   "Sanguine torva platebody",
    "Santa jacket",
    "Saradomin d'hide body",
    "Saradomin platebody",

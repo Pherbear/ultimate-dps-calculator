@@ -10,9 +10,9 @@ const spells = [
   'Undead-Grasp'
 ]
 
-export default function Standard({selectedSpell, setSelectedSpell}) {
+export default function Standard({selectedSpell, setSelectedSpell, set}) {
   
-  const allSpells = document.querySelectorAll('.arceuus div')
+  const allSpells = document.querySelectorAll(`#${set}`)
   const unSelectedStyle = {
     opacity: "0"
   }
@@ -35,7 +35,7 @@ export default function Standard({selectedSpell, setSelectedSpell}) {
   return (
     <div className='arceuus'>
         {spells.map((item, index) => (
-            <div className={item} onClick={handleClick} style={unSelectedStyle}></div>
+            <div className={item} onClick={handleClick} style={unSelectedStyle} id={set}></div>
         ))}
     </div>
     

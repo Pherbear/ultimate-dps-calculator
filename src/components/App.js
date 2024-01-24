@@ -110,6 +110,12 @@ function App() {
     setStats({ ...stats, [statName]: use })
   }
 
+  const [setToDuplicate, setSetToDuplicate] = useState(0)
+
+  function duplicateset(set){
+    setSetToDuplicate(set)
+  }
+
   return (
     <div className="App">
       <div className='containerApp'>
@@ -122,11 +128,11 @@ function App() {
       <div className='all-sets'>
         <div className='setContainer'>
           <DPS allData={allData} set={'set1'}/>
-          <Equipment setAllData={setAllData} allData={allData} set={'set1'}/>
+          <Equipment setAllData={setAllData} allData={allData} set={'set1'} duplicateset={duplicateset} setToDuplicate={setToDuplicate} setSetToDuplicate={setSetToDuplicate}/>
         </div>
         <div className='setContainer'>
           <DPS allData={allData} set={'set2'}/>
-          <Equipment setAllData={setAllData} allData={allData} set={'set2'}/>
+          <Equipment setAllData={setAllData} allData={allData} set={'set2'} duplicateset={duplicateset} setToDuplicate={setToDuplicate} setSetToDuplicate={setSetToDuplicate}/>
         </div>
       </div>
     </div>

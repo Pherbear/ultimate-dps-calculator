@@ -11,4 +11,5 @@ body {
 .all-sets{
     display: flex;
     flex-direction: row;
+    gap: 0px;
 }

@@ -21,7 +21,7 @@ import {Weapons} from './Lists/Weapons'
 
 
 
-export default function Item({slot, itemname, chosenEquipment, equipment, clearItem}) {
+export default function Item({slot, itemname, chosenEquipment, equipment, clearItem, set}) {
     
     const ref = useRef();
     const openTooltip = () => ref.current.open();
@@ -82,7 +82,7 @@ export default function Item({slot, itemname, chosenEquipment, equipment, clearI
                     <ImgFallback item={itemname}/>
                 </div>
             }
-            position="right center"
+            position={set == 'set1' ? "right center": "left center"}
             className='item-popup'
         >
             <div className='popup'>

@@ -17,10 +17,11 @@
     color: rgb(218, 161, 17);
     border: solid black 3px;
     font-size: 20px;
-    background: grey;
+    background: rgb(116, 71, 71);
     margin-bottom: 5px;
-    padding-left: 30px;
+    padding-left: 40px;
     padding-right: 30px;
+    width: 140px;
 }
 
 .monster-stats {
@@ -60,20 +61,28 @@
 }
 
 .all-specs {
-    padding-top: 30px;
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 7px;
 }
 
 .specs {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 10px;
 }
 
 .specs .buttons {
     padding-left: 30px;
     display: flex;
     gap: 10px;
+}
+
+.current-version{
+    width: 100px;
+}
+
+.slider {
+    gap: 20px;
 }

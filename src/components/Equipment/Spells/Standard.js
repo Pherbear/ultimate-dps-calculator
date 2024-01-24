@@ -30,9 +30,9 @@ const spells = [
     'Magic-Dart'
 ]
 
-export default function Standard({selectedSpell, setSelectedSpell}) {
+export default function Standard({selectedSpell, setSelectedSpell, set}) {
   
-  const allSpells = document.querySelectorAll('.standard div')
+  const allSpells = document.querySelectorAll(`#${set}`)
   const unSelectedStyle = {
     opacity: "0"
   }
@@ -55,7 +55,7 @@ export default function Standard({selectedSpell, setSelectedSpell}) {
   return (
     <div className='standard'>
         {spells.map((item, index) => (
-            <div className={item} onClick={handleClick} style={unSelectedStyle}></div>
+            <div className={item} onClick={handleClick} style={unSelectedStyle} id={set}></div>
         ))}
     </div>
     

@@ -67,9 +67,9 @@ export default function Spells({allData, setAllData, combatDisplay, set}) {
   return (
     <div>
         <div className='display-image'>
-            {displayImage === standardIMG? <Standard selectedSpell={selectedSpell} setSelectedSpell={setSelectedSpell}/> : ''}
-            {displayImage === arceuusIMG? <Arceuus selectedSpell={selectedSpell} setSelectedSpell={setSelectedSpell}/> : ''}
-            {displayImage === ancientIMG? <Ancient selectedSpell={selectedSpell} setSelectedSpell={setSelectedSpell}/> : ''}
+            {displayImage === standardIMG? <Standard selectedSpell={selectedSpell} setSelectedSpell={setSelectedSpell} set={set}/> : ''}
+            {displayImage === arceuusIMG? <Arceuus selectedSpell={selectedSpell} setSelectedSpell={setSelectedSpell} set={set}/> : ''}
+            {displayImage === ancientIMG? <Ancient selectedSpell={selectedSpell} setSelectedSpell={setSelectedSpell} set={set}/> : ''}
         </div>
         <div className='spellbook-options'>
             <div className='standard-icon' onClick={handleStandardClick}></div>

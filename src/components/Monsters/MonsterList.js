@@ -1,5 +1,10 @@
 export const MonsterList = {
     "Chicken" : "Chicken%23Normal",
+    "Vet'ion": {
+        "Normal": "Vet%27ion%23Normal",
+        "Enraged": "Vet%27ion%23Enraged"
+    },
+    "Giant Mole": "Giant+Mole",
     "Abyssal demon" : "Abyssal+demon%23Standard",
     "Kree'arra": "Kree%27arra",
     "Commander Zilyana": "Commander+Zilyana",
@@ -50,9 +55,9 @@ export const MonsterList = {
         "Awakened": "Duke+Sucellus%23Awakened"
     },
     "Vardorvis": {
-        "Quest": "Vardorvis%23Quest",
         "Post-Quest": "Vardorvis%23Post-Quest",
-        "Awakened": "Vardorvis%23Awakened"
+        "Awakened": "Vardorvis%23Awakened",
+        "Quest": "Vardorvis%23Quest",
     },
     "The Leviathan": {
         "Quest": "The+Leviathan%23Quest",

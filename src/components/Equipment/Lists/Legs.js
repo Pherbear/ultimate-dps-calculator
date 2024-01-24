@@ -182,7 +182,6 @@ export const Legs = [
    "Rune plateskirt",
    "Samurai greaves",
    "Sandwich lady bottom",
-   "Sanguine torva platelegs",
    "Santa pantaloons",
    "Saradomin chaps",
    "Saradomin platelegs",

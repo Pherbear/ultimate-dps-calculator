@@ -1,14 +1,14 @@
 .DPS-Container {
     display: flex;
     flex-direction: row;
-    gap: 19px;
-    font-size: 15px;
+    gap: 7px;
+    font-size: 14px;
     background: rgb(78, 21, 21);
     border: 5px solid black;
     width: 390px;
     height: 50px;
     padding-left: 10px;
-    padding-top: 10px;
+    padding-top: 5px;
     color: rgb(218, 161, 17);
     text-shadow: 1px 1px 2px black;
 }

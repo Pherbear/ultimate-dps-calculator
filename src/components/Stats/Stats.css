@@ -37,3 +37,13 @@
     gap: 5px;
     width: 90px;
 }
+
+.health-slider{
+    display:flex;
+    gap: 15px;
+}
+
+.health-slider img{
+    width: 25px;
+    height: 22px;
+}
