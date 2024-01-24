@@ -1,11 +1,14 @@
 todo:
 
--wilderness weapons
--number of targets (chins and barrage)
+-wilderness weapons + amulet of avarice
 -soulreaper stacks
 -special attack (special max hit)
--god spells
+-god spells (charge)
+-number of targets (chins and barrage)
 -dinhs defence passive str bonus
+-kalphite weapons
+-leaf weapons
+-chaos gauntlets affect
 
 -adding cox scales
 -adding more monsters
