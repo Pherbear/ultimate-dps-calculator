@@ -6,7 +6,7 @@ import DragonWarhammer from './specIcons/Dragon_warhammer.webp'
 import AccursedSceptre from './specIcons/Accursed_sceptre_(u).webp'
 import Slayer from './specIcons/Slayer_icon.png'
 
-export default function Specs({ currentVersion, setCurrentVersion }) {
+export default function Specs({ currentVersion, setCurrentVersion, allData }) {
 
     const [specs, setSpecs] = useState({
         ACS: 0,
@@ -46,7 +46,7 @@ export default function Specs({ currentVersion, setCurrentVersion }) {
     }
 
     function ApplySpecs(e) {
-        e.preventDefault()
+        if(e) e.preventDefault()
 
         let speced_levels = {
             def_level: currentVersion.data.Defence_level,

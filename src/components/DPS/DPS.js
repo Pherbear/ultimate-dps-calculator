@@ -3,13 +3,18 @@ import SetBonuses from './SetBonuses'
 import './DPS.css'
 import Prayer from '../Prayer/Prayer'
 import { findMagicBaseMaxHit, findSpellMaxHit } from './magicMaxHit'
+import { all } from 'axios'
 
 
 
-export default function DPS({ allData }) {
+export default function DPS({ allData, set }) {
 
     const [damageType, setDamageType] = useState('none')
     const [spellSelected, setSpellSelected] = useState(false)
+    const [spell, setSpell] = useState(allData.set1Spell)
+    const [setequipment, setSetequipment] = useState(allData.set1equipment)
+    const [setequipmentstats, setSetequipmentstats] = useState(allData.set1equipmentStats)
+    const [setstyle, setSetstyle] = useState(allData.set1style)
 
     const [maxHit, setMaxHit] = useState(1)
     const [hitChance, setHitChance] = useState(1)
@@ -36,18 +41,44 @@ export default function DPS({ allData }) {
         toa: false
     })
 
-    useEffect(() => { console.log(monsterAttributes) }, [monsterAttributes])
+    // useEffect(() => { console.log(monsterAttributes) }, [monsterAttributes])
+
+    function checkset() {
+        if (set === 'set1') {
+            setSetequipment(allData.set1equipment)
+            setSetstyle(allData.set1style)
+            setSpellSelected(allData.set1spell.selectedSpell)
+            setSpell(allData.set1spell)
+            setSetequipmentstats(allData.set1equipmentStats)
+            setDamageType(allData.set1style.attack)
+        } else if (set === 'set2') {
+            setSetequipment(allData.set2equipment)
+            setSetstyle(allData.set2style)
+            setSpellSelected(allData.set2spell.selectedSpell)
+            setSpell(allData.set2spell)
+            setSetequipmentstats(allData.set2equipmentStats)
+            setDamageType(allData.set2style.attack)
+        }
+    }
 
     useEffect(() => {
-        console.log(allData)
-        setDamageType(allData.style.attack)
-        setSpellSelected(allData.spell.selectedSpell)
-        DPSCalc()
+        try {
+            checkset()
+        } catch (error) {
+            console.log(error)
+        } finally {
+            DPSCalc(true)
+        }
     }, [allData, damageType])
 
     useEffect(() => {
-        setDamageType(allData.style.attack)
-        DPSCalc()
+        try {
+            checkset()
+        } catch (error) {
+            console.log(error)
+        } finally {
+            DPSCalc()
+        }
     }, [])
 
     useEffect(() => {
@@ -72,7 +103,7 @@ export default function DPS({ allData }) {
         setMonsterAttributes(currentAttributes)
     }
 
-    function DPSCalc() {
+    function DPSCalc(first) {
         let maxHit = 0
         let equipment_bonus = 0
         let max_attack_roll = 1
@@ -103,14 +134,14 @@ export default function DPS({ allData }) {
             let strLevel = (allData ? allData.boostedStats ? allData.boostedStats.StrengthBoosted : allData.stats.Strength : allData.stats.Strength)
             let strPrayer = allData ? (allData.prayers ? allData.prayers.Strength : 1) : (1)
             let strStyleBoost = 0
-            if (allData.style) {
-                if (allData.style.boost == 'Strength' || allData.style.boost == 'Controlled') {
-                    strStyleBoost = allData.style.level
+            if (setstyle) {
+                if (setstyle.boost == 'Strength' || setstyle.boost == 'Controlled') {
+                    strStyleBoost = setstyle.level
                 }
             }
 
             effective_str_level = Math.floor((Math.floor(strLevel * strPrayer) + strStyleBoost + 8) * setBonuses.void.melee)
-            equipment_bonus = allData.equipmentStats.melee_str
+            equipment_bonus = setequipmentstats.melee_str
             maxHit = Math.floor(0.5 + ((effective_str_level * (equipment_bonus + 64)) / 640))
 
             let strPassive_boost = 1
@@ -126,12 +157,13 @@ export default function DPS({ allData }) {
 
             maxHit = Math.floor(maxHit * strPassive_boost)
 
+
             let attLevel = (allData ? allData.boostedStats ? allData.boostedStats.AttackBoosted : allData.stats.Attack : allData.stats.Attack)
             let attPrayer = allData ? (allData.prayers ? allData.prayers.Attack : 1) : (1)
             let attStyleBoost = 0
-            if (allData.style) {
-                if (allData.style.boost == 'Attack' || allData.style.boost == 'Controlled') {
-                    attStyleBoost = allData.style.level
+            if (setstyle) {
+                if (setstyle.boost == 'Attack' || setstyle.boost == 'Controlled') {
+                    attStyleBoost = setstyle.level
                 }
             }
             let effective_level = Math.floor((Math.floor(attLevel * attPrayer) + attStyleBoost + 8) * setBonuses.void.melee)
@@ -139,13 +171,13 @@ export default function DPS({ allData }) {
 
             switch (damageType) {
                 case 'Crush':
-                    equipment_attack_bonus = allData.equipmentStats.crush
+                    equipment_attack_bonus = setequipmentstats.crush
                     break;
                 case 'Stab':
-                    equipment_attack_bonus = allData.equipmentStats.stab
+                    equipment_attack_bonus = setequipmentstats.stab
                     break;
                 case 'Slash':
-                    equipment_attack_bonus = allData.equipmentStats.slash
+                    equipment_attack_bonus = setequipmentstats.slash
                     break;
                 default:
                     break;
@@ -161,12 +193,12 @@ export default function DPS({ allData }) {
             max_attack_roll = max_attack_roll * passive_boost
         } else if (damageType == 'Magic') {
             let magicLevel = (allData ? allData.boostedStats ? allData.boostedStats.MagicBoosted : allData.stats.Magic : allData.stats.Magic)
-            let weapon = allData ? (allData.equipment.mainhand ? allData.equipment.mainhand.itemname : false) : false
+            let weapon = setequipment ? (setequipment.mainhand ? setequipment.mainhand.itemname : false) : false
             let baseMaxHit
             if (spellSelected) baseMaxHit = findSpellMaxHit(spellSelected, weapon, magicLevel, allData.currentVersion.slayerTask)
             else baseMaxHit = findMagicBaseMaxHit(weapon, magicLevel)
 
-            let visible_bonus = (allData.equipmentStats.magic_dmg) / 100
+            let visible_bonus = (setequipmentstats.magic_dmg) / 100
             let void_bonus = setBonuses.void.magic.strength
             let shadow_bonus = 1
             if (weapon == 'Tumeken%27s_shadow' && !spellSelected) {
@@ -193,8 +225,8 @@ export default function DPS({ allData }) {
 
             let secondary_magic_damage = Math.floor(primary_magic_damage * (1 + ahrims_bonus + slayer_bonus + sceptre_wilderness_bonus))
 
-            let offhand = allData.equipment.offhand.itemname
-            let element = allData.spell.element
+            let offhand = setequipment.offhand.itemname
+            let element = spell.element
             let tomeOfFire_bonus = 0
             let tomeOfWater_bonus = 0
             let markOfDarkness = 0
@@ -206,11 +238,11 @@ export default function DPS({ allData }) {
             maxHit = post_hit_roll
 
             let style_bonus = 0
-            if (allData.style.name == 'Accurate') style_bonus = 2
+            if (setstyle.name == 'Accurate') style_bonus = 2
             let prayer_bonus = allData ? (allData.prayers ? allData.prayers.Magic : 1) : (1)
 
             let effective_level = Math.floor(Math.floor(magicLevel * prayer_bonus) * setBonuses.void.magic.attack + style_bonus + 9)
-            let equipment_bonus = allData.equipmentStats.magic
+            let equipment_bonus = setequipmentstats.magic
 
             max_attack_roll = Math.floor(effective_level * (equipment_bonus + 64) * (slayer_bonus + 1) * (salve_bonus + 1))
         } else if (damageType == 'Ranged') {
@@ -219,14 +251,14 @@ export default function DPS({ allData }) {
             let rangeLevel = (allData ? allData.boostedStats ? allData.boostedStats.RangedBoosted : allData.stats.Ranged : allData.stats.Ranged)
             let rangeStrPrayer = allData ? (allData.prayers ? allData.prayers.Ranged.strength : 1) : (1)
             let styleBoost = 0
-            if (allData.style) {
-                if (allData.style.name == 'Accurate') {
-                    styleBoost = allData.style.level
+            if (setstyle) {
+                if (setstyle.name == 'Accurate') {
+                    styleBoost = setstyle.level
                 }
             }
 
             effective_range_str = Math.floor(Math.floor(rangeLevel * rangeStrPrayer) + styleBoost + 8) * setBonuses.void.ranged.strength
-            let equipment_range_str = allData.equipmentStats.range_str
+            let equipment_range_str = setequipmentstats.range_str
             let passive_str_boost = 1 * setBonuses.crystalBonus.strength
 
             let salveUsed = false
@@ -235,7 +267,7 @@ export default function DPS({ allData }) {
                 salveUsed = true
             }
 
-            if (allData.equipment.mainhand.itemname == 'Twisted_bow') {
+            if (setequipment.mainhand.itemname == 'Twisted_bow') {
                 passive_str_boost = passive_str_boost * twistedBowStr(stats.Magic_level, stats.Magic_attack_bonus, monsterAttributes.xerician)
             }
 
@@ -246,7 +278,7 @@ export default function DPS({ allData }) {
             let rangeAttPrayer = allData ? (allData.prayers ? allData.prayers.Ranged.attack : 1) : (1)
 
             let effective_range_attack = Math.floor((Math.floor(rangeLevel * rangeAttPrayer) + styleBoost + 8) * setBonuses.void.ranged.attack)
-            let equipment_range_attack = allData.equipmentStats.range
+            let equipment_range_attack = setequipmentstats.range
 
             let passive_attack_boost = 1 * setBonuses.crystalBonus.attack
             if (salveUsed) passive_str_boost = passive_str_boost * setBonuses.salveBonus.range
@@ -301,8 +333,8 @@ export default function DPS({ allData }) {
         }
 
         let avg_attack = (maxHit * hitChance) / 2
-        let attackspeed = allData.equipment ? (allData.equipment.mainhand ? allData.equipment.mainhand.speed * 0.6 : 2.4) : 2.4
-        if (allData.style.name == 'Rapid') attackspeed = attackspeed - 0.6
+        let attackspeed = setequipment ? (setequipment.mainhand ? setequipment.mainhand.speed * 0.6 : 2.4) : 2.4
+        if (setstyle.name == 'Rapid') attackspeed = attackspeed - 0.6
 
         if (spellSelected) attackspeed = 3.0
 
@@ -312,6 +344,7 @@ export default function DPS({ allData }) {
         setHitChance(hitChance)
         setMaxHit(maxHit)
         setDPS(dps_calculation)
+
     }
 
     function twistedBowStr(magic_lvl, magic_accuracy, xerician) {
@@ -329,6 +362,7 @@ export default function DPS({ allData }) {
             }
         }
 
+        console.log(magic_lvl, magic_accuracy, xerician, selectedStat)
         let calculation = 250 + ((((10 * 3 * selectedStat) / 10) - 10) / 100) - (Math.sqrt(((3 * selectedStat) / 10) - 140) / 100)
         console.log(calculation)
         return 1
@@ -356,7 +390,7 @@ export default function DPS({ allData }) {
                     Attack Speed: {attackSpeed.toFixed(1)}
                 </div>
             </div>
-            <SetBonuses setSetBonuses={setSetBonuses} setBonuses={setBonuses} equipment={allData.equipment} />
+            <SetBonuses setSetBonuses={setSetBonuses} setBonuses={setBonuses} equipment={setequipment} />
         </div>
     )
 

@@ -10,7 +10,7 @@ import Bottom_Left from './Images/Attack_Bottom_Left.jpeg'
 import { typeToDataMap } from './DataMap'
 import { unarmed } from './Types/Unarmed'
 
-export default function WeaponDisplay({ weapon, type, setAllData, allData}) {
+export default function WeaponDisplay({ weapon, type, setAllData, allData, set}) {
 
     const [style, setStyle] = useState('')
     const [img, setImg] = useState(Top_Right)
@@ -26,7 +26,7 @@ export default function WeaponDisplay({ weapon, type, setAllData, allData}) {
     useEffect(()=>{
         setAllData({
             ...allData,
-            style: selectedStyle
+            [`${set}style`]: selectedStyle
         })
     },[selectedStyle])
 

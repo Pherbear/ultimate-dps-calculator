@@ -8,6 +8,11 @@
     display: flex;
     flex-direction: column;
 }
+
+.item-Stats{
+    display: flex;
+    flex-direction: column;
+}
 .allStats{
     display: flex;
 }

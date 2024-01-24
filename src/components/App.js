@@ -10,9 +10,10 @@ function App() {
 
   const [allData, setAllData] = useState({
     stats: '',
-    style: '',
+    set1style: '',
+    set2style: '',
     boostedStats: '',
-    equipment: {
+    set1equipment: {
       mainhand: '',
       offhand: '',
       cape: '',
@@ -25,7 +26,30 @@ function App() {
       neck: '',
       ring: ''
     },
-    equipmentStats: {
+    set1equipmentStats: {
+      crush: 0,
+      slash: 0,
+      stab: 0,
+      magic: 0,
+      range: 0,
+      melee_str: 0,
+      magic_dmg: 0,
+      range_str: 0
+    },
+    set2equipment: {
+      mainhand: '',
+      offhand: '',
+      cape: '',
+      ammo: '',
+      helmet: '',
+      body: '',
+      legs: '',
+      hands: '',
+      feet: '',
+      neck: '',
+      ring: ''
+    },
+    set2equipmentStats: {
       crush: 0,
       slash: 0,
       stab: 0,
@@ -46,7 +70,12 @@ function App() {
       }
     },
     currentVersion: '',
-    spell: {
+    set1spell: {
+      selectedSpell: false,
+      spellbook: 'standard',
+      element: 'none'
+    },
+    set2spell: {
       selectedSpell: false,
       spellbook: 'standard',
       element: 'none'
@@ -92,13 +121,13 @@ function App() {
       </div>
       <div className='all-sets'>
         <div className='setContainer'>
-          <DPS allData={allData} />
-          <Equipment setAllData={setAllData} allData={allData} />
+          <DPS allData={allData} set={'set1'}/>
+          <Equipment setAllData={setAllData} allData={allData} set={'set1'}/>
         </div>
-        {/* <div className='setContainer'>
-          <DPS allData={allData} />
-          <Equipment setAllData={setAllData} allData={allData} />
-        </div> */}
+        <div className='setContainer'>
+          <DPS allData={allData} set={'set2'}/>
+          <Equipment setAllData={setAllData} allData={allData} set={'set2'}/>
+        </div>
       </div>
     </div>
   );

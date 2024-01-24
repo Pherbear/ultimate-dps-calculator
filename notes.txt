@@ -1,10 +1,11 @@
--adding more monsters
--adding cox scales
--adding toa monsters and invocation calculator
--adding toa multiplier for shadow
+todo:
+
 -twisted bow calc
 -scythe calc
 -fang calc
 -dragonbane weapons
 -demonbane weapons (more spec from arclight on demons)
--setup 2nd set
+-adding cox scales
+-adding more monsters
+-adding toa monsters and invocation calculator
+-adding toa multiplier for shadow

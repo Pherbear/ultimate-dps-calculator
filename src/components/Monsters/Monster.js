@@ -47,7 +47,7 @@ export default function Monster({allData, setAllData}) {
             {currentMonster? 
             <div style={{display: 'flex', gap: '15px'}}>
                 <MonsterDisplay currentMonster={currentMonster} currentVersion={currentVersion} setCurrentVersion={setCurrentVersion}/> 
-                <Specs currentVersion={currentVersion} setCurrentVersion={setCurrentVersion}/>
+                <Specs currentVersion={currentVersion} setCurrentVersion={setCurrentVersion} allData={allData}/>
             </div>
             
             : <></>}

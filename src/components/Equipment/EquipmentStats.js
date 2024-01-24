@@ -4,7 +4,7 @@ import './EquipmentStats.css'
 export default function EquipmentStats({ item, slot, clearItem }) {
     const link = `https://oldschool.runescape.wiki/w/${item.itemname}`.replace(/_5/g, '')
     return (
-        <div className='itemStats'>
+        <div className='item-Stats'>
             <a>crush: {item.acrush}</a>
             <a>slash: {item.aslash}</a>
             <a>stab: {item.astab}</a>

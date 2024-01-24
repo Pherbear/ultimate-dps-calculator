@@ -8,7 +8,7 @@ import Standard from './Standard'
 import Arceuus from './Arceuus'
 import Ancient from './Ancient'
 
-export default function Spells({allData, setAllData, combatDisplay}) {
+export default function Spells({allData, setAllData, combatDisplay, set}) {
 
     const [displayImage, setDisplayImage] = useState(standardIMG)
     const [selectedSpell, setSelectedSpell] = useState(false)
@@ -56,7 +56,7 @@ export default function Spells({allData, setAllData, combatDisplay}) {
 
         setAllData({
             ...allData,
-            spell: {
+            [`${set}spell`]: {
                 selectedSpell: selectedSpell,
                 spellbook: spellbook,
                 element: selectedSpell? selectedSpell.split('-')[0] : 'none'

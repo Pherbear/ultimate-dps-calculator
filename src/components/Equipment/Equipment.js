@@ -7,6 +7,7 @@ import SaveEquip from './SaveEquip'
 import TotalStats from './TotalStats'
 import WeaponStyle from './WeaponStyles/WeaponStyle';
 import Spells from './Spells/Spells';
+import { all } from 'axios';
 
 function getEquipmentData(item_name) {
   return new Promise((resolve, reject) => {
@@ -56,7 +57,7 @@ function getEquipmentData(item_name) {
   })
 }
 
-export default function Equipment({ allData, setAllData }) {
+export default function Equipment({ allData, setAllData, set }) {
 
   const [totalStats, setTotalStats] = useState({
     crush: 0,
@@ -89,8 +90,8 @@ export default function Equipment({ allData, setAllData }) {
   useEffect(() => {
     setAllData({
       ...allData,
-      equipment: equipment,
-      equipmentStats: totalStats
+      [`${set}equipment`]: equipment,
+      [`${set}equipmentStats`]: totalStats
     })
   }, [equipment, totalStats])
 
@@ -210,8 +211,8 @@ export default function Equipment({ allData, setAllData }) {
     <div>
       {/* <SaveEquip equipment={equipment} setEquipment={setEquipment}/> */}
       <div className='Displays'>
-        {combatDisplay == 'spells' ? <Spells allData={allData} setAllData={setAllData} combatDisplay={combatDisplay} /> : ''}
-        {combatDisplay == 'styles' ? <WeaponStyle equipment={equipment} setEquipment={setEquipment} setAllData={setAllData} allData={allData} /> : ''}
+        {combatDisplay == 'spells' ? <Spells allData={allData} setAllData={setAllData} combatDisplay={combatDisplay} set={set}/> : ''}
+        {combatDisplay == 'styles' ? <WeaponStyle equipment={equipment} setEquipment={setEquipment} setAllData={setAllData} allData={allData} set={set}/> : ''}
         <div>
           <div className='itemsAndStats'>
             <div className='container'>
@@ -234,7 +235,7 @@ export default function Equipment({ allData, setAllData }) {
           </div>
         </div>
       </div>
-      <TotalStats totalStats={totalStats} />
+      <TotalStats totalStats={totalStats}/>
     </div>
   )
 }
