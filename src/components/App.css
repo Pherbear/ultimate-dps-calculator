@@ -13,3 +13,7 @@ body {
     flex-direction: row;
     gap: 0px;
 }
+
+.username-lookup{
+    width: 110px;
+}

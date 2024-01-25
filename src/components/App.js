@@ -4,10 +4,12 @@ import CombatLevel from './CombatLevel'
 import Equipment from './Equipment/Equipment'
 import Monster from './Monsters/Monster';
 import DPS from './DPS/DPS';
+import UsernameLookup from './UsernameLookup';
 import './App.css'
 
 function App() {
-
+  
+  const [setToDuplicate, setSetToDuplicate] = useState(0)
   const [allData, setAllData] = useState({
     stats: '',
     set1style: '',
@@ -110,8 +112,6 @@ function App() {
     setStats({ ...stats, [statName]: use })
   }
 
-  const [setToDuplicate, setSetToDuplicate] = useState(0)
-
   function duplicateset(set){
     setSetToDuplicate(set)
   }
@@ -120,6 +120,7 @@ function App() {
     <div className="App">
       <div className='containerApp'>
         <div>
+          <UsernameLookup />
           <CombatLevel stats={stats} />
           <Stats stats={stats} changeStat={changeStat} setStats={setStats} setAllData={setAllData} allData={allData} />
         </div>

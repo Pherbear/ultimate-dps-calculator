@@ -136,9 +136,9 @@ export default function DPS({ allData, set }) {
                 Magic_level: 0
             }
         }
-
+        
         if (spellSelected) setDamageType('Magic')
-
+        
         if (damageType == 'Crush' || damageType == 'Stab' || damageType == 'Slash') {
             //melee dps
             let effective_str_level = 0
@@ -150,37 +150,62 @@ export default function DPS({ allData, set }) {
                     strStyleBoost = setstyle.level
                 }
             }
-
+            
             effective_str_level = Math.floor((Math.floor(strLevel * strPrayer) + strStyleBoost + 8) * setBonuses.void.melee)
             equipment_bonus = setequipmentstats.melee_str
             maxHit = Math.floor(0.5 + ((effective_str_level * (equipment_bonus + 64)) / 640))
-
+            
             let strPassive_boost = 1
-            if (damageType == 'Crush') strPassive_boost = strPassive_boost * setBonuses.inqBonus
+            let passive_boost = 1
+            
+            if (damageType == 'Crush') {
+                strPassive_boost = strPassive_boost * setBonuses.inqBonus
+                passive_boost = passive_boost * setBonuses.inqBonus
+            }
+            
             strPassive_boost = strPassive_boost * setBonuses.obsidianBonus.obsidianStr
-
-            let salveUsed = false
+            passive_boost = passive_boost * setBonuses.obsidianBonus.obsidianAccuracy
+            
+            let salveUsed = false  
             if (monsterAttributes.undead && (setBonuses.salveBonus.melee != 1)) {
                 strPassive_boost = strPassive_boost * setBonuses.salveBonus.melee
+                passive_boost = passive_boost * setBonuses.salveBonus.melee
                 salveUsed = true
             }
-            if (allData.currentVersion.slayerTask && !salveUsed) strPassive_boost = strPassive_boost * setBonuses.slayerBonus.melee
-            if (monsterAttributes.draconic && setequipment.mainhand.itemname == 'Dragon_hunter_lance') strPassive_boost = strPassive_boost * 1.2
+            
+            if (allData.currentVersion.slayerTask && !salveUsed) {
+                passive_boost = passive_boost * setBonuses.slayerBonus.melee
+                strPassive_boost = strPassive_boost * setBonuses.slayerBonus.melee
+            }
 
+            if (monsterAttributes.draconic && setequipment.mainhand.itemname == 'Dragon_hunter_lance') {
+                strPassive_boost = strPassive_boost * 1.2
+                passive_boost = passive_boost * 1.2
+            }
+            
             if (monsterAttributes.demon && setequipment.mainhand.itemname == 'Arclight') {
                 strPassive_boost = strPassive_boost * 1.7
+                passive_boost = passive_boost * 1.7
             }
 
             if (setBonuses.dharok) {
                 strPassive_boost = strPassive_boost * (1 + ((allData.stats.Hitpoints - (allData.currentHP? allData.currentHP : allData.stats.Hitpoints)) / 100) * (allData.stats.Hitpoints / 100))
             }
 
-            maxHit = Math.floor(maxHit * strPassive_boost)
+            if (allData.currentVersion.wilderness) {
+                console.log(setequipment.mainhand.itemname)
+                if (setequipment.mainhand.itemname == 'Viggora%27s_chainmace' || setequipment.mainhand.itemname == 'Ursine_chainmace') {
+                    strPassive_boost = strPassive_boost * 1.5
+                    passive_boost = passive_boost * 1.5
+                }
+            }
 
+            maxHit = Math.floor(maxHit * strPassive_boost)
 
             let attLevel = (allData ? allData.boostedStats ? allData.boostedStats.AttackBoosted : allData.stats.Attack : allData.stats.Attack)
             let attPrayer = allData ? (allData.prayers ? allData.prayers.Attack : 1) : (1)
             let attStyleBoost = 0
+
             if (setstyle) {
                 if (setstyle.boost == 'Attack' || setstyle.boost == 'Controlled') {
                     attStyleBoost = setstyle.level
@@ -204,16 +229,6 @@ export default function DPS({ allData, set }) {
             }
 
             max_attack_roll = effective_level * (equipment_attack_bonus + 64)
-
-            let passive_boost = 1
-            if (damageType == 'Crush') passive_boost = passive_boost * setBonuses.inqBonus
-            passive_boost = passive_boost * setBonuses.obsidianBonus.obsidianAccuracy
-            if (salveUsed) strPassive_boost = strPassive_boost * setBonuses.salveBonus.melee
-            if (allData.currentVersion.slayerTask && !salveUsed) passive_boost = passive_boost * setBonuses.slayerBonus.melee
-            if (monsterAttributes.draconic && setequipment.mainhand.itemname == 'Dragon_hunter_lance') passive_boost = passive_boost * 1.2
-            if (monsterAttributes.demon && setequipment.mainhand.itemname == 'Arclight') {
-                passive_boost = passive_boost * 1.7
-            }
             max_attack_roll = max_attack_roll * passive_boost
         } else if (damageType == 'Magic') {
             let magicLevel = (allData ? allData.boostedStats ? allData.boostedStats.MagicBoosted : allData.stats.Magic : allData.stats.Magic)
@@ -247,6 +262,14 @@ export default function DPS({ allData, set }) {
             let slayer_bonus = 0 
             if (allData.currentVersion.slayerTask && !salveUsed) slayer_bonus = setBonuses.slayerBonus.magic
             let sceptre_wilderness_bonus = 0
+
+            if (allData.currentVersion.wilderness) {
+                let weapons = ['Accursed_sceptre_(a)', 'Accursed_sceptre', 'Thammaron%27s_sceptre_(a)', 'Thammaron%27s_sceptre']
+                if (weapons.includes(setequipment.mainhand.itemname)) {
+                    sceptre_wilderness_bonus = 0.5
+                }
+            }
+
 
             let secondary_magic_damage = Math.floor(primary_magic_damage * (1 + ahrims_bonus + slayer_bonus + sceptre_wilderness_bonus))
 
@@ -285,7 +308,7 @@ export default function DPS({ allData, set }) {
                 }
             }
 
-            max_attack_roll = Math.floor(effective_level * (equipment_bonus + 64) * (slayer_bonus + 1) * (salve_bonus + 1) * markOfDarkness)
+            max_attack_roll = Math.floor(effective_level * (equipment_bonus + 64) * (slayer_bonus + 1) * (salve_bonus + 1) * markOfDarkness * (sceptre_wilderness_bonus + 1))
         } else if (damageType == 'Ranged') {
             //ranged dps
             let effective_range_str = 0
@@ -297,42 +320,50 @@ export default function DPS({ allData, set }) {
                     styleBoost = setstyle.level
                 }
             }
-
+            
             effective_range_str = Math.floor(Math.floor(rangeLevel * rangeStrPrayer) + styleBoost + 8) * setBonuses.void.ranged.strength
             let equipment_range_str = setequipmentstats.range_str
+
             let passive_str_boost = 1 * setBonuses.crystalBonus.strength
+            let passive_attack_boost = 1 * setBonuses.crystalBonus.attack
 
             let salveUsed = false
             if (monsterAttributes.undead && (setBonuses.salveBonus.range != 1)) {
                 passive_str_boost = passive_str_boost * setBonuses.salveBonus.range
+                passive_attack_boost = passive_attack_boost * setBonuses.salveBonus.range
                 salveUsed = true
             }
-
+            
             if (setequipment.mainhand.itemname == 'Twisted_bow') {
                 passive_str_boost = passive_str_boost * twistedBowStr(stats.Magic_level, stats.Magic_attack_bonus, monsterAttributes.xerician)
+                passive_attack_boost = passive_attack_boost * twistedBowAccuracy(stats.Magic_level, stats.Magic_attack_bonus, monsterAttributes.xerician)
             }
 
-            if (allData.currentVersion.slayerTask && !salveUsed) passive_str_boost = passive_str_boost * setBonuses.slayerBonus.range
-            if (monsterAttributes.draconic && setequipment.mainhand.itemname == 'Dragon_hunter_crossbow') passive_str_boost = passive_str_boost * 1.25
+            if (allData.currentVersion.slayerTask && !salveUsed) {
+                passive_str_boost = passive_str_boost * setBonuses.slayerBonus.range
+                passive_attack_boost = passive_attack_boost * setBonuses.slayerBonus.range
+            }
 
+            if (monsterAttributes.draconic && setequipment.mainhand.itemname == 'Dragon_hunter_crossbow') {
+                passive_str_boost = passive_str_boost * 1.25
+                passive_attack_boost = passive_attack_boost * 1.3
+            }
 
+            if (allData.currentVersion.wilderness) {
+                if (setequipment.mainhand.itemname == 'Webweaver_bow' || setequipment.mainhand.itemname == 'Craw%27s_bow') {
+                    passive_str_boost = passive_str_boost * 1.5
+                    passive_attack_boost = passive_attack_boost * 1.5
+                }
+            }
 
             maxHit = Math.floor(Math.floor(0.5 + ((effective_range_str * (equipment_range_str + 64)) / 640)) * passive_str_boost)
 
             let rangeAttPrayer = allData ? (allData.prayers ? allData.prayers.Ranged.attack : 1) : (1)
-
             let effective_range_attack = Math.floor((Math.floor(rangeLevel * rangeAttPrayer) + styleBoost + 8) * setBonuses.void.ranged.attack)
             let equipment_range_attack = setequipmentstats.range
 
-            let passive_attack_boost = 1 * setBonuses.crystalBonus.attack
-            if (salveUsed) passive_attack_boost = passive_attack_boost * setBonuses.salveBonus.range
-            if (allData.currentVersion.slayerTask && !salveUsed) passive_attack_boost = passive_attack_boost * setBonuses.slayerBonus.range
-            if (setequipment.mainhand.itemname == 'Twisted_bow') {
-                passive_attack_boost = passive_attack_boost * twistedBowAccuracy(stats.Magic_level, stats.Magic_attack_bonus, monsterAttributes.xerician)
-            }
-            if (monsterAttributes.draconic && setequipment.mainhand.itemname == 'Dragon_hunter_crossbow') passive_attack_boost = passive_attack_boost * 1.3
-            if (monsterAttributes.demon && setequipment.mainhand.itemname == 'Arclight') passive_attack_boost = passive_attack_boost * 1.7
             max_attack_roll = Math.floor(effective_range_attack * (equipment_range_attack + 64) * passive_attack_boost)
+
         }
 
 

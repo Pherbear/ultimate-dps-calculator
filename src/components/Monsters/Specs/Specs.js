@@ -8,6 +8,7 @@ import Slayer from './specIcons/Slayer_icon.png'
 import Heart from './specIcons/Hitpoints_icon.webp'
 import Mark from './specIcons/Mark_of_Darkness_icon_(mobile).webp'
 import InvocationIcon from './specIcons/Tombs_of_Amascut_-_Expert_Mode_icon.webp'
+import Wildy from './specIcons/Skull_(status)_icon.webp'
 import Slider from '@mui/material/Slider'
 
 export default function Specs({ currentVersion, setCurrentVersion, allData }) {
@@ -24,6 +25,7 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
     const [maxHP, setMaxHP] = useState(10000)
     const [currentHP, setCurrentHP] = useState(maxHP)
     const [Invocation, setInvocation] = useState(0)
+    const [wilderness, setWilderness] = useState(false)
     
     useEffect(() => {
         currentVersion.data? setMaxHP(currentVersion.data.Hitpoints) : console.log() 
@@ -90,7 +92,8 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
                 CurrentHP: currentHP
             },
             slayerTask: slayerTask,
-            markOfDarkness: markOfDarkness
+            markOfDarkness: markOfDarkness,
+            wilderness: wilderness
         })
 
     }
@@ -227,6 +230,10 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
         setInvocation(e.target.value)
     }
 
+    function handleWilderness(e){
+        setWilderness(e.target.checked)
+    }
+
 
     return (
         <div className='specs'>
@@ -240,6 +247,11 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
                     <img src={Mark} />
                     <a>Mark of Darkness</a>
                     <input className='number-input' type='checkbox' onChange={handleMarkofDarkness} value={slayerTask}></input>
+                </div>
+                <div className='spec-input'>
+                    <img src={Wildy} />
+                    <a>Wilderness</a>
+                    <input className='number-input' type='checkbox' onChange={handleWilderness} value={wilderness}></input>
                 </div>
                 <div className='spec-input'>
                     <img src={InvocationIcon} />
