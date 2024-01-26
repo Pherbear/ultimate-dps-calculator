@@ -4,11 +4,12 @@ import CombatLevel from './CombatLevel'
 import Equipment from './Equipment/Equipment'
 import Monster from './Monsters/Monster';
 import DPS from './DPS/DPS';
+import Discord from './Icons/discord.png'
 import UsernameLookup from './UsernameLookup';
 import './App.css'
 
 function App() {
-  
+
   const [setToDuplicate, setSetToDuplicate] = useState(0)
   const [allData, setAllData] = useState({
     stats: '',
@@ -112,28 +113,38 @@ function App() {
     setStats({ ...stats, [statName]: use })
   }
 
-  function duplicateset(set){
+  function duplicateset(set) {
     setSetToDuplicate(set)
   }
 
   return (
-    <div className="App">
-      <div className='containerApp'>
+    <div>
+      <div className='title'>
+        <a href="https://discord.gg/H6qw2HEjuq">
+          <img src={Discord} className='icon'/>
+        </a>
         <div>
-          {/* <UsernameLookup /> */}
-          <CombatLevel stats={stats} />
-          <Stats stats={stats} changeStat={changeStat} setStats={setStats} setAllData={setAllData} allData={allData} />
+        Phera's DPS Calculator
         </div>
-        <Monster setAllData={setAllData} allData={allData} />
       </div>
-      <div className='all-sets'>
-        <div className='setContainer'>
-          <DPS allData={allData} set={'set1'}/>
-          <Equipment setAllData={setAllData} allData={allData} set={'set1'} duplicateset={duplicateset} setToDuplicate={setToDuplicate} setSetToDuplicate={setSetToDuplicate}/>
+      <div className="App">
+        <div className='containerApp'>
+          <div>
+            {/* <UsernameLookup /> */}
+            <CombatLevel stats={stats} />
+            <Stats stats={stats} changeStat={changeStat} setStats={setStats} setAllData={setAllData} allData={allData} />
+          </div>
+          <Monster setAllData={setAllData} allData={allData} />
         </div>
-        <div className='setContainer'>
-          <DPS allData={allData} set={'set2'}/>
-          <Equipment setAllData={setAllData} allData={allData} set={'set2'} duplicateset={duplicateset} setToDuplicate={setToDuplicate} setSetToDuplicate={setSetToDuplicate}/>
+        <div className='all-sets'>
+          <div className='setContainer'>
+            <DPS allData={allData} set={'set1'} />
+            <Equipment setAllData={setAllData} allData={allData} set={'set1'} duplicateset={duplicateset} setToDuplicate={setToDuplicate} setSetToDuplicate={setSetToDuplicate} />
+          </div>
+          <div className='setContainer'>
+            <DPS allData={allData} set={'set2'} />
+            <Equipment setAllData={setAllData} allData={allData} set={'set2'} duplicateset={duplicateset} setToDuplicate={setToDuplicate} setSetToDuplicate={setSetToDuplicate} />
+          </div>
         </div>
       </div>
     </div>

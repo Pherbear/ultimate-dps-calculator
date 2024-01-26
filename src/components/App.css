@@ -17,3 +17,15 @@ body {
 .username-lookup{
     width: 110px;
 }
+
+.title {
+    display: flex;
+    font-size: 20px;
+    position: relative;
+    gap: 300px;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}
