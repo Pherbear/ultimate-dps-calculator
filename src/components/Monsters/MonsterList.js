@@ -4,6 +4,11 @@ export const MonsterList = {
         "Normal": "Vet%27ion%23Normal",
         "Enraged": "Vet%27ion%23Enraged"
     },
+    "Kalphite Queen": {
+        "Crawling": "Kalphite+Queen%23Crawling",
+        "Airborne" : "Kalphite+Queen%23Airborne"
+    },
+    "Kurask": "Kurask%23Normal",
     "Giant Mole": "Giant+Mole",
     "Revenant Goblin": "Revenant+goblin",
     "Abyssal demon" : "Abyssal+demon%23Standard",

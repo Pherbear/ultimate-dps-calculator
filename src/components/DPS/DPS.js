@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import SetBonuses from './SetBonuses'
 import './DPS.css'
 import Prayer from '../Prayer/Prayer'
+import SpecDPS from './SpecDPS'
 import { findMagicBaseMaxHit, findSpellMaxHit } from './magicMaxHit'
 
 
@@ -20,6 +21,9 @@ export default function DPS({ allData, set }) {
     const [hitChance, setHitChance] = useState(1)
     const [DPS, setDPS] = useState(0.25)
     const [attackSpeed, setAttackSpeed] = useState(2.4)
+
+    const [attackRoll, setAttackRoll] = useState(1)
+    const [defenceRoll, setDefenceRoll] = useState(1)
 
     const [setBonuses, setSetBonuses] = useState({
         void: '',
@@ -218,13 +222,27 @@ export default function DPS({ allData, set }) {
             }
 
             if (allData.currentVersion.wilderness) {
-                console.log(setequipment.mainhand.itemname)
                 if (setequipment.mainhand.itemname == 'Viggora%27s_chainmace' || setequipment.mainhand.itemname == 'Ursine_chainmace') {
                     strPassive_boost = strPassive_boost * 1.5
                     passive_boost = passive_boost * 1.5
                 }
             }
 
+            if (monsterAttributes.kalphite) {
+                let keris_items = ['Keris', 'Keris_partisan', 'Keris_partisan_of_breaching', 'Keris_partisan_of_corruption', 'Keris_partisan_of_the_sun']
+                if (keris_items.includes(setequipment.mainhand.itemname)) {
+                    strPassive_boost = strPassive_boost * 1.33
+                    if (setequipment.mainhand.itemname == 'Keris_partisan_of_breaching') {
+                        passive_boost = passive_boost * 1.33
+                    }
+                }
+            }
+
+            if (monsterAttributes.leafy) {
+                if (setequipment.mainhand.itemname == 'Leaf-bladed_battleaxe') {
+                    strPassive_boost = strPassive_boost * 1.175
+                }
+            }
 
             maxHit = Math.floor(maxHit * strPassive_boost)
 
@@ -262,6 +280,26 @@ export default function DPS({ allData, set }) {
             let baseMaxHit
             if (spellSelected) baseMaxHit = findSpellMaxHit(spellSelected, weapon, magicLevel, allData.currentVersion.slayerTask)
             else baseMaxHit = findMagicBaseMaxHit(weapon, magicLevel)
+
+            let charge = 0
+            let chaos_gauntlets = 0
+
+            if (setequipment.hands.itemname == 'Chaos_gauntlets') {
+                if (spellSelected) {
+                    console.log(spell)
+                    if (spell.type == 'Bolt') chaos_gauntlets = 3
+                }
+            }
+
+            if (allData.currentVersion.charge) {
+                if (spell.type == 'of' || spell.type == 'Strike') {
+                    charge = 10
+                }
+            }
+
+
+
+            baseMaxHit = Math.floor(baseMaxHit + chaos_gauntlets + charge)
 
             let visible_bonus = (setequipmentstats.magic_dmg) / 100
             let void_bonus = setBonuses.void.magic.strength
@@ -493,10 +531,22 @@ export default function DPS({ allData, set }) {
         setMaxHit(maxHit)
         setDPS(dps_calculation)
 
+        setAttackRoll(max_attack_roll)
+        setDefenceRoll(max_defence_roll)
     }
 
     function dinhs_str_bonus(data) {
         console.log(data)
+
+        let stab_def = data.stab_def
+        let slash_def = data.slash_def
+        let crush_def = data.crush_def
+        let range_def = data.range_def
+
+        let calculation = ((stab_def + slash_def + crush_def + range_def - 800) / 12) - 38
+        let str_bonus = Math.max(0, calculation)
+
+        return str_bonus
     }
 
     function twistedBowStr(magic_lvl, magic_accuracy, xerician) {
@@ -536,24 +586,35 @@ export default function DPS({ allData, set }) {
     }
 
     return (
-        <div className='DPS-Container'>
-            set {set[3]}
-            <div>
+        <div className='DPS-Container'>      
+            <div className='Non-Spec'>
+                set {set[3]}
                 <div>
-                    Damage Per Second: {DPS.toFixed(5)}
+                    <div>
+                        Damage Per Second: {DPS.toFixed(5)}
+                    </div>
+                    <div>
+                        Max Hit: {maxHit} {scythe ? `(${scythe.hit1} ${scythe.hit2} ${scythe.hit3})` : ''}
+                    </div>
                 </div>
                 <div>
-                    Max Hit: {maxHit} {scythe ? `(${scythe.hit1} ${scythe.hit2} ${scythe.hit3})` : ''}
+                    <div>
+                        Hit Chance: {(hitChance * 100).toFixed(3)}%
+                    </div>
+                    <div>
+                        Attack Speed: {attackSpeed.toFixed(1)}s ({(attackSpeed.toFixed(1) / 0.6).toFixed(0)} ticks)
+                    </div>
                 </div>
             </div>
-            <div>
-                <div>
-                    Hit Chance: {(hitChance * 100).toFixed(3)}%
-                </div>
-                <div>
-                    Attack Speed: {attackSpeed.toFixed(1)}s ({(attackSpeed.toFixed(1) / 0.6).toFixed(0)} ticks)
-                </div>
-            </div>
+            <SpecDPS 
+                weapon={setequipment.mainhand.itemname}
+                data={{
+                    attackRoll: attackRoll,
+                    defenceRoll: defenceRoll,
+                    maxHit: maxHit,
+                    attackSpeed: attackSpeed
+                }}
+            />
             <SetBonuses setSetBonuses={setSetBonuses} setBonuses={setBonuses} equipment={setequipment} />
         </div>
     )

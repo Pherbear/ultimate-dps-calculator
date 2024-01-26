@@ -59,7 +59,8 @@ export default function Spells({allData, setAllData, combatDisplay, set}) {
             [`${set}spell`]: {
                 selectedSpell: selectedSpell,
                 spellbook: spellbook,
-                element: selectedSpell? selectedSpell.split('-')[0] : 'none'
+                element: selectedSpell? selectedSpell.split('-')[0] : 'none',
+                type: selectedSpell? selectedSpell.split('-')[1] : 'none'
             }
         })
     }, [selectedSpell])

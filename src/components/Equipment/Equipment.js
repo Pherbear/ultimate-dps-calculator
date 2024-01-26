@@ -111,6 +111,13 @@ export default function Equipment({ allData, setAllData, set, duplicateset, setT
     let magic_dmg = 0
     let range_str = 0
 
+    let slash_def = 0
+    let stab_def = 0
+    let crush_def = 0
+    let range_def = 0
+
+
+
     for (const slot in equipment) {
       if (equipment[slot] && slot !== 'setName') {
         const item = equipment[slot]
@@ -122,6 +129,11 @@ export default function Equipment({ allData, setAllData, set, duplicateset, setT
         str += parseInt(item.str)
         magic_dmg += parseInt(item.mdmg)
         range_str += parseInt(item.rstr)
+
+        slash_def += parseInt(item.dslash)
+        stab_def += parseInt(item.dstab)
+        crush_def += parseInt(item.dcrush)
+        range_def += parseInt(item.drange)
       }
     }
 
@@ -134,7 +146,12 @@ export default function Equipment({ allData, setAllData, set, duplicateset, setT
       range: range,
       melee_str: str,
       magic_dmg: magic_dmg,
-      range_str: range_str
+      range_str: range_str,
+
+      slash_def: slash_def,
+      stab_def: stab_def,
+      crush_def: crush_def,
+      range_def: range_def,
     })
 
   }, [equipment])

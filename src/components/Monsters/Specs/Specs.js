@@ -10,6 +10,7 @@ import Mark from './specIcons/Mark_of_Darkness_icon_(mobile).webp'
 import InvocationIcon from './specIcons/Tombs_of_Amascut_-_Expert_Mode_icon.webp'
 import Wildy from './specIcons/Skull_(status)_icon.webp'
 import ForinthrySurge from './specIcons/Skull_(Forinthry_surge)_icon.webp'
+import Charge from './specIcons/Charge_icon_(mobile).webp'
 import Slider from '@mui/material/Slider'
 
 export default function Specs({ currentVersion, setCurrentVersion, allData }) {
@@ -28,6 +29,7 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
     const [Invocation, setInvocation] = useState(0)
     const [wilderness, setWilderness] = useState(false)
     const [forinthryBuff, setForinthryBuff] = useState(false)
+    const [charge, setCharge] = useState(false)
     
     useEffect(() => {
         currentVersion.data? setMaxHP(currentVersion.data.Hitpoints) : console.log() 
@@ -99,6 +101,7 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
             markOfDarkness: markOfDarkness,
             wilderness: wilderness,
             forinthryBuff: forinthryBuff,
+            charge: charge,
         })
 
     }
@@ -245,6 +248,10 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
         setWilderness(e.target.checked)
     }
 
+    function handleCharge(e) {
+        setCharge(e.target.checked)
+    }
+
 
     return (
         <div className='specs'>
@@ -257,7 +264,7 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
                 <div className='spec-input'>
                     <img src={Mark} />
                     <a>Mark of Darkness</a>
-                    <input className='number-input' type='checkbox' onChange={handleMarkofDarkness} value={slayerTask}></input>
+                    <input className='number-input' type='checkbox' onChange={handleMarkofDarkness} value={markOfDarkness}></input>
                 </div>
                 <div className='spec-input'>
                     <img src={Wildy} />
@@ -267,7 +274,12 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
                 <div className='spec-input'>
                     <img src={ForinthrySurge} />
                     <a>Forinthry Surge</a>
-                    <input className='number-input' type='checkbox' onChange={handleForinthrySurge} value={wilderness}></input>
+                    <input className='number-input' type='checkbox' onChange={handleForinthrySurge} value={ForinthrySurge}></input>
+                </div>
+                <div className='spec-input'>
+                    <img src={Charge} />
+                    <a>Charge</a>
+                    <input className='number-input' type='checkbox' onChange={handleCharge} value={Charge}></input>
                 </div>
                 <div className='spec-input'>
                     <img src={InvocationIcon} />

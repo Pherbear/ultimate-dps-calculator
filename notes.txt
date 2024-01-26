@@ -1,13 +1,9 @@
 todo:
 
--dinhs defence passive str bonus
--kalphite weapons
--leaf weapons
--god spells (charge)
--chaos gauntlets affect
 -special attack (special max hit)
 -fix vard defence (defence is invisible on load)
 -number of targets (chins and barrage)
+-correct damage for ice demon
 
 -adding cox scales
 -adding more monsters
