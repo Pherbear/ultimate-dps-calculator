@@ -9,6 +9,7 @@ import Heart from './specIcons/Hitpoints_icon.webp'
 import Mark from './specIcons/Mark_of_Darkness_icon_(mobile).webp'
 import InvocationIcon from './specIcons/Tombs_of_Amascut_-_Expert_Mode_icon.webp'
 import Wildy from './specIcons/Skull_(status)_icon.webp'
+import ForinthrySurge from './specIcons/Skull_(Forinthry_surge)_icon.webp'
 import Slider from '@mui/material/Slider'
 
 export default function Specs({ currentVersion, setCurrentVersion, allData }) {
@@ -26,6 +27,7 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
     const [currentHP, setCurrentHP] = useState(maxHP)
     const [Invocation, setInvocation] = useState(0)
     const [wilderness, setWilderness] = useState(false)
+    const [forinthryBuff, setForinthryBuff] = useState(false)
     
     useEffect(() => {
         currentVersion.data? setMaxHP(currentVersion.data.Hitpoints) : console.log() 
@@ -66,6 +68,8 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
     function ApplySpecs(e) {
         if (e) e.preventDefault()
 
+        if(!currentVersion) return
+
         let speced_levels = {
             def_level: currentVersion.data.Defence_level,
             str_level: currentVersion.data.Strength_level,
@@ -93,12 +97,15 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
             },
             slayerTask: slayerTask,
             markOfDarkness: markOfDarkness,
-            wilderness: wilderness
+            wilderness: wilderness,
+            forinthryBuff: forinthryBuff,
         })
 
     }
 
     function ResetSpecs() {
+        if(!currentVersion) return
+
         let speced_levels = {
             def_level: currentVersion.data.Defence_level,
             str_level: currentVersion.data.Strength_level,
@@ -196,6 +203,10 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
         setMarkofDarkness(e.target.checked)
     }
 
+    function handleForinthrySurge(e) {
+        setForinthryBuff(e.target.checked)
+    }
+
     function handleHPChange(e){
         setCurrentHP(e.target.value)
     }
@@ -252,6 +263,11 @@ export default function Specs({ currentVersion, setCurrentVersion, allData }) {
                     <img src={Wildy} />
                     <a>Wilderness</a>
                     <input className='number-input' type='checkbox' onChange={handleWilderness} value={wilderness}></input>
+                </div>
+                <div className='spec-input'>
+                    <img src={ForinthrySurge} />
+                    <a>Forinthry Surge</a>
+                    <input className='number-input' type='checkbox' onChange={handleForinthrySurge} value={wilderness}></input>
                 </div>
                 <div className='spec-input'>
                     <img src={InvocationIcon} />

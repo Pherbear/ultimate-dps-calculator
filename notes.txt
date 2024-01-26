@@ -1,19 +1,17 @@
 todo:
 
--username lookup
--amulet of avarice
--soulreaper stacks
--special attack (special max hit)
--fix vard defence (defence is invisible on load)
--god spells (charge)
--number of targets (chins and barrage)
 -dinhs defence passive str bonus
 -kalphite weapons
 -leaf weapons
+-god spells (charge)
 -chaos gauntlets affect
+-special attack (special max hit)
+-fix vard defence (defence is invisible on load)
+-number of targets (chins and barrage)
 
 -adding cox scales
 -adding more monsters
 -adding toa monsters and invocation calculator
 -adding toa multiplier for shadow
 
+-username lookup

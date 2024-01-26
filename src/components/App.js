@@ -120,7 +120,7 @@ function App() {
     <div className="App">
       <div className='containerApp'>
         <div>
-          <UsernameLookup />
+          {/* <UsernameLookup /> */}
           <CombatLevel stats={stats} />
           <Stats stats={stats} changeStat={changeStat} setStats={setStats} setAllData={setAllData} allData={allData} />
         </div>

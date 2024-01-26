@@ -38,7 +38,8 @@ export default function DPS({ allData, set }) {
         vampyre: false,
         xerician: false,
         fiery: false,
-        toa: false
+        toa: false,
+        revenant: false
     })
 
     // useEffect(() => { console.log(monsterAttributes) }, [monsterAttributes])
@@ -89,7 +90,7 @@ export default function DPS({ allData, set }) {
     function findAttributes(data) {
         let attributes = {
             demon: false, draconic: false, kalphite: false, leafy: false, undead: false, vampyre: false,
-            xerician: false, fiery: false, toa: false
+            xerician: false, fiery: false, toa: false, revenant: false
         }
 
         if (!Array.isArray(data.Monster_attribute)) {
@@ -111,6 +112,9 @@ export default function DPS({ allData, set }) {
             currentAttributes[item] = attributesArray.includes(item)
         })
         if (attributesArray.includes('dragon')) currentAttributes['draconic'] = true
+
+        if (data.All_Slayer_category) if (data.All_Slayer_category.includes('Revenants')) currentAttributes['revenant'] = true
+
         setMonsterAttributes(currentAttributes)
     }
 
@@ -136,13 +140,18 @@ export default function DPS({ allData, set }) {
                 Magic_level: 0
             }
         }
-        
+
         if (spellSelected) setDamageType('Magic')
-        
+
         if (damageType == 'Crush' || damageType == 'Stab' || damageType == 'Slash') {
             //melee dps
             let effective_str_level = 0
             let strLevel = (allData ? allData.boostedStats ? allData.boostedStats.StrengthBoosted : allData.stats.Strength : allData.stats.Strength)
+
+            if (setequipment.mainhand.soulstacks) {
+                strLevel = strLevel * ((setequipment.mainhand.soulstacks * .06) + 1)
+            }
+
             let strPrayer = allData ? (allData.prayers ? allData.prayers.Strength : 1) : (1)
             let strStyleBoost = 0
             if (setstyle) {
@@ -150,29 +159,45 @@ export default function DPS({ allData, set }) {
                     strStyleBoost = setstyle.level
                 }
             }
-            
+
             effective_str_level = Math.floor((Math.floor(strLevel * strPrayer) + strStyleBoost + 8) * setBonuses.void.melee)
             equipment_bonus = setequipmentstats.melee_str
+
+            if (setequipment.mainhand.itemname == 'Dinh%27s_bulwark') {
+                equipment_bonus = equipment_bonus + dinhs_str_bonus(setequipmentstats)
+            }
+
             maxHit = Math.floor(0.5 + ((effective_str_level * (equipment_bonus + 64)) / 640))
-            
+
             let strPassive_boost = 1
             let passive_boost = 1
-            
+
             if (damageType == 'Crush') {
                 strPassive_boost = strPassive_boost * setBonuses.inqBonus
                 passive_boost = passive_boost * setBonuses.inqBonus
             }
-            
+
             strPassive_boost = strPassive_boost * setBonuses.obsidianBonus.obsidianStr
             passive_boost = passive_boost * setBonuses.obsidianBonus.obsidianAccuracy
-            
-            let salveUsed = false  
+
+            let salveUsed = false
             if (monsterAttributes.undead && (setBonuses.salveBonus.melee != 1)) {
                 strPassive_boost = strPassive_boost * setBonuses.salveBonus.melee
                 passive_boost = passive_boost * setBonuses.salveBonus.melee
                 salveUsed = true
             }
-            
+
+            if (monsterAttributes.revenant && setequipment.neck.itemname == 'Amulet_of_avarice') {
+                if (allData.currentVersion.forinthryBuff) {
+                    strPassive_boost = strPassive_boost * 1.35
+                    passive_boost = passive_boost * 1.35
+                } else {
+                    strPassive_boost = strPassive_boost * 1.2
+                    passive_boost = passive_boost * 1.2
+                }
+                salveUsed = true
+            }
+
             if (allData.currentVersion.slayerTask && !salveUsed) {
                 passive_boost = passive_boost * setBonuses.slayerBonus.melee
                 strPassive_boost = strPassive_boost * setBonuses.slayerBonus.melee
@@ -182,14 +207,14 @@ export default function DPS({ allData, set }) {
                 strPassive_boost = strPassive_boost * 1.2
                 passive_boost = passive_boost * 1.2
             }
-            
+
             if (monsterAttributes.demon && setequipment.mainhand.itemname == 'Arclight') {
                 strPassive_boost = strPassive_boost * 1.7
                 passive_boost = passive_boost * 1.7
             }
 
             if (setBonuses.dharok) {
-                strPassive_boost = strPassive_boost * (1 + ((allData.stats.Hitpoints - (allData.currentHP? allData.currentHP : allData.stats.Hitpoints)) / 100) * (allData.stats.Hitpoints / 100))
+                strPassive_boost = strPassive_boost * (1 + ((allData.stats.Hitpoints - (allData.currentHP ? allData.currentHP : allData.stats.Hitpoints)) / 100) * (allData.stats.Hitpoints / 100))
             }
 
             if (allData.currentVersion.wilderness) {
@@ -199,6 +224,7 @@ export default function DPS({ allData, set }) {
                     passive_boost = passive_boost * 1.5
                 }
             }
+
 
             maxHit = Math.floor(maxHit * strPassive_boost)
 
@@ -251,18 +277,27 @@ export default function DPS({ allData, set }) {
                 salveUsed = true
             }
 
-            let averice_bonus = 0 //need
-            let smokestaff_bonus = 0 //need
-            let virtus_bonus = 0 //need
+            if (monsterAttributes.revenant && setequipment.neck.itemname == 'Amulet_of_avarice') {
+                if (allData.currentVersion.forinthryBuff) {
+                    salve_bonus = 0.35
+                } else {
+                    salve_bonus = 0.2
+                }
+                salveUsed = true
+            }
 
+            let smokestaff_bonus = 0 //need
+
+            let virtus_bonus = 0
             if (spell.spellbook == 'ancient') virtus_bonus = setBonuses.virtusBonus
-            let primary_magic_damage = Math.floor(baseMaxHit * (1 + Math.min(1, visible_bonus * shadow_bonus) + void_bonus + salve_bonus + averice_bonus + smokestaff_bonus + virtus_bonus))
+            let primary_magic_damage = Math.floor(baseMaxHit * (1 + Math.min(1, visible_bonus * shadow_bonus) + void_bonus + salve_bonus + smokestaff_bonus + virtus_bonus))
 
             let ahrims_bonus = 0 //need
-            let slayer_bonus = 0 
-            if (allData.currentVersion.slayerTask && !salveUsed) slayer_bonus = setBonuses.slayerBonus.magic
-            let sceptre_wilderness_bonus = 0
 
+            let slayer_bonus = 0
+            if (allData.currentVersion.slayerTask && !salveUsed) slayer_bonus = setBonuses.slayerBonus.magic
+
+            let sceptre_wilderness_bonus = 0
             if (allData.currentVersion.wilderness) {
                 let weapons = ['Accursed_sceptre_(a)', 'Accursed_sceptre', 'Thammaron%27s_sceptre_(a)', 'Thammaron%27s_sceptre']
                 if (weapons.includes(setequipment.mainhand.itemname)) {
@@ -320,7 +355,7 @@ export default function DPS({ allData, set }) {
                     styleBoost = setstyle.level
                 }
             }
-            
+
             effective_range_str = Math.floor(Math.floor(rangeLevel * rangeStrPrayer) + styleBoost + 8) * setBonuses.void.ranged.strength
             let equipment_range_str = setequipmentstats.range_str
 
@@ -333,7 +368,18 @@ export default function DPS({ allData, set }) {
                 passive_attack_boost = passive_attack_boost * setBonuses.salveBonus.range
                 salveUsed = true
             }
-            
+
+            if (monsterAttributes.revenant && setequipment.neck.itemname == 'Amulet_of_avarice') {
+                if (allData.currentVersion.forinthryBuff) {
+                    passive_attack_boost = passive_attack_boost * 1.35
+                    passive_str_boost = passive_str_boost * 1.35
+                } else {
+                    passive_attack_boost = passive_attack_boost * 1.2
+                    passive_str_boost = passive_str_boost * 1.2
+                }
+                salveUsed = true
+            }
+
             if (setequipment.mainhand.itemname == 'Twisted_bow') {
                 passive_str_boost = passive_str_boost * twistedBowStr(stats.Magic_level, stats.Magic_attack_bonus, monsterAttributes.xerician)
                 passive_attack_boost = passive_attack_boost * twistedBowAccuracy(stats.Magic_level, stats.Magic_attack_bonus, monsterAttributes.xerician)
@@ -365,9 +411,6 @@ export default function DPS({ allData, set }) {
             max_attack_roll = Math.floor(effective_range_attack * (equipment_range_attack + 64) * passive_attack_boost)
 
         }
-
-
-
 
         if (damageType == 'Crush' || damageType == 'Stab' || damageType == 'Slash') {
             let def_level = (stats.Defence_level_Spec || stats.Defence_level_Spec == 0) ? stats.Defence_level_Spec : stats.Defence_level
@@ -450,6 +493,10 @@ export default function DPS({ allData, set }) {
         setMaxHit(maxHit)
         setDPS(dps_calculation)
 
+    }
+
+    function dinhs_str_bonus(data) {
+        console.log(data)
     }
 
     function twistedBowStr(magic_lvl, magic_accuracy, xerician) {

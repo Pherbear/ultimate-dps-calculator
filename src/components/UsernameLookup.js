@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { parser } from 'osrs-hiscores-parser'
+
+
 
 export default function UsernameLookup() {
 
@@ -14,19 +15,34 @@ export default function UsernameLookup() {
    }
 
    async function lookupUser(username) {
-      fetch(`https://secure.runescape.com/m=hiscore_oldschool/index_lite.json?player=${username}`)
-         .then(response => {
-            response.json()
-         }).then(out => {
-            console.log(out)
-         }).catch(error => {
-            alert(error)
-         })
+
+      const apiUrl = 'https://secure.runescape.com/m=hiscore_oldschool/index_lite.json';
+      const playerName = username;
+
+      // Construct URL with parameters
+      const urlWithParams = new URL(apiUrl);
+      urlWithParams.searchParams.append('player', playerName);
+
+      console.log(urlWithParams)
+
+      // Fetch request with headers
+      fetch(urlWithParams, {
+         method: 'GET',
+         headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '',
+         },
+         mode: 'no-cors',
+      }).then(response => {
+         console.log(response)
+      }).catch(error => {
+         alert('Failed to Lookup Username ' + error)
+      })
    }
 
    useEffect(() => {
       console.log(json)
-   },[json])
+   }, [json])
 
    return (
       <form onSubmit={handleSubmit}>

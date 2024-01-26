@@ -64,7 +64,7 @@
     padding-top: 10px;
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 3px;
 }
 
 .specs {
@@ -85,4 +85,8 @@
 
 .slider {
     gap: 20px;
+}
+.monster-area {
+    display: flex;
+    gap: 25px;
 }

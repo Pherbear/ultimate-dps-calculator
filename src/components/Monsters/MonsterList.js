@@ -5,6 +5,7 @@ export const MonsterList = {
         "Enraged": "Vet%27ion%23Enraged"
     },
     "Giant Mole": "Giant+Mole",
+    "Revenant Goblin": "Revenant+goblin",
     "Abyssal demon" : "Abyssal+demon%23Standard",
     "Kree'arra": "Kree%27arra",
     "Commander Zilyana": "Commander+Zilyana",

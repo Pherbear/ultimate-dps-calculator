@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import ScytheCharge from './ScytheCharge'
 import WeaponDisplay from './WeaponDisplay'
 import BlowpipeDarts from './BlowpipeDarts'
+import SoulStacks from './SoulStacks'
 
 export default function WeaponStyle({ equipment, setEquipment, setAllData, allData, set }) {
     const [type, setType] = useState('Unarmed')
@@ -15,11 +16,13 @@ export default function WeaponStyle({ equipment, setEquipment, setAllData, allDa
     }, [equipment])
 
 
+
     return (
         <div>
             <WeaponDisplay weapon={equipment.mainhand} type={type} setAllData={setAllData} allData={allData} set={set}/>
             {type == 'Scythe'? <><ScytheCharge equipment={equipment} setEquipment={setEquipment}/></>:''}
             {(item == 'Toxic_blowpipe' || item == 'Blazing_blowpipe')? <BlowpipeDarts setEquipment={setEquipment} equipment={equipment}/> : ''}
+            {item == 'Soulreaper_axe'? <SoulStacks equipment={equipment} setEquipment={setEquipment}/>: <></>}
         </div>
     )
 }

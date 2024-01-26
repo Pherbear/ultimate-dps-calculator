@@ -61,7 +61,6 @@ export const TwoHandeds = [
    "Dark bow",
    "Defensive shield",
    "Dharok's greataxe",
-   "Dinh's blazing bulwark",
    "Dinh's bulwark",
    "Dragon 2h sword",
    "Dragon 2h sword (cr)",
