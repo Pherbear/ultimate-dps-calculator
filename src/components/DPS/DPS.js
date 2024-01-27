@@ -16,6 +16,7 @@ export default function DPS({ allData, set }) {
     const [setequipmentstats, setSetequipmentstats] = useState(allData.set1equipmentStats)
     const [setstyle, setSetstyle] = useState(allData.set1style)
     const [scythe, setScythe] = useState(false)
+    const [fang, setFang] = useState(false)
 
     const [maxHit, setMaxHit] = useState(1)
     const [hitChance, setHitChance] = useState(1)
@@ -489,11 +490,15 @@ export default function DPS({ allData, set }) {
         if (max_attack_roll > max_defence_roll) {
             if (setequipment.mainhand.itemname == 'Osmumten%27s_fang' && damageType == 'Stab') {
                 hitChance = 1 - (((max_defence_roll + 2) * ((2 * max_defence_roll) + 3)) / (6 * Math.pow(max_attack_roll + 1, 2)))
-            } else hitChance = 1 - (max_defence_roll + 2) / (2 * (max_attack_roll + 1))
+            } else {
+                hitChance = 1 - (max_defence_roll + 2) / (2 * (max_attack_roll + 1))
+            }
         } else {
             if (setequipment.mainhand.itemname == 'Osmumten%27s_fang' && damageType == 'Stab') {
                 hitChance = (max_attack_roll * ((4 * max_attack_roll) + 5)) / (6 * (max_attack_roll + 1) * (max_defence_roll + 1))
-            } else hitChance = max_attack_roll / (2 * (max_defence_roll + 1))
+            } else {
+                hitChance = max_attack_roll / (2 * (max_defence_roll + 1))
+            }
         }
 
 
@@ -525,6 +530,15 @@ export default function DPS({ allData, set }) {
                 hit3: hit25
             })
         } else setScythe(false)
+
+        if (setequipment.mainhand.itemname == 'Osmumten%27s_fang') {
+            setFang({
+                min: Math.ceil(maxHit * 0.15),
+                max: Math.floor(maxHit * 0.85)
+            })
+        } else {
+            setFang(false)
+        }
 
         setAttackSpeed(attackspeed)
         setHitChance(hitChance)
@@ -594,7 +608,8 @@ export default function DPS({ allData, set }) {
                         Damage Per Second: {DPS.toFixed(5)}
                     </div>
                     <div>
-                        Max Hit: {maxHit} {scythe ? `(${scythe.hit1} ${scythe.hit2} ${scythe.hit3})` : ''}
+                        Max Hit: {fang? `${fang.min}-${fang.max}` : maxHit} 
+                        {scythe ? `(${scythe.hit1} ${scythe.hit2} ${scythe.hit3})` : ''}
                     </div>
                 </div>
                 <div>

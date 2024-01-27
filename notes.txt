@@ -1,5 +1,7 @@
 todo:
 
+-min max hit for fang
+-corp beast dps modifier
 -special attack (special max hit)
 -fix vard defence (defence is invisible on load)
 -number of targets (chins and barrage)

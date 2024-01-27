@@ -8,14 +8,12 @@ export default function SpecDPS(weapon, data) {
 
     const [hasSpec, setHasSpec] = useState(false)
 
-    console.log(weapon, data)
-
     let weapons = {
         
     }
 
     useEffect(() => {
-        DPSCalc()
+        //DPSCalc()
     },[weapon,data])
 
     function DPSCalc() {
