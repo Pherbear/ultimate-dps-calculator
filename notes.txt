@@ -1,6 +1,6 @@
 todo:
 
--min max hit for fang
+-5.33 tick for p2 verzik/xarpus
 -corp beast dps modifier
 -special attack (special max hit)
 -fix vard defence (defence is invisible on load)
