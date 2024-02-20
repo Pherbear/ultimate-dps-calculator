@@ -40,7 +40,6 @@ The Old School Runescape DPS Calculator is a web application designed to help Ru
 [![DashboardDesktop][product-screenshot-3]]()
 [![DashboardDesktop][product-screenshot-4]]()
 [![DashboardDesktop][product-screenshot-5]]()
-[![DashboardDesktop][product-screenshot-6]]()
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
